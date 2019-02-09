@@ -24,33 +24,5 @@
 	}
 </script>
 <style lang="sass">
-	.banner
-		height: 491px
-		background-size: cover
-		background-repeat: no-repeat
-		background-position: center center
-		display: flex
-		justify-content: center
-		align-items: center
-		&-content
-			text-align: center
-			&__text
-				font-size: 46px
-				color: #fff
-				font-family: 'Alegreya', serif
-				margin-bottom: 10px
-			&__button
-				display: inline-block
-				border: 2px solid #fff
-				margin-top: 60px
-				padding: 10px 15px
-				color: #fff
-				transition: 0.5s
-				&:hover
-					border: 2px solid #d50c0d
-					color: #d50c0d
-					transition: 0.5s
-
-
-
+	@import '../assets/sass/banner'
 </style>
