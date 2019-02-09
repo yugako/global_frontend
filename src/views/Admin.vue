@@ -73,7 +73,7 @@
 							               
 							                <td class="product-excerpt">{{dish.excerpt}}</td>
 							                <td class="actions">
-							           			<span  class="actions-button edit">Edit</span>
+							           			<span class="actions-button edit" @click='goToEdit(dish.id)'>Edit</span>
 							                	<span @click='removeFromStore(index)' class="actions-button remove">Remove</span>
 							                </td>
 							            </tr>
@@ -98,6 +98,7 @@
 </template>
 <script>
 	import Banner from "@/components/Banner.vue";
+	import MenuItem from "@/components/Admin/MenuItem.vue";
 	export default {
 		data () {
 			return {
@@ -108,12 +109,16 @@
 			}
 		},
 		methods: {
+			goToEdit(dishId) {
+			    this.$router.push({name:'change',params:{id:dishId}})
+			},
 			removeFromStore (index) {
 			  	this.$store.commit('removeFromStore', {index});
 			}
 		},
 		components: {
-			Banner
+			Banner,
+			MenuItem
 		}
 	}
 </script>

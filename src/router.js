@@ -12,6 +12,8 @@ import Payment from "./views/Payment.vue";
 import Stuff from "./views/Stuff.vue";
 import Admin from "./views/Admin.vue";
 
+import MenuItem from "./components/Admin/MenuItem.vue";
+
 import NotFound from "./views/NotFound.vue";
 
 Vue.use(Router);
@@ -54,6 +56,11 @@ export default new Router({
       path: "/admin",
       name: "admin",
       component: Admin
+    },
+    {
+      path: "/change/:id",
+      name: "change",
+      component: MenuItem
     },
     {
       path: '*',

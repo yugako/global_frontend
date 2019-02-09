@@ -18,7 +18,7 @@
 		    				<div class="menu-detail__excerpt">{{dish.excerpt}}</div>
 		    				<!-- /.menu-detail__descr -->
 		    				<div class="menu-detail__components">
-		    					Food includes: {{dish.include.join(', ')}}
+		    					Food includes: {{dish.include}}
 		    				</div>
 		    				<!-- /.menu-detail__components -->
 		    				<div class="menu-detail__weight">Chunk weight: 200 g</div>

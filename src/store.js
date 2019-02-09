@@ -9,19 +9,21 @@ export default new Vuex.Store({
 		{
 			name: 'Spicy Beef Burger',
 			img: require('@/assets/img/menu-list/dishes/1.jpg'),
-			price: '12 $',
+			price: 12,
 			quantity: 1,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			include: ['Meat', 'Potato', 'Bread'],
+			weight: 150,
 			id: '1'
 		},
 		{
 			name: 'Spicy Chily Chicken',
 			img: require('@/assets/img/menu-list/dishes/2.jpg'),
-			price: '3 $',
+			price: 3,
 			quantity: 1,
 			include: ['Meat', 'Potato', 'Bread'],
+			weight: 150,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			id: '2'
@@ -29,9 +31,10 @@ export default new Vuex.Store({
 		{
 			name: 'Mixed Fruit Lassi',
 			img: require('@/assets/img/menu-list/dishes/3.jpg'),
-			price: '10 $',
+			price: 10,
 			quantity: 1,
 			include: ['Meat', 'Potato', 'Bread'],
+			weight: 150,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			id: '3'
@@ -39,8 +42,9 @@ export default new Vuex.Store({
 		{
 			name: 'Special Chocolety Toast',
 			img: require('@/assets/img/menu-list/dishes/4.jpg'),
-			price: '19 $',
+			price: 19,
 			quantity: 1,
+			weight: 150,
 			include: ['Meat', 'Potato', 'Bread'],
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
