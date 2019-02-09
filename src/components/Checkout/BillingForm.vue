@@ -65,51 +65,5 @@
 	};
 </script>
 <style lang="sass">
-	.billing
-		&__title
-			background-color: #f1f2f3
-			color: #333
-			display: block
-			font-size: 15px
-			font-weight: 700
-			height: 47px
-			line-height: 49px
-			padding: 0 12px 0 28px
-			position: relative
-			text-align: left
-			text-transform: uppercase
-			width: 100%
-			font-family: "Open Sans", sans-serif
-			cursor: pointer
-		&-form
-			padding-top: 15px
-			padding-bottom: 15px
-			select
-				width: 100%
-				border: 1px solid #ededed
-				background-color: #ffffff
-				line-height: 24px
-				padding: 7px 15px
-				color: #959595
-				margin-bottom: 10px
-				font-size: 15px
-			input
-			    border: 1px solid #ededed
-			    background-color: #ffffff
-			    height: 40px
-			    line-height: 24px
-			    padding: 7px 15px
-			    color: #959595
-			    font-size: 15px
-			    width: 100%
-			    margin-bottom: 10px
-	.slide-fade-enter-active 
-	  	transition: all .3s ease
-	
-	.slide-fade-leave-active 
-	  	transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
-	
-	.slide-fade-enter, .slide-fade-leave-to
-	  	transform: translateY(10px)
-	  	opacity: 0
+	@import '../../assets/sass/billingForm'
 </style>
