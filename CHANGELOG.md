@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2019-02-09
+### Added
+- Ability to add dishes to the basket
+- Separate files for component styles
+
+## [0.0.2] - 2019-02-08
+### Added
+- Bootstrap CDN
+
+### Removed
+- Local files of Bootstrap library
+
 ## [0.0.1] - 2019-02-07
 ### Added
 - Home page
