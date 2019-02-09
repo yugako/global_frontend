@@ -81,6 +81,9 @@ export default new Vuex.Store({
   	removeFromCart (state, payload) {
   		state.cart.splice(payload.index, 1);
   		state.countItems--;
+  	},
+  	removeFromStore(state, payload) {
+  		state.dishes.splice(payload.index, 1);
   	}
   },
   getters: {

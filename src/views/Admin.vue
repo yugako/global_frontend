@@ -27,7 +27,7 @@
 							                </td>
 							                <td class="actions">
 							           			<a href="#" class="actions-button edit">Edit</a>
-							                	<a href="#" class="actions-button remove">Remove</a>
+							                	<a href="javascript:void(0)" @click='removeFromStore(index)' class="actions-button remove">Remove</a>
 							                </td>
 							            </tr>
 							            
@@ -73,8 +73,8 @@
 							               
 							                <td class="product-excerpt">{{dish.excerpt}}</td>
 							                <td class="actions">
-							           			<a href="#" class="actions-button edit">Edit</a>
-							                	<a href="#" class="actions-button remove">Remove</a>
+							           			<span  class="actions-button edit">Edit</span>
+							                	<span @click='removeFromStore(index)' class="actions-button remove">Remove</span>
 							                </td>
 							            </tr>
 							        </tbody>
@@ -105,6 +105,11 @@
 				showDishes: false,
 				dishes: this.$store.state.dishes,
 				workers: this.$store.state.workers
+			}
+		},
+		methods: {
+			removeFromStore (index) {
+			  	this.$store.commit('removeFromStore', {index});
 			}
 		},
 		components: {
