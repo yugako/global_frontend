@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,800")
+@import url("https://fonts.googleapis.com/css?family=Alegreya:400,400i,500,500i,600,700i,700,900")
+@import "vars"
+
+::placeholder
+    color: #666
+
+::selection
+    background-color: $accent
+    color: #fff
+
+body
+    font-size: 16px
+    overflow-x: hidden
+    min-width: 320px
+    position: relative
+    line-height: 1.65
+    font-family: $ff
+    overflow-x: hidden
+    color: $text
+    background-color: $white-bg
+    input, textarea
+        border: #666 1px solid
+        outline: none
+        &:focus:required:invalid
+            border-color: red
+        &:required:valid
+            border-color: green
+
+.img-responsive
+    display: block
+    max-width: 100%
+    height: auto
+    &.img-width
+        width: 100%
+
+a:hover
+    text-decoration: none
+.text-center
+    text-align: center
+
+b, strong
+    font-weight: bold
+
+.slide-fade-enter-active 
+  transition: all .3s ease
+
+.slide-fade-leave-active 
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+
+.slide-fade-enter, .slide-fade-leave-to
+  transform: translateX(10px)
+  opacity: 0
