@@ -32,7 +32,7 @@
 </template>
 <script>
 	import Banner from "@/components/Banner.vue";
-	import EditItem from "@/components/Admin/EditItem.vue";
+	import EditItem from "@/components/Admin/Menu/EditItem.vue";
 	export default {
 		data () {
 			return {
@@ -56,5 +56,5 @@
 	}
 </script>
 <style lang="sass">
-	@import "../../assets/sass/menuChange"
+	@import "../../../assets/sass/menuChange"
 </style>

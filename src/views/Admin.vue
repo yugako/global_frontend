@@ -98,7 +98,7 @@
 </template>
 <script>
 	import Banner from "@/components/Banner.vue";
-	import ChangeMenu from "@/components/Admin/ChangeMenu.vue";
+	import ChangeMenu from "@/components/Admin/Menu/ChangeMenu.vue";
 	export default {
 		data () {
 			return {

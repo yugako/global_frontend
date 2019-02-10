@@ -12,8 +12,8 @@ import Payment from "./views/Payment.vue";
 import Stuff from "./views/Stuff.vue";
 import Admin from "./views/Admin.vue";
 
-import ChangeMenu from "./components/Admin/ChangeMenu.vue";
-import NewItem from "./components/Admin/NewItem.vue";
+import ChangeMenu from "./components/Admin/Menu/ChangeMenu.vue";
+import NewItem from "./components/Admin/Menu/NewItem.vue";
 
 
 import NotFound from "./views/NotFound.vue";

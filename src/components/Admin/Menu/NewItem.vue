@@ -53,7 +53,7 @@
 	
 </template>
 <script>
-	import PreviewImage from "@/components/Admin/PreviewImage.vue";
+	import PreviewImage from "@/components/Admin/Menu/PreviewImage.vue";
 	import Banner from "@/components/Banner.vue";
 
 	export default {

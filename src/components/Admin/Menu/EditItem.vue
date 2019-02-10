@@ -39,7 +39,7 @@
 	</form>
 </template>
 <script>
-	import PreviewImage from "@/components/Admin/PreviewImage.vue";
+	import PreviewImage from "@/components/Admin/Menu/PreviewImage.vue";
 	export default {
 		props: ['dish'],
 		components: {
