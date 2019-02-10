@@ -81,7 +81,7 @@
 							    </table>
 							</div>
 							<div class="admin-content__add">
-								<button class="admin-content__add_button">Add dish</button>
+								<button @click='addNew' class="admin-content__add_button">Add dish</button>
 							</div>
 							<!-- /.admin-content__add -->
 						</div>
@@ -98,7 +98,7 @@
 </template>
 <script>
 	import Banner from "@/components/Banner.vue";
-	import MenuItem from "@/components/Admin/MenuItem.vue";
+	import ChangeMenu from "@/components/Admin/ChangeMenu.vue";
 	export default {
 		data () {
 			return {
@@ -112,13 +112,16 @@
 			goToEdit(dishId) {
 			    this.$router.push({name:'change',params:{id:dishId}})
 			},
+			addNew() {
+				this.$router.push({ name: 'add'}) 
+			},
 			removeFromStore (index) {
 			  	this.$store.commit('removeFromStore', {index});
 			}
 		},
 		components: {
 			Banner,
-			MenuItem
+			ChangeMenu
 		}
 	}
 </script>
