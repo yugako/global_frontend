@@ -13,15 +13,21 @@
 </template>
 <script>
     export default {
+        props: ['currentImage'],
         data () {
             return {
                 imageSrc: '',
             }
         },
+        created() {
+            if(this.currentImage) {
+                this.imageSrc = this.currentImage;
+                console.log(this.imageSrc);
+            }
+        },
         methods: {
             previewThumbnail: function(event) {
                 var input = event.target;
-
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     var vm = this;
@@ -34,6 +40,7 @@
                     this.$emit('getImg', this.imageSrc );
                     
                 }
+                
                 
 
             },
