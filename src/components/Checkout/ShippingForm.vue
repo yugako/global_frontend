@@ -79,5 +79,5 @@
 	};
 </script>
 <style lang="sass">
-	@import '../../assets/sass/paymentForm'
+	@import '../../assets/sass/shippingForm'
 </style>
