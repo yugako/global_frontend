@@ -65,7 +65,7 @@
 									<!-- /.product-name -->
 									<div class="product-quantity">Quantity: {{item.quantity}}</div>
 									<!-- /.product-quantity -->
-									<div class="product-price">{{item.price}}</div>
+									<div class="product-price">{{item.price}}$</div>
 									<!-- /.product-price -->
 								</div>
 								<!-- /.order-preview__info -->

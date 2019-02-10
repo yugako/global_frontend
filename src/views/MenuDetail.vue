@@ -13,7 +13,7 @@
 		    			<div class="col-lg-8">
 		    				<div class="menu-detail__title">{{dish.name}}</div>
 		    				<!-- /.menu-detail__title -->
-		    				<div class="menu-detail__price">{{dish.price}}</div>
+		    				<div class="menu-detail__price">{{dish.price}}$</div>
 		    				<!-- /.menu-detail__price -->
 		    				<div class="menu-detail__excerpt">{{dish.excerpt}}</div>
 		    				<!-- /.menu-detail__descr -->

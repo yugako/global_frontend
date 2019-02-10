@@ -16,7 +16,7 @@
     					</div>
     					<!-- /.menu-item__title -->
     					<div class="menu-item__price">
-    						{{dish.price}}
+    						{{dish.price}}$
     					</div>
     					<!-- /.menu-item__price -->
     				</div>
