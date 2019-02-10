@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.4] - 2019-02-10
+### Added
+- Add dishes to menu list
+- Remove dishes from menu list
+- Edit dishes in menu list
+
 ## [0.0.3] - 2019-02-09
 ### Added
 - Ability to add dishes to the basket
