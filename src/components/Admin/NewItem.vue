@@ -71,6 +71,7 @@
 					quantity: 1,
 					excerpt: '',
 					include: '',
+					id: new Date().getTime(),
 					descr: ''
 				}
 				
