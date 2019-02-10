@@ -1,5 +1,5 @@
 <template>
-	<form action="#" class="menu-item__form">
+	<form @submit.prevent='saveItem' class="menu-item__form">
 	    <div class="row">
 	        <div class="col-md-12 col-12">
 	        	<label for='name'>
@@ -36,12 +36,30 @@
 	            <textarea required class="descr" maxlength="500" v-model='dish.descr' id="descr" placeholder="Description"></textarea>
 	        </div>                       
 	    </div>
+	    <div v-if='save' class="success">Saved!</div>
+	    <div class="menu-item__save">
+	    	<button class="button">Save</button>
+	    </div>
 	</form>
 </template>
 <script>
 	import PreviewImage from "@/components/Admin/Menu/PreviewImage.vue";
 	export default {
 		props: ['dish'],
+		data () {
+			return {
+				save: false,
+			}
+			
+		},
+		methods: {
+			saveItem () {
+		       this.save = true;
+		       setTimeout(() => {
+		       	this.save = false;
+		       }, 1500);
+		    }
+		},
 		components: {
 			PreviewImage
 		}

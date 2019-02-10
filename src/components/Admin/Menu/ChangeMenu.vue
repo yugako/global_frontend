@@ -11,10 +11,7 @@
 							</div>
 							<!-- /.menu-item__title -->
 							<EditItem :dish='dish' />
-							<div v-if='save' class="success">Saved!</div>
-							<div @click='saveItem' class="menu-item__save">
-								<button class="button">Save</button>
-							</div>
+							
 							<!-- /.menu-item__save -->
 						</div>
 					</div>
@@ -36,18 +33,9 @@
 	export default {
 		data () {
 			return {
-				proId:this.$route.params.id,
+				proId: this.$route.params.id,
 				dishes: this.$store.state.dishes,
-				save: false,
 			}
-		},
-		methods: {
-			saveItem () {
-		       this.save = true;
-		       setTimeout(() => {
-		       	this.save = false;
-		       }, 1500);
-		    }
 		},
 		components: {
 			Banner,
