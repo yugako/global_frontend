@@ -30,7 +30,7 @@
 		                                	<a href="#">{{item.name}}</a>
 		                                </td>
 		                                <td class="product-price">
-		                                	<span class="amount">{{item.price}}</span>
+		                                	<span class="amount">{{item.price}}$</span>
 		                                </td>
 		                                <td class="product-quantity">
 		                                	<input min="0" type="number" v-model='item.quantity' />

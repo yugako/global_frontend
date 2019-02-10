@@ -68,7 +68,7 @@
 							                	{{dish.name}}
 							                </td>
 							                <td class="product-price">
-							                	<span class="amount">{{dish.price}}</span>
+							                	<span class="amount">{{dish.price}}$</span>
 							                </td>
 							               
 							                <td class="product-excerpt">{{dish.excerpt}}</td>
