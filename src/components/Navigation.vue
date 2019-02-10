@@ -29,12 +29,9 @@
 						<li :class='{active: loginType === "login"}' @click='loginType = "login"' class="login-list__item">Login</li>
 						<li :class='{active: loginType === "register"}' @click='loginType = "register"' class="login-list__item">Register</li>
 					</ul>
-					<template v-if="loginType === 'login'">
-					      <LogIn />
-				    </template>
-				    <template v-else="">
-					      <Register />
-				    </template>
+					
+					<component :is="componentInstance" />
+
 				    <span class="close" @click='showForm = false'>&times;</span>
 				</div>
 			</div>
@@ -120,7 +117,10 @@ export default {
   computed: {
   	countTotal () {
   		return this.$store.getters.countTotalOrder;
-  	}
+  	},
+  	componentInstance () {
+      return this.loginType === 'login' ? 'LogIn' : 'Register';
+    }
   },
   components: {
     LogIn,
