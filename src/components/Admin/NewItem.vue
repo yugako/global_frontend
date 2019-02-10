@@ -30,7 +30,7 @@
 						            <textarea required v-model='newItem.excerpt' class="excerpt" maxlength="100"  placeholder="Short description" type="text"></textarea>
 						        </div>
 						        <div class="col-12">
-						        <label for="include">Ingradients</label>                              
+						        <label for="include">Ingredients</label>                              
 						            <input required v-model='newItem.include' id="include" type="text" placeholder="Components">
 						        </div> 
 						        <div class="col-md-12 col-12">
