@@ -20,12 +20,14 @@
 						            </tr>
 						        </thead>
 						        <tbody>
-						            <tr>
+						            <tr v-for='(item, index) in queue' :key='index'>
 						                <td class="queue-name">
-						                	Spicy Beef Burger
+						                	{{item.name}}
 						                </td>
 						                <td class="queue-worker">
-						                	Thor Odinson
+						                	<select name="workers">
+						                		<option v-for='(worker, index) in workers' :value="worker.name">{{worker.name}}</option>
+						                	</select>
 						                </td>
 						                <td class="queue-status">
 						                	Unprocessed
@@ -36,38 +38,7 @@
 						                	<a href="#" class="actions-button remove">Remove</a> -->
 						                </td>
 						            </tr>
-						            <tr>
-						                <td class="queue-name">
-						                	Spicy Beef Burger
-						                </td>
-						                <td class="queue-worker">
-						                	Thor Odinson
-						                </td>
-						                <td class="queue-status">
-						                	Unprocessed
-						                </td>
-						                <td class="actions">
-						                	<a href="#" class="actions-button">Take in order</a>
-						           			<!-- <a href="#" class="actions-button edit">Edit</a>
-						                	<a href="#" class="actions-button remove">Remove</a> -->
-						                </td>
-						            </tr>
-						            <tr>
-						                <td class="queue-name">
-						                	Spicy Beef Burger
-						                </td>
-						                <td class="queue-worker">
-						                	Thor Odinson
-						                </td>
-						                <td class="queue-status">
-						                	Unprocessed
-						                </td>
-						                <td class="actions">
-						                	<a href="#" class="actions-button">Take in order</a>
-						           			<!-- <a href="#" class="actions-button edit">Edit</a>
-						                	<a href="#" class="actions-button remove">Remove</a> -->
-						                </td>
-						            </tr>
+						
 						        </tbody>
 						    </table>
 						</div>
@@ -115,7 +86,8 @@
 	  name: "home",
 	  data () {
 	  	return {
-
+	  		queue: this.$state.store.queue,
+	  		workers: this.$state.store.workers,
 	  	}
 	  },
 	  components: {
