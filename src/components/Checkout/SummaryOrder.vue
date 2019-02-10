@@ -1,5 +1,5 @@
 <template>
-	<form action="#" @submit.prevent=''>
+	<div class="wrapper">
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
@@ -22,11 +22,11 @@
 					</tr>
 				</tbody>
 			</table>
-			<input class="submit" type="submit" value="Place order">
+			<button @click='addToQueue()' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
-		
-	</form>
+	</div>
+	<!-- /.wrapper -->
 </template>
 <script>
 	export default {
@@ -40,6 +40,10 @@
 	  	countTotal (i) {
 	  		return this.$store.getters.countTotal(i);
 	  	},
+	  	addToQueue (item) {
+	  		item = this.cart;
+			this.$store.commit('addToQueue', {item});
+		},
 	  },
 	  computed: {
 	  	countTotalOrder () {

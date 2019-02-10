@@ -13,7 +13,7 @@ export default new Vuex.Store({
 			quantity: 1,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			include: ['Meat', 'Potato', 'Bread'],
+			include: 'Meat, Potato, Bread',
 			weight: 150,
 			id: '1'
 		},
@@ -22,7 +22,7 @@ export default new Vuex.Store({
 			img: require('@/assets/img/menu-list/dishes/2.jpg'),
 			price: 3,
 			quantity: 1,
-			include: ['Meat', 'Potato', 'Bread'],
+			include: 'Meat, Potato, Bread',
 			weight: 150,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
@@ -33,7 +33,7 @@ export default new Vuex.Store({
 			img: require('@/assets/img/menu-list/dishes/3.jpg'),
 			price: 10,
 			quantity: 1,
-			include: ['Meat', 'Potato', 'Bread'],
+			include: 'Meat, Potato, Bread',
 			weight: 150,
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
@@ -45,7 +45,7 @@ export default new Vuex.Store({
 			price: 19,
 			quantity: 1,
 			weight: 150,
-			include: ['Meat', 'Potato', 'Bread'],
+			include: 'Meat, Potato, Bread',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			id: '4'
@@ -79,6 +79,7 @@ export default new Vuex.Store({
 		},
 	],
 	cart: [],
+	queue: '',
 	countItems: 0,
   },
   mutations: {
@@ -91,6 +92,9 @@ export default new Vuex.Store({
   	},
   	addToWorkers(state, payload) {
   		state.workers.push(payload.item);
+  	},
+  	addToQueue (state, payload) {
+  		state.queue = payload.item;
   	},
   	removeFromCart (state, payload) {
   		state.cart.splice(payload.index, 1);
