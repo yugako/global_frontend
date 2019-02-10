@@ -78,9 +78,11 @@ export default new Vuex.Store({
   },
   mutations: {
   	addToCart(state, payload) {
-  		
   		state.cart.push(payload.dish);
   		state.countItems++;
+  	},
+  	addToMenu(state, payload) {
+  		state.dishes.push(payload.item);
   	},
   	removeFromCart (state, payload) {
   		state.cart.splice(payload.index, 1);
@@ -94,8 +96,8 @@ export default new Vuex.Store({
   	countTotalOrder: state => {
   		let arr = state.cart;
   		let total = 0;
-  		for (var i = 0; i < arr.length; i++) {
-  			total+=(arr[i].quantity*parseInt(arr[i].price));
+  		for (let i = 0; i < arr.length; i++) {
+  			total+=parseInt(arr[i].quantity)*parseInt(arr[i].price);
   		}
 
   		return `${total} $`;
@@ -103,7 +105,7 @@ export default new Vuex.Store({
   	countTotal: state => index => {
   		let arr = state.cart;
   		let total = 0;
-  		total = (arr[index].quantity*parseInt(arr[index].price));
+  		total = parseInt(arr[index].quantity)*parseInt(arr[index].price);
   		return `${total} $`;
   	},
   },
