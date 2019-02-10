@@ -36,7 +36,7 @@
 							    </table>
 							</div>
 							<div class="admin-content__add">
-								<button class="admin-content__add_button">Add worker</button>
+								<button @click='addNewWorker' class="admin-content__add_button">Add worker</button>
 							</div>
 							<!-- /.admin-content__add -->
 						</div>
@@ -119,6 +119,9 @@
 			},
 			addNewItem() {
 				this.$router.push({ name: 'add'}) 
+			},
+			addNewWorker() {
+				this.$router.push({ name: 'add_worker'}) 
 			},
 			removeFromStore (index) {
 			  	this.$store.commit('removeFromStore', {index});

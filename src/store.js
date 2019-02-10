@@ -54,23 +54,28 @@ export default new Vuex.Store({
 	workers: [
 		{
 			name: 'Thor Odinson',
-			password: 'mielnir'
+			password: 'mielnir',
+			id: '1'
 		},
 		{
 			name: 'Steve Rodgers',
-			password: 'shield'
+			password: 'shield',
+			id: '2'
 		},
 		{
 			name: 'Vanda Maximova',
-			password: 'vision'
+			password: 'vision',
+			id: '3'
 		},
 		{
 			name: 'Tony Stark',
-			password: 'iron-man'
+			password: 'iron-man',
+			id: '4'
 		},
 		{
 			name: 'Cara Denwers',
-			password: 'emotionless'
+			password: 'emotionless',
+			id: '5'
 		},
 	],
 	cart: [],
@@ -84,13 +89,20 @@ export default new Vuex.Store({
   	addToMenu(state, payload) {
   		state.dishes.push(payload.item);
   	},
+  	addToWorkers(state, payload) {
+  		state.workers.push(payload.item);
+  	},
   	removeFromCart (state, payload) {
   		state.cart.splice(payload.index, 1);
   		state.countItems--;
   	},
   	removeFromStore(state, payload) {
   		state.dishes.splice(payload.index, 1);
-  	}
+  	},
+  	removeFromWorkers(state, payload) {
+  		state.workers.splice(payload.index, 1);
+  	},
+
   },
   getters: {
   	countTotalOrder: state => {
