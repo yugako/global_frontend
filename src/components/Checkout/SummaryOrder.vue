@@ -34,7 +34,7 @@
 	  name: "SummaryOrder",
 	  data () {
 	  	return {
-	  		cart: this.$store.state.cart
+	  		cart: this.$store.state.cart,
 	  	}
 	  },
 	  methods: {
