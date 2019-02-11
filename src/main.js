@@ -3,8 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import VueMoment from 'vue-moment';
+
+
 Vue.config.productionTip = false;
 
+Vue.use(VueMoment);
 new Vue({
   router,
   store,
