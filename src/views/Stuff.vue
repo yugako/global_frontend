@@ -20,7 +20,7 @@
 						            </tr>
 						        </thead>
 						        <tbody>
-						            <tr v-for='(item, index) in queue' :key='index'>
+						            <tr v-for='(item, index) in filtered' :key='index'>
 						                <td class="queue-name">
 						                	{{item.name}}
 						                </td>
@@ -57,9 +57,10 @@
 						<div class="stuff-filters__state">
 							<h3>Sort by status: </h3>
 							<ul class="stuff-filters__list state">
-								<li class="stuff-filters__item">Unprocessed</li>
-								<li class="stuff-filters__item">Processed</li>
-								<li class="stuff-filters__item">Complete</li>
+								<li class="stuff-filters__item" @click='showAll()'>All</li>
+								<li class="stuff-filters__item" @click='showUnprocessed()'>Unprocessed</li>
+								<li class="stuff-filters__item" @click='showProcessing()'>Processing</li>
+								<li class="stuff-filters__item" @click='showCompleted()'>Completed</li>
 							</ul>
 						</div>
 						<!-- /.stuff-filters__state -->
@@ -89,17 +90,17 @@
 	  data () {
 	  	return {
 	  		queue: this.$store.state.queue,
+	  		filtered: this.$store.state.queue,
 	  		workers: this.$store.state.workers,
 	  		message: 'Take in order',
-	  		process: false,
-	  		selected: ''
+	  		selected: '',
 	  	}
 	  },
 	  methods: {
 	  	manageState (item) {
 	  		switch (this.message) {
 	  			case 'Take in order':
-	  				item.status = 'In process';
+	  				item.status = 'Processing';
 	  				this.message = 'Done';
 	  				break;
   				case 'Done':
@@ -111,7 +112,19 @@
 	  				this.$store.commit('removeFromQueue', {item});
   				break;
 	  		}
-	  	}
+	  	},
+	  	showAll() {
+	  		this.filtered = this.queue;
+	  	},
+	  	showUnprocessed() {
+	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'unprocessed');
+	  	},
+	  	showProcessing() {
+	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'processing');
+	  	},
+	  	showCompleted() {
+	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'done');
+	  	},
 	  },
 	  components: {
 	    Banner
