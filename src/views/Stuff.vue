@@ -25,7 +25,9 @@
 						                	{{item.name}}
 						                </td>
 						                <td class="queue-worker">
-						                	<select name="workers">
+						                	<span v-if='process' class="currentWorker">{{selected}}</span>
+						                	<select v-else v-model='selected' name="workers">
+						                		<option disabled value="">Please choose worker</option>
 						                		<option v-for='(worker, index) in workers' :value="worker.name">{{worker.name}}</option>
 						                	</select>
 						                </td>
@@ -88,24 +90,27 @@
 	  	return {
 	  		queue: this.$store.state.queue,
 	  		workers: this.$store.state.workers,
-	  		message: 'Take in order'
+	  		message: 'Take in order',
+	  		process: false,
+	  		selected: ''
 	  	}
 	  },
 	  methods: {
 	  	manageState (item) {
 	  		switch (this.message) {
 	  			case 'Take in order':
-	  				item.status = 'in process';
+	  				this.process = true;
+	  				item.status = 'In process';
 	  				this.message = 'Done';
 	  				break;
   				case 'Done':
-	  				item.status = 'done';
+	  				item.status = 'Done';
 	  				this.message = 'Remove';
 	  				break;
 	  			case 'Remove':
 	  				item.status = 'Unprocessed';
 	  				this.$store.commit('removeFromQueue', {item});
-
+	  				this.process = false;
   				break;
 	  		}
 	  	}
