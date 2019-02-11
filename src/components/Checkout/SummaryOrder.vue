@@ -23,6 +23,7 @@
 				</tbody>
 			</table>
 			<button @click='addToQueue()' class="submit">Place order</button>
+			<router-link to='/stuff'>Go to stuff page</router-link>
 		</div>
 		<!-- /.table-responsive -->
 	</div>
@@ -43,6 +44,7 @@
 	  	addToQueue (item) {
 	  		item = this.cart;
 			this.$store.commit('addToQueue', {item});
+			
 		},
 	  },
 	  computed: {

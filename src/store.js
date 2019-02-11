@@ -15,6 +15,7 @@ export default new Vuex.Store({
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			include: 'Meat, Potato, Bread',
 			weight: 150,
+			status: 'unprocessed',
 			id: '1'
 		},
 		{
@@ -24,6 +25,7 @@ export default new Vuex.Store({
 			quantity: 1,
 			include: 'Meat, Potato, Bread',
 			weight: 150,
+			status: 'unprocessed',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			id: '2'
@@ -35,6 +37,7 @@ export default new Vuex.Store({
 			quantity: 1,
 			include: 'Meat, Potato, Bread',
 			weight: 150,
+			status: 'unprocessed',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
 			id: '3'
@@ -45,6 +48,7 @@ export default new Vuex.Store({
 			price: 19,
 			quantity: 1,
 			weight: 150,
+			status: 'unprocessed',
 			include: 'Meat, Potato, Bread',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
@@ -79,7 +83,7 @@ export default new Vuex.Store({
 		},
 	],
 	cart: [],
-	queue: '',
+	queue: [],
 	countItems: 0,
   },
   mutations: {
@@ -94,7 +98,12 @@ export default new Vuex.Store({
   		state.workers.push(payload.item);
   	},
   	addToQueue (state, payload) {
-  		state.queue = payload.item;
+  		state.queue = payload.item.splice(0, payload.item.length);
+  		state.cart.splice(0, payload.item.length);
+  		state.countItems = 0;
+  	},
+  	removeFromQueue (state, payload) {
+  		state.queue.splice(payload.index, 1);
   	},
   	removeFromCart (state, payload) {
   		state.cart.splice(payload.index, 1);
