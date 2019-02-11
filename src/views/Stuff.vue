@@ -15,6 +15,7 @@
 						            <tr class="title-top">
 						                <th>Name</th>
 						                <th>Worker</th>
+						                <th>Order date</th>
 						                <th>Status</th>
 						             	<th>Actions</th>
 						            </tr>
@@ -22,16 +23,19 @@
 						        <tbody>
 						            <tr v-for='(item, index) in filtered' :key='index'>
 						                <td class="queue-name">
-						                	{{item.name}}
+						                	{{item.collection[0].name}}
 						                </td>
 						                <td class="queue-worker">
-							                <SelectWorker :item='item' />
+							                <SelectWorker :item='item.collection[0]' />
+						                </td>
+						                <td class="queue-worker">
+							                {{item.date | moment("dd, h:mm:ss a")}}
 						                </td>
 						                <td class="queue-status">
-						                	{{item.status}}
+						                	{{item.collection[0].status}}
 						                </td>
 						                <td class="actions">
-						                	<StateButton :item='item' />
+						                	<StateButton :item='item.collection[0]' />
 						                </td>
 						            </tr>
 						
@@ -61,8 +65,8 @@
 						<div class="stuff-filters__time">
 							<h3>Sort by date: </h3>
 							<ul class="stuff-filters__list time">
-								<li class="stuff-filters__item">Newest</li>
-								<li class="stuff-filters__item">Oldest</li>
+								<li class="stuff-filters__item" @click='sortByAsc()'>Newest</li>
+								<li class="stuff-filters__item" @click='sortByDesc()'>Oldest</li>
 							</ul>
 						</div>
 						<!-- /.stuff-filters__state -->
@@ -94,13 +98,23 @@
 	  		this.filtered = this.queue;
 	  	},
 	  	showUnprocessed() {
-	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'unprocessed');
+	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'unprocessed');
 	  	},
 	  	showProcessing() {
-	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'processing');
+	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'processing');
 	  	},
 	  	showCompleted() {
-	  		this.filtered = this.queue.filter(item => item.status.toLowerCase() === 'done');
+	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'done');
+	  	},
+	  	sortByDesc() {
+	  		this.filtered = this.queue.sort((a,b) => {
+	  			return a.date - b.date;
+	  		});
+	  	},
+	  	sortByAsc() {
+	  		this.filtered = this.queue.sort((a,b) => {
+	  			return b.date - a.date;
+	  		});
 	  	},
 	  },
 	  components: {
