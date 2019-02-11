@@ -30,10 +30,10 @@
 						                	</select>
 						                </td>
 						                <td class="queue-status">
-						                	Unprocessed
+						                	{{item.status}}
 						                </td>
 						                <td class="actions">
-						                	<a href="#" class="actions-button">Take in order</a>
+						                	<button @click='manageState(item)' class="actions-button button">{{message}}</button>
 						           			<!-- <a href="#" class="actions-button edit">Edit</a>
 						                	<a href="#" class="actions-button remove">Remove</a> -->
 						                </td>
@@ -86,8 +86,28 @@
 	  name: "home",
 	  data () {
 	  	return {
-	  		queue: this.$state.store.queue,
-	  		workers: this.$state.store.workers,
+	  		queue: this.$store.state.queue,
+	  		workers: this.$store.state.workers,
+	  		message: 'Take in order'
+	  	}
+	  },
+	  methods: {
+	  	manageState (item) {
+	  		switch (this.message) {
+	  			case 'Take in order':
+	  				item.status = 'in process';
+	  				this.message = 'Done';
+	  				break;
+  				case 'Done':
+	  				item.status = 'done';
+	  				this.message = 'Remove';
+	  				break;
+	  			case 'Remove':
+	  				item.status = 'Unprocessed';
+	  				this.$store.commit('removeFromQueue', {item});
+
+  				break;
+	  		}
 	  	}
 	  },
 	  components: {
