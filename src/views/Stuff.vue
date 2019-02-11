@@ -25,19 +25,13 @@
 						                	{{item.name}}
 						                </td>
 						                <td class="queue-worker">
-<!-- 						                	<span v-if='process' class="currentWorker">{{selected}}</span>
- -->						                	<select name="workers">
-						                		<option disabled value="">Please choose worker</option>
-						                		<option v-for='(worker, index) in workers' :value="worker.name">{{worker.name}}</option>
-						                	</select>
+							                <SelectWorker :item='item' />
 						                </td>
 						                <td class="queue-status">
 						                	{{item.status}}
 						                </td>
 						                <td class="actions">
-						                	<button @click='manageState(item)' class="actions-button button">{{message}}</button>
-						           			<!-- <a href="#" class="actions-button edit">Edit</a>
-						                	<a href="#" class="actions-button remove">Remove</a> -->
+						                	<StateButton :item='item' />
 						                </td>
 						            </tr>
 						
@@ -84,7 +78,8 @@
 <script>
 	// @ is an alias to /src
 	import Banner from "@/components/Banner.vue";
-
+	import StateButton from "@/components/Stuff/StateButton.vue";
+	import SelectWorker from "@/components/Stuff/SelectWorker.vue";
 	export default {
 	  name: "home",
 	  data () {
@@ -92,27 +87,9 @@
 	  		queue: this.$store.state.queue,
 	  		filtered: this.$store.state.queue,
 	  		workers: this.$store.state.workers,
-	  		message: 'Take in order',
-	  		selected: '',
 	  	}
 	  },
 	  methods: {
-	  	manageState (item) {
-	  		switch (this.message) {
-	  			case 'Take in order':
-	  				item.status = 'Processing';
-	  				this.message = 'Done';
-	  				break;
-  				case 'Done':
-	  				item.status = 'Done';
-	  				this.message = 'Remove';
-	  				break;
-	  			case 'Remove':
-	  				item.status = 'Unprocessed';
-	  				this.$store.commit('removeFromQueue', {item});
-  				break;
-	  		}
-	  	},
 	  	showAll() {
 	  		this.filtered = this.queue;
 	  	},
@@ -127,7 +104,9 @@
 	  	},
 	  },
 	  components: {
-	    Banner
+	    Banner,
+	    StateButton,
+	    SelectWorker
 	  }
 	};
 </script>
