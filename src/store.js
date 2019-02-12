@@ -106,7 +106,6 @@ export default new Vuex.Store({
   		state.queue.push({
   			collection: [...payload.item], 
   			date: payload.date, 
-  			action: payload.action,
   		});
 
   		state.cart.splice(0, payload.item.length);
