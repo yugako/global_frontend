@@ -3,7 +3,7 @@
 		<Banner text='Stuff page' class='stuff-banner' />
 		<div class="container">
 			<div class="row">
-				<div class="col-12 col-lg-8">
+				<div class="col-12 col-lg-9">
 					<div class="stuff-queue">
 						<div class="stuff__title">
 							Order queue
@@ -22,6 +22,7 @@
 						        </thead>
 						        <tbody>
 						            <tr v-for='(item, index) in filtered' :key='index'>
+
 						                <td class="queue-name">
 						                	{{item.collection[0].name}}
 						                </td>
@@ -35,7 +36,7 @@
 						                	{{item.collection[0].status}}
 						                </td>
 						                <td class="actions">
-						                	<StateButton :item='item.collection[0]' />
+						                	<StateButton :item='item' />
 						                </td>
 						            </tr>
 						
@@ -46,19 +47,19 @@
 					<!-- /.stuff-queue -->
 				</div>
 				<!-- /.col-12 col-lg-8 -->
-				<div class="col-12 col-lg-4">
+				<div class="col-12 col-lg-3">
 					<aside class="stuff-filters">
-						<div class="stuff__title">
+						<div class="stuff__title" @click='createNormal()'>
 							Orders filters
 						</div>
 						<!-- /.stuff__title -->
 						<div class="stuff-filters__state">
 							<h3>Sort by status: </h3>
 							<ul class="stuff-filters__list state">
-								<li class="stuff-filters__item" @click='showAll()'>All</li>
-								<li class="stuff-filters__item" @click='showUnprocessed()'>Unprocessed</li>
-								<li class="stuff-filters__item" @click='showProcessing()'>Processing</li>
-								<li class="stuff-filters__item" @click='showCompleted()'>Completed</li>
+								<li class="stuff-filters__item" @click='filterByStatus()'>All</li>
+								<li class="stuff-filters__item" @click='filterByStatus("unprocessed")'>Unprocessed</li>
+								<li class="stuff-filters__item" @click='filterByStatus("processing")'>Processing</li>
+								<li class="stuff-filters__item" @click='filterByStatus("done")'>Completed</li>
 							</ul>
 						</div>
 						<!-- /.stuff-filters__state -->
@@ -91,20 +92,17 @@
 	  		queue: this.$store.state.queue,
 	  		filtered: this.$store.state.queue,
 	  		workers: this.$store.state.workers,
+	  		normal: [],
 	  	}
 	  },
 	  methods: {
-	  	showAll() {
-	  		this.filtered = this.queue;
-	  	},
-	  	showUnprocessed() {
-	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'unprocessed');
-	  	},
-	  	showProcessing() {
-	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'processing');
-	  	},
-	  	showCompleted() {
-	  		this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === 'done');
+	  	filterByStatus(status) {
+	  		if (status) {
+	  			this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === status);
+	  		} else {
+	  			this.filtered = this.queue;
+	  		}
+	  		
 	  	},
 	  	sortByDesc() {
 	  		this.filtered = this.queue.sort((a,b) => {
@@ -116,6 +114,13 @@
 	  			return b.date - a.date;
 	  		});
 	  	},
+	  	// createNormal() {
+	  	// 	this.normal = this.queue.forEach(item => {
+	  	// 		item.collection.map(i => i);
+	  	// 	});
+	  	// 	console.log(this.normal)
+	  	// },
+	  	
 	  },
 	  components: {
 	    Banner,

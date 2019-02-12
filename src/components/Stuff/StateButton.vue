@@ -1,5 +1,5 @@
 <template>
-	<button @click='manageState(item)' class="actions-button button">{{message}}</button>
+	<button @click='manageState(item)' class="actions-button button">{{item.action}}</button>
 </template>
 <script>
 	export default {
@@ -11,17 +11,16 @@
 		},
 		methods: {
 			manageState (item) {
-		  		switch (this.message) {
+		  		switch (item.action) {
 		  			case 'Take in order':
-		  				item.status = 'Processing';
-		  				this.message = 'Done';
+		  				item.collection[0].status = 'Processing';
+		  				item.action = 'Done';
 		  				break;
 	  				case 'Done':
-		  				item.status = 'Done';
-		  				this.message = 'Remove';
+		  				item.collection[0].status = 'Done';
+		  				item.action = 'Remove';
 		  				break;
 		  			case 'Remove':
-		  				item.status = 'Unprocessed';
 		  				this.$store.commit('removeFromQueue', {item});
 	  				break;
 		  		}
