@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2019-02-12
+### Added
+- Add employee to the list of employees
+- Remove employee from the list of employees
+- Edit employee in the list of employees
+- List of the current orders
+- Remove dishes from the list of orders
+- Sort dishes by date in the list of orders
+- Manage the status of dishes on the order list
+
 ## [0.0.4] - 2019-02-10
 ### Added
 - Add dishes to menu list
