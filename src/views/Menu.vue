@@ -57,7 +57,7 @@
 import Banner from "@/components/Banner.vue";
 
 export default {
-  name: "menu",
+  name: "menu-list",
   data () {
   	return {
         dishes: this.$store.state.dishes

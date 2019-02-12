@@ -43,7 +43,8 @@
 	  	},
 	  	addToQueue (item) {
 	  		item = this.cart;
-			this.$store.commit('addToQueue', {item});
+	  		let date = new Date();
+			this.$store.commit('addToQueue', {item, date});
 			
 		},
 	  },

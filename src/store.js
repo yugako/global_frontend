@@ -16,7 +16,8 @@ export default new Vuex.Store({
 			include: 'Meat, Potato, Bread',
 			weight: 150,
 			status: 'unprocessed',
-			id: '1'
+			id: '1',
+			action: 'Take in order'
 		},
 		{
 			name: 'Spicy Chily Chicken',
@@ -28,7 +29,8 @@ export default new Vuex.Store({
 			status: 'unprocessed',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '2'
+			id: '2',
+			action: 'Take in order'
 		},
 		{
 			name: 'Mixed Fruit Lassi',
@@ -40,7 +42,8 @@ export default new Vuex.Store({
 			status: 'unprocessed',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '3'
+			id: '3',
+			action: 'Take in order'
 		},
 		{
 			name: 'Special Chocolety Toast',
@@ -52,7 +55,8 @@ export default new Vuex.Store({
 			include: 'Meat, Potato, Bread',
 			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
 			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '4'
+			id: '4',
+			action: 'Take in order'
 		}
 	],
 	workers: [
@@ -98,10 +102,18 @@ export default new Vuex.Store({
   		state.workers.push(payload.item);
   	},
   	addToQueue (state, payload) {
-  		// state.queue = payload.item.splice(0, payload.item.length);
-  		state.queue.push(...payload.item);
+  		state.queue.push({
+  			collection: [...payload.item], 
+  			date: payload.date, 
+  		});
   		state.cart.splice(0, payload.item.length);
   		state.countItems = 0;
+  	},
+  	removeFromQueueCollection (state, payload) {
+  		// state.queue.splice(payload.index, 1);
+  		state.queue.forEach( function(item) {
+  			item.collection.splice(payload.index, 1);
+  		});
   	},
   	removeFromQueue (state, payload) {
   		state.queue.splice(payload.index, 1);
