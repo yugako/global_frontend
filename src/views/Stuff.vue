@@ -12,7 +12,7 @@
 						<div class="table-content table-responsive">
 						    <table>
 						        <tbody>
-						            <tr v-for='(item, index) in filtered' :key='index'>
+						            <tr v-for='(item, index) in queue' :key='index'>
 						            	<td class='stuff-order__number'>Order №{{index+1}}</td>
 										<td >
 											<table>
@@ -118,15 +118,20 @@
 	  	},
 	  	filterByStatus(status) {
 	  		if (status) {
+	  			this.filtered = [];
 	  			this.filtered = this.queue.filter(item => {
-	  				return item.collection.filter( function(dish) {
-	  					console.log(dish)
-	  					return dish.status.toLowerCase() === status;
+	  				let result = [];
+	  				item.collection.forEach((dish) => {
+	  					if(dish.status === status) {
+	  						result.push(item);
+	  					}
 	  				});
+	  				return result;
 	  			});
 	  		} else {
 	  			this.filtered = this.queue;
 	  		}
+	  		console.log(this.filtered)
 	  		
 	  	},
 	  	sortByDesc() {
