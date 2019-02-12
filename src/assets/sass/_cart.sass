@@ -4,76 +4,46 @@
 .table
 	&-content
 		margin-top: 30px
-		table
-			border-bottom: 1px solid #ededed
-			border-collapse: collapse
-			border-spacing: 0
-			font-size: 14px
-			line-height: 2
-			margin: 0 0 20px
-			width: 100%
-			td
-				border-top: medium none
-				font-size: 13px
-				padding: 20px 10px
-				text-align: center
-				vertical-align: middle
-				border-bottom: 1px solid #eaeaea
-				border-right: 1px solid #eaeaea
-			th
-				border-top: medium none
+		.product
+			&-thumbnail
+				width: 130px
+				border-left: 1px solid #eaeaea
+				a
+					img
+						width: 100%
+			&-name
+				width: 270px
+				a
+				    font-weight: 700
+				    margin-left: 10px
+				    color: #6f6f6f
+				    font-size: 14px
+			&-price
+				width: 130px
+				.amount
+				    font-weight: 700
+				    color: #777
+				    font-size: 15px
+			&-quantity
+				input
+				    border: medium none
+				    border-radius: 3px
+				    color: #6f6f6f
+				    font-size: 15px
+				    font-weight: normal
+				    height: 40px
+				    padding: 0 5px 0 10px
+				    width: 60px
+				    background-color: #e5e5e5
+			&-subtotal
 				font-weight: bold
-				padding: 20px 10px
-				text-align: center
-				text-transform: uppercase
-				vertical-align: middle
-				white-space: nowrap	
+				width: 120px
 				color: #777
 				font-size: 14px
-			.product
-				&-thumbnail
-					width: 130px
-					border-left: 1px solid #eaeaea
-					a
-						img
-							width: 100%
-				&-name
-					width: 270px
-					a
-					    font-weight: 700
-					    margin-left: 10px
-					    color: #6f6f6f
-					    font-size: 14px
-				&-price
-					width: 130px
-					.amount
-					    font-weight: 700
-					    color: #777
-					    font-size: 15px
-				&-quantity
-					input
-					    border: medium none
-					    border-radius: 3px
-					    color: #6f6f6f
-					    font-size: 15px
-					    font-weight: normal
-					    height: 40px
-					    padding: 0 5px 0 10px
-					    width: 60px
-					    background-color: #e5e5e5
-				&-subtotal
-					font-weight: bold
-					width: 120px
-					color: #777
-					font-size: 14px
-				&-remove
-					width: 150px
+			&-remove
+				width: 150px
 
-			.title-top
-				th
-					background-color: #f6f6f6
-					border-bottom: 1px solid transparent
-					border-right: 1px solid transparent
+			
 				
 .cartbox
 	&__total
