@@ -11,35 +11,53 @@
 						<!-- /.stuff-queue__title -->
 						<div class="table-content table-responsive">
 						    <table>
-						        <thead>
-						            <tr class="title-top">
-						                <th>Name</th>
-						                <th>Worker</th>
-						                <th>Order date</th>
-						                <th>Status</th>
-						             	<th>Actions</th>
-						            </tr>
-						        </thead>
 						        <tbody>
 						            <tr v-for='(item, index) in filtered' :key='index'>
+						            	<td class='stuff-order__number'>Order №{{index+1}}</td>
+										<td >
+											<table>
+												<thead>
+										            <tr class="title-top">
+										                <th>Name</th>
+										                <th>Worker</th>
+										                <th>Order date</th>
+										                <th>Status</th>
+										             	<th>Actions</th>
+										            </tr>
+										        </thead>
+										        <tbody>
+										        	<tr v-for='(dish, i) in item.collection' :key='i'>
+														<td class="queue-name">
+										                	{{dish.name}}
+										                </td>
+										                <td class="queue-worker">
+											                <SelectWorker :item='dish' />
+										                </td>
+													    <td class="queue-worker">
+											                {{item.date | moment("dd, h:mm:ss a")}}
+										                </td>
+										                <td class="queue-status">
+										                	{{dish.status}}
+										                </td>
+										                <td class="actions">
+										                	<StateButton :index='i' :dish='dish' />
+										                </td>
+														
+													</tr>
+													<tr class="done" v-if='item.collection.length === 0' >
+														<td colspan="5">
+															Order completed! <br>
+															<button @click='removeOrder(index)' class="button">Remove order</button>
+														</td>
+														
+													</tr>  
+										        </tbody>
+												
 
-						                <td class="queue-name">
-						                	{{item.collection[0].name}}
-						                </td>
-						                <td class="queue-worker">
-							                <SelectWorker :item='item.collection[0]' />
-						                </td>
-						                <td class="queue-worker">
-							                {{item.date | moment("dd, h:mm:ss a")}}
-						                </td>
-						                <td class="queue-status">
-						                	{{item.collection[0].status}}
-						                </td>
-						                <td class="actions">
-						                	<StateButton :item='item' />
-						                </td>
+											</table>
+										</td> 
+										
 						            </tr>
-						
 						        </tbody>
 						    </table>
 						</div>
@@ -49,7 +67,7 @@
 				<!-- /.col-12 col-lg-8 -->
 				<div class="col-12 col-lg-3">
 					<aside class="stuff-filters">
-						<div class="stuff__title" @click='createNormal()'>
+						<div class="stuff__title">
 							Orders filters
 						</div>
 						<!-- /.stuff__title -->
@@ -92,13 +110,20 @@
 	  		queue: this.$store.state.queue,
 	  		filtered: this.$store.state.queue,
 	  		workers: this.$store.state.workers,
-	  		normal: [],
 	  	}
 	  },
 	  methods: {
+	  	removeOrder (index) {
+	  		this.$store.commit('removeFromQueue', {index});
+	  	},
 	  	filterByStatus(status) {
 	  		if (status) {
-	  			this.filtered = this.queue.filter(item => item.collection[0].status.toLowerCase() === status);
+	  			this.filtered = this.queue.filter(item => {
+	  				return item.collection.filter( function(dish) {
+	  					console.log(dish)
+	  					return dish.status.toLowerCase() === status;
+	  				});
+	  			});
 	  		} else {
 	  			this.filtered = this.queue;
 	  		}
@@ -114,13 +139,6 @@
 	  			return b.date - a.date;
 	  		});
 	  	},
-	  	// createNormal() {
-	  	// 	this.normal = this.queue.forEach(item => {
-	  	// 		item.collection.map(i => i);
-	  	// 	});
-	  	// 	console.log(this.normal)
-	  	// },
-	  	
 	  },
 	  components: {
 	    Banner,

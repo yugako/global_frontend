@@ -1,27 +1,29 @@
 <template>
-	<button @click='manageState(item)' class="actions-button button">{{item.action}}</button>
+	<button @click='manageState(dish, index)' class="actions-button button">{{dish.action}}</button>
 </template>
 <script>
 	export default {
-		props: ['item'],
+		props: ['dish', 'index'],
 		data () {
 			return {
-				message: 'Take in order',
+				
 			}
 		},
 		methods: {
-			manageState (item) {
-		  		switch (item.action) {
+			manageState (dish, index) {
+		  		switch (dish.action) {
 		  			case 'Take in order':
-		  				item.collection[0].status = 'Processing';
-		  				item.action = 'Done';
+		  				dish.status = 'Processing';
+		  				dish.action = 'Done';
 		  				break;
 	  				case 'Done':
-		  				item.collection[0].status = 'Done';
-		  				item.action = 'Remove';
+		  				dish.status = 'Done';
+		  				dish.action = 'Remove';
 		  				break;
 		  			case 'Remove':
-		  				this.$store.commit('removeFromQueue', {item});
+		  				this.$store.commit('removeFromQueueCollection', {index});
+		  				dish.status = 'uprocessed';
+		  				dish.action = 'Take in order';
 	  				break;
 		  		}
 		  	},
