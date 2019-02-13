@@ -1,64 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import axios from 'axios';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-	dishes: [
-		{
-			name: 'Spicy Beef Burger',
-			img: require('@/assets/img/menu-list/dishes/1.jpg'),
-			price: 12,
-			quantity: 1,
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			id: '1',
-			action: 'Take in order'
-		},
-		{
-			name: 'Spicy Chily Chicken',
-			img: require('@/assets/img/menu-list/dishes/2.jpg'),
-			price: 3,
-			quantity: 1,
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '2',
-			action: 'Take in order'
-		},
-		{
-			name: 'Mixed Fruit Lassi',
-			img: require('@/assets/img/menu-list/dishes/3.jpg'),
-			price: 10,
-			quantity: 1,
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '3',
-			action: 'Take in order'
-		},
-		{
-			name: 'Special Chocolety Toast',
-			img: require('@/assets/img/menu-list/dishes/4.jpg'),
-			price: 19,
-			quantity: 1,
-			weight: 150,
-			status: 'unprocessed',
-			include: 'Meat, Potato, Bread',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '4',
-			action: 'Take in order'
-		}
-	],
+	dishes: [],
 	workers: [
 		{
 			name: 'Thor Odinson',
@@ -91,6 +40,18 @@ export default new Vuex.Store({
 	countItems: 0,
   },
   mutations: {
+  	addToDishes(state) {
+  		axios
+  		  .get('http://localhost:3000/dishes')
+  		  .then(response => {
+  		  	let self = this;
+  		  	state.dishes = [];
+  		  	response.data.forEach( function(element) {
+  		  		state.dishes.push(element);
+  		  	});
+  		  })
+  		  .catch(error => console.log(error));
+  	},
   	addToCart(state, payload) {
   		state.cart.push(payload.dish);
   		state.countItems++;
