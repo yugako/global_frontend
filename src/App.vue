@@ -15,6 +15,9 @@ import Footer from "@/components/Footer.vue";
 
 export default {
   name: "home",
+  created () {
+    this.$store.commit('addToDishes');
+  },
   components: {
     Navigation,
     Footer
