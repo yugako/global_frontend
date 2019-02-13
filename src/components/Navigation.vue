@@ -53,12 +53,12 @@
 						<!-- /.cart-error -->
 						<div class="order-preview__item" v-for='(item, index) in cart' :key='index'>
 							<div class="order-preview__item_thumb">
-								<img :src="item.img" :alt='item.name'>
+								<img src="@/assets/img/menu-list/placeImg.jpg" :alt='item.title'>
 							</div>
 							<!-- /.order-preview__item_thumb -->
 							<div class="order-preview__item_content">
 								<div class="order-preview__info">
-									<div class="product-name">{{item.name}}</div>
+									<div class="product-name">{{item.title}}</div>
 									<!-- /.product-name -->
 									<div class="product-quantity">Quantity: {{item.quantity}}</div>
 									<!-- /.product-quantity -->

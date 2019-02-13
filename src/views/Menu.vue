@@ -8,7 +8,7 @@
         <div class="row">
               <div class="col-12 col-lg-6">
                   <div class="menu-item__img">
-                    <img :src="dish.img" class="img-responsive" :alt="dish.name">
+                    <img src="@/assets/img/menu-list/placeImg.jpg" class="img-responsive" :alt="dish.title">
                   </div>
                   <!-- /.menu-list__img -->
               </div>
@@ -17,7 +17,7 @@
               <div class="menu-item__content">
                 <div class="menu-item__header">
                   <div class="menu-item__title">
-                      <h3 @click='goToDetail(dish.id)'>{{dish.name}}</h3>
+                      <h3 @click='goToDetail(dish._id)'>{{dish.title}}</h3>
                   </div>
                   <!-- /.menu-item__title -->
                   <div class="menu-item__price">
@@ -27,11 +27,11 @@
                 </div>
                 <!-- /.menu-item__header -->
                 <div class="menu-item__descr">
-                  {{dish.descr}}
+                  {{dish.excerpt}}
                 </div>
                 <!-- /.menu-item__descr -->
                 <div class="menu-item__order">
-                  <a class="menu-item__order_link" @click='goToDetail(dish.id)'>
+                  <a class="menu-item__order_link" @click='goToDetail(dish._id)'>
                     Order now
                   </a>
                 </div>

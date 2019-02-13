@@ -11,7 +11,7 @@
 				<tbody>
 					<tr v-for='(item,index) in cart' :key='index'>
 						<td class="product-name">
-							{{item.name}} x 
+							{{item.title}} x 
 							<span class='amount'>{{item.quantity}}</span>
 						</td>
 						<td class="product-price">{{countTotal(index)}}</td>

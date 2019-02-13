@@ -28,7 +28,7 @@
 										        <tbody>
 										        	<tr v-for='(dish, i) in item.collection' :key='i'>
 														<td class="queue-name">
-										                	{{dish.name}}
+										                	{{dish.title}}
 										                </td>
 										                <td class="queue-worker">
 											                <SelectWorker :item='dish' />
