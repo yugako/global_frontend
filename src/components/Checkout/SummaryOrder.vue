@@ -1,5 +1,5 @@
 <template>
-	<form action="#" @submit.prevent=''>
+	<div class="wrapper">
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
@@ -22,24 +22,31 @@
 					</tr>
 				</tbody>
 			</table>
-			<input class="submit" type="submit" value="Place order">
+			<button @click='addToQueue()' class="submit">Place order</button>
+			<router-link to='/stuff'>Go to stuff page</router-link>
 		</div>
 		<!-- /.table-responsive -->
-		
-	</form>
+	</div>
+	<!-- /.wrapper -->
 </template>
 <script>
 	export default {
 	  name: "SummaryOrder",
 	  data () {
 	  	return {
-	  		cart: this.$store.state.cart
+	  		cart: this.$store.state.cart,
 	  	}
 	  },
 	  methods: {
 	  	countTotal (i) {
 	  		return this.$store.getters.countTotal(i);
 	  	},
+	  	addToQueue (item) {
+	  		item = this.cart;
+	  		let date = new Date();
+			this.$store.commit('addToQueue', {item, date});
+			
+		},
 	  },
 	  computed: {
 	  	countTotalOrder () {

@@ -12,9 +12,11 @@ import Payment from "./views/Payment.vue";
 import Stuff from "./views/Stuff.vue";
 import Admin from "./views/Admin.vue";
 
-import ChangeMenu from "./components/Admin/ChangeMenu.vue";
-import NewItem from "./components/Admin/NewItem.vue";
+import ChangeMenu from "./components/Admin/Menu/ChangeMenu.vue";
+import NewItem from "./components/Admin/Menu/NewItem.vue";
 
+import ChangeWorker from "./components/Admin/Workers/ChangeWorker.vue";
+import NewWorker from "./components/Admin/Workers/NewWorker.vue";
 
 import NotFound from "./views/NotFound.vue";
 
@@ -68,6 +70,16 @@ export default new Router({
       path: "/add",
       name: "add",
       component: NewItem
+    },
+    {
+      path: "/edit/:id",
+      name: "edit",
+      component: ChangeWorker
+    },
+    {
+      path: "/add_worker",
+      name: "add_worker",
+      component: NewWorker
     },
     {
       path: '*',

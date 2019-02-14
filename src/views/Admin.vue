@@ -18,7 +18,7 @@
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr v-for='(worker, index) in workers' :key='index'>
+							            <tr v-for='(worker,index) in workers' :key='index'>
 							                <td class="worker-name">
 							                	{{worker.name}}
 							                </td>
@@ -26,8 +26,9 @@
 							                	{{worker.password}}
 							                </td>
 							                <td class="actions">
-							           			<a href="#" class="actions-button edit">Edit</a>
-							                	<a href="javascript:void(0)" @click='removeFromStore(index)' class="actions-button remove">Remove</a>
+							           			<span @click='goToEditWorker(worker.id)' class="actions-button button">Edit</span>
+
+							                	<span @click='removeFromWorkers(index)' class="actions-button button">Remove</span>
 							                </td>
 							            </tr>
 							            
@@ -35,7 +36,7 @@
 							    </table>
 							</div>
 							<div class="admin-content__add">
-								<button class="admin-content__add_button">Add worker</button>
+								<button @click='addNewWorker' class="admin-content__add_button">Add worker</button>
 							</div>
 							<!-- /.admin-content__add -->
 						</div>
@@ -73,7 +74,7 @@
 							               
 							                <td class="product-excerpt">{{dish.excerpt}}</td>
 							                <td class="actions">
-							           			<span class="actions-button edit" @click='goToEdit(dish.id)'>Edit</span>
+							           			<span class="actions-button edit" @click='goToEditDish(dish.id)'>Edit</span>
 							                	<span @click='removeFromStore(index)' class="actions-button remove">Remove</span>
 							                </td>
 							            </tr>
@@ -81,7 +82,7 @@
 							    </table>
 							</div>
 							<div class="admin-content__add">
-								<button @click='addNew' class="admin-content__add_button">Add dish</button>
+								<button @click='addNewItem' class="admin-content__add_button">Add dish</button>
 							</div>
 							<!-- /.admin-content__add -->
 						</div>
@@ -98,7 +99,8 @@
 </template>
 <script>
 	import Banner from "@/components/Banner.vue";
-	import ChangeMenu from "@/components/Admin/ChangeMenu.vue";
+	// import ChangeMenu from "@/components/Admin/Menu/ChangeMenu.vue";
+	// import ChangeWorker from "@/components/Admin/Workers/ChangeWorker.vue";
 	export default {
 		data () {
 			return {
@@ -109,19 +111,29 @@
 			}
 		},
 		methods: {
-			goToEdit(dishId) {
+			goToEditDish(dishId) {
 			    this.$router.push({name:'change',params:{id:dishId}})
 			},
-			addNew() {
+			goToEditWorker(id) {
+			    this.$router.push({name:'edit',params:{id:id}})
+			},
+			addNewItem() {
 				this.$router.push({ name: 'add'}) 
+			},
+			addNewWorker() {
+				this.$router.push({ name: 'add_worker'}) 
 			},
 			removeFromStore (index) {
 			  	this.$store.commit('removeFromStore', {index});
+			},
+			removeFromWorkers (index) {
+			  	this.$store.commit('removeFromWorkers', {index});
 			}
 		},
 		components: {
 			Banner,
-			ChangeMenu
+			// ChangeMenu,
+			// ChangeWorker
 		}
 	}
 </script>

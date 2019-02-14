@@ -37,7 +37,7 @@
 		                                </td>
 		                                <td class="product-subtotal">{{countTotal(index)}}</td>
 		                                <td class="product-remove" @click='removeFromCart(index)'>
-		                                	<span class="remove">Remove</span>
+		                                	<span class="button">Remove</span>
 		                                </td>
 		                            </tr>
 		                        </tbody>
