@@ -22,6 +22,7 @@
 										                <th>Worker</th>
 										                <th>Order date</th>
 										                <th>Status</th>
+										                <th>Total price</th>
 										             	<th>Actions</th>
 										            </tr>
 										        </thead>
@@ -38,6 +39,9 @@
 										                </td>
 										                <td class="queue-status">
 										                	{{dish.status}}
+										                </td>
+										                <td class="queue-status">
+										                	{{item.price}}
 										                </td>
 										                <td class="actions">
 										                	<StateButton :index='i' :dish='dish' />
@@ -144,6 +148,9 @@
 	  			return b.date - a.date;
 	  		});
 	  	},
+	  	goToDetail(dishId) {
+	        this.$router.push({name:'order_detail',params:{id:dishId}})
+	    }
 	  },
 	  components: {
 	    Banner,

@@ -18,6 +18,8 @@ import NewItem from "./components/Admin/Menu/NewItem.vue";
 import ChangeWorker from "./components/Admin/Workers/ChangeWorker.vue";
 import NewWorker from "./components/Admin/Workers/NewWorker.vue";
 
+import OrderDetail from "./components/Stuff/OrderDetail.vue";
+
 import NotFound from "./views/NotFound.vue";
 
 Vue.use(Router);
@@ -80,6 +82,11 @@ export default new Router({
       path: "/add_worker",
       name: "add_worker",
       component: NewWorker
+    },
+    {
+      path: "/order_detail/:id",
+      name: "order_detail",
+      component: OrderDetail
     },
     {
       path: '*',

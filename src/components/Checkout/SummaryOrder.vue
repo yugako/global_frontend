@@ -44,7 +44,8 @@
 	  	addToQueue (item) {
 	  		item = this.cart;
 	  		let date = new Date();
-			this.$store.commit('addToQueue', {item, date});
+	  		let price = this.countTotalOrder;
+			this.$store.commit('addToQueue', {item, date, price});
 			
 		},
 	  },

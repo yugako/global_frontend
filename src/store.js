@@ -49,7 +49,8 @@ export default new Vuex.Store({
   	addToQueue (state, payload) {
   		state.queue.push({
   			collection: [...payload.item], 
-  			date: payload.date, 
+  			date: payload.date,
+        price: payload.price 
   		});
   		state.cart.splice(0, payload.item.length);
   		state.countItems = 0;
