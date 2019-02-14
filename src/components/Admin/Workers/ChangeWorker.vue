@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
 					<div class="menu-item" v-for='(worker,index) in workers' :key='index'>
-						<div v-if='worker.id === proId'>
+						<div v-if='worker._id === proId'>
 							<div class="menu-item__title">
 								Edit worker's data: {{worker.name}}
 							</div>
