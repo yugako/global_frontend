@@ -4,38 +4,38 @@
 		<div class="container">
 				<div class="row">
 					<div class="col-lg-8 offset-lg-2">
-						<form @submit.prevent='addToMenu(newItem)' class="menu-item__form">
+						<form @submit.prevent='addToMenu()' class="menu-item__form">
 						    <div class="row">
 						        <div class="col-md-12 col-12">
 						        	<label for='name'>
 						        		Dish name:	
 						        	</label>                                 
-						            <input required v-model='newItem.name' type="text" id="name" placeholder="Name">
+						            <input required v-model='title' type="text" id="name" placeholder="Name">
 						        </div>
 						        <div class="col-12 col-md-6">
 						        	<label for="price">Dish price, $</label>
-						            <input required v-model='newItem.price' placeholder="Price" id="price" type="text">
+						            <input required v-model.number='price' placeholder="Price" id="price" type="text">
 						        </div>
 						        <div class="col-12 col-md-6">
 						        	<label for="weight">Weight, g</label>
-						            <input required v-model='newItem.weight' placeholder="Weight" type="text">
+						            <input required v-model.number='weight' placeholder="Weight" type="text">
 						        </div>
 						        <div class="col-12">
 						         	<!-- <label for="img">Path to image</label>                              
-						            <input required v-model='newItem.img' id="img" type="text" placeholder="Path to image"> -->
+						            <input required v-model='img' id="img" type="text" placeholder="Path to image"> -->
 						            <PreviewImage @getImg='getSrc' />
 						        </div> 
 						        <div class="col-12">
 						        	<label for="excerpt">Short description</label>
-						            <textarea required v-model='newItem.excerpt' class="excerpt" maxlength="100"  placeholder="Short description" type="text"></textarea>
+						            <textarea required v-model='excerpt' class="excerpt" maxlength="100"  placeholder="Short description" type="text"></textarea>
 						        </div>
 						        <div class="col-12">
 						        <label for="include">Ingredients</label>                              
-						            <input required v-model='newItem.include' id="include" type="text" placeholder="Components">
+						            <input required v-model='ingradients' id="include" type="text" placeholder="Components">
 						        </div> 
 						        <div class="col-md-12 col-12">
 						        	<label for="descr">Dish description</label>                             
-						            <textarea required v-model='newItem.descr' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
+						            <textarea required v-model='description' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
 						        </div>                       
 						    </div>
 						    <div v-if='save' class="success">{{message}}</div>
@@ -59,36 +59,43 @@
 	export default {
 		data () {
 			return {
-				imageSrc: '',
 				save: false,
 				error: false,
 				message: '',
-				newItem: {
-					name: '',
-					price: 0,
-					img: this.imageSrc || require('@/assets/img/menu-list/placeImg.jpg'),
-					weight: 0,
-					quantity: 1,
-					excerpt: '',
-					include: '',
-					id: new Date().getTime(),
-					descr: ''
-				}
+				title: '',
+				quantity: 1,
+				price: 0,
+				excerpt: '',
+				description: '',
+				ingradients: '',
+				weight: 0,
 				
 			}
 		},
 		methods: {
-			addToMenu (item) {
-				console.log(this.validationValue(this.newItem));
-				if(this.validationValue(this.newItem)) {
-					this.save = true;
-					this.message = 'Saved!';
-					this.$store.commit('addToMenu', {item});
-					setTimeout(() => {
-						this.save = false;
-						this.message = '';
-					}, 1500);
-				}
+			addToMenu () {
+				// if(this.validationValue(this.) {
+					
+				// }
+				this.save = true;
+				this.message = 'Saved!';
+				let self = this;
+
+				this.$store.dispatch('saveDish', {
+		 			title: self.title,
+			    	quantity: self.quantity,
+			    	price: self.price,
+			    	excerpt: self.excerpt,
+			    	description: self.description,
+			    	ingradients: self.ingradients,
+			    	weight: self.weight,
+			    	status: 'unprocessed',
+			    	action: 'Take in order'
+				})
+				setTimeout(() => {
+					this.save = false;
+					this.message = '';
+				}, 1500);
 				
 				
 			},

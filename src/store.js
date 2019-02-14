@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import axios from 'axios';
-
+import qs from 'qs';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -40,24 +40,23 @@ export default new Vuex.Store({
 	countItems: 0,
   },
   mutations: {
-  	addToDishes(state) {
-  		axios
-  		  .get('http://localhost:3000/dishes')
-  		  .then(response => {
-  		  	let self = this;
-  		  	state.dishes = [];
-  		  	response.data.forEach( function(element) {
-  		  		state.dishes.push(element);
-  		  	});
-  		  })
-  		  .catch(error => console.log(error));
-  	},
+    fillDishes(state, payload) {
+      state.dishes = payload
+    },
+  	addDish(state,payload){
+      state.dishes.push(payload)
+    },
+    updateDish(state, payload) {
+      let index = state.dishes.findIndex(dish => dish.id === payload.id);
+      state.dishes[index] = payload;
+    },
+    deleteDish(state, id){
+      let index = state.dishes.findIndex(dish => dish.id == id)
+      state.dishes.splice(index, 1)
+    },
   	addToCart(state, payload) {
   		state.cart.push(payload.dish);
   		state.countItems++;
-  	},
-  	addToMenu(state, payload) {
-  		state.dishes.push(payload.item);
   	},
   	addToWorkers(state, payload) {
   		state.workers.push(payload.item);
@@ -83,15 +82,15 @@ export default new Vuex.Store({
   		state.cart.splice(payload.index, 1);
   		state.countItems--;
   	},
-  	removeFromStore(state, payload) {
-  		state.dishes.splice(payload.index, 1);
-  	},
   	removeFromWorkers(state, payload) {
   		state.workers.splice(payload.index, 1);
   	},
 
   },
   getters: {
+    Dishes : state => {
+      return state.dishes;
+    },
   	countTotalOrder: state => {
   		let arr = state.cart;
   		let total = 0;
@@ -108,5 +107,32 @@ export default new Vuex.Store({
   		return `${total} $`;
   	},
   },
-  actions: {}
+  actions: {
+    getDishes : async (context,payload) => {
+      let { data } = await axios.get('http://localhost:3000/dishes')
+      context.commit('fillDishes', data)
+   },
+   saveDish (context, payload) {
+      axios.post('http://localhost:3000/dishes/', payload)
+        .then(() => {              
+            context.commit('updateDish', payload)
+        });
+   },
+   // saveDish : async (context,payload) => {
+   //    let { data } = await axios.post('http://localhost:3000/dishes')
+   //    context.commit('addDish', payload)
+   // },
+   deleteDishes (context, id) {
+      axios.delete('http://localhost:3000/dishes/' + id)
+         .then(() => {              
+             context.commit('deleteDish', id)
+          });
+   },
+   updateDishes (context, payload) {
+      axios.put('http://localhost:3000/dishes/' + payload.id, payload)
+        .then(() => {              
+            context.commit('updateDish', payload)
+        });
+   },
+  }
 });
