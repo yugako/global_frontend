@@ -16,7 +16,8 @@ import Footer from "@/components/Footer.vue";
 export default {
   name: "home",
   created() {
-    this.$store.dispatch("getDishes")       
+    this.$store.dispatch("getDishes")
+    this.$store.dispatch("getWorkers")         
   },
   components: {
     Navigation,
@@ -26,23 +27,5 @@ export default {
 </script>
 <style lang="sass">
   @import './assets/sass/main'
-
-  .bounce-enter-active 
-        animation: bounce-in .5s
-  
-  .bounce-leave-active 
-        animation: bounce-in .5s reverse
-  
-  @keyframes bounce-in 
-        0% 
-            transform: scale(0)
-        
-        50% 
-            transform: scale(1.5)
-        
-        100% 
-            transform: scale(1)
-    
-  
 </style>
 
