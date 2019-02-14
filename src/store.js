@@ -8,33 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
 	dishes: [],
-	workers: [
-		{
-			name: 'Thor Odinson',
-			password: 'mielnir',
-			id: '1'
-		},
-		{
-			name: 'Steve Rodgers',
-			password: 'shield',
-			id: '2'
-		},
-		{
-			name: 'Vanda Maximova',
-			password: 'vision',
-			id: '3'
-		},
-		{
-			name: 'Tony Stark',
-			password: 'iron-man',
-			id: '4'
-		},
-		{
-			name: 'Cara Denwers',
-			password: 'emotionless',
-			id: '5'
-		},
-	],
+	workers: [],
 	cart: [],
 	queue: [],
 	countItems: 0,
@@ -54,12 +28,23 @@ export default new Vuex.Store({
       let index = state.dishes.findIndex(dish => dish.id == id)
       state.dishes.splice(index, 1)
     },
+    fillWorkers (state, payload) {
+      state.workers = payload;
+    },
+    addWorker(state,payload){
+      state.workers.push(payload)
+    },
+    updateWorker(state, payload) {
+      let index = state.workers.findIndex(worker => worker.id === payload.id);
+      state.workers[index] = payload;
+    },
+    deleteWorker(state, id){
+      let index = state.workers.findIndex(worker => worker.id == id)
+      state.workers.splice(index, 1)
+    },
   	addToCart(state, payload) {
   		state.cart.push(payload.dish);
   		state.countItems++;
-  	},
-  	addToWorkers(state, payload) {
-  		state.workers.push(payload.item);
   	},
   	addToQueue (state, payload) {
   		state.queue.push({
@@ -82,14 +67,14 @@ export default new Vuex.Store({
   		state.cart.splice(payload.index, 1);
   		state.countItems--;
   	},
-  	removeFromWorkers(state, payload) {
-  		state.workers.splice(payload.index, 1);
-  	},
 
   },
   getters: {
     Dishes : state => {
       return state.dishes;
+    },
+    Workers : state => {
+      return state.workers;
     },
   	countTotalOrder: state => {
   		let arr = state.cart;
@@ -111,17 +96,13 @@ export default new Vuex.Store({
     getDishes : async (context,payload) => {
       let { data } = await axios.get('http://localhost:3000/dishes')
       context.commit('fillDishes', data)
-   },
+    },
    saveDish (context, payload) {
       axios.post('http://localhost:3000/dishes/', payload)
         .then(() => {              
-            context.commit('updateDish', payload)
+            context.commit('addDish', payload)
         });
    },
-   // saveDish : async (context,payload) => {
-   //    let { data } = await axios.post('http://localhost:3000/dishes')
-   //    context.commit('addDish', payload)
-   // },
    deleteDishes (context, id) {
       axios.delete('http://localhost:3000/dishes/' + id)
          .then(() => {              
@@ -133,6 +114,28 @@ export default new Vuex.Store({
         .then(() => {              
             context.commit('updateDish', payload)
         });
+   },
+   getWorkers : async (context,payload) => {
+      let { data } = await axios.get('http://localhost:3000/workers')
+      context.commit('fillWorkers', data)
+    },
+    saveWorker (context, payload) {
+      axios.post('http://localhost:3000/workers/', payload)
+        .then(() => {              
+            context.commit('addWorker', payload)
+        });
+   },
+   updateWorkers (context, payload) {
+      axios.put('http://localhost:3000/workers/' + payload.id, payload)
+        .then(() => {              
+            context.commit('updateWorker', payload)
+        });
+   },
+   deleteWorkers (context, id) {
+      axios.delete('http://localhost:3000/workers/' + id)
+         .then(() => {              
+             context.commit('deleteWorker', id)
+          });
    },
   }
 });

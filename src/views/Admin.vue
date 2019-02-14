@@ -18,7 +18,7 @@
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr v-for='(worker,index) in workers' :key='index'>
+							            <tr v-for='(worker,index) in workersList' :key='worker._id'>
 							                <td class="worker-name">
 							                	{{worker.name}}
 							                </td>
@@ -26,9 +26,9 @@
 							                	{{worker.password}}
 							                </td>
 							                <td class="actions">
-							           			<span @click='goToEditWorker(worker.id)' class="actions-button button">Edit</span>
+							           			<span @click='goToEditWorker(worker._id)' class="actions-button button">Edit</span>
 
-							                	<span @click='removeFromWorkers(index)' class="actions-button button">Remove</span>
+							                	<span @click='removeFromWorkers(worker._id)' class="actions-button button">Remove</span>
 							                </td>
 							            </tr>
 							            
@@ -107,6 +107,9 @@
 		  this.$options.computed = {
 		     dishesList(){
 			     return this.$store.getters.Dishes
+			 },
+			 workersList(){
+			     return this.$store.getters.Workers
 			 }
 		  }
 		},
@@ -114,7 +117,6 @@
 			return {
 				showWorkers: false,
 				showDishes: true,
-				workers: this.$store.state.workers
 			}
 		},
 		methods: {
@@ -134,7 +136,7 @@
 				this.$store.dispatch('deleteDishes', index)
 			},
 			removeFromWorkers (index) {
-			  	this.$store.commit('removeFromWorkers', {index});
+			  	this.$store.dispatch('deleteWorkers', index)
 			},
 		},
 		components: {
