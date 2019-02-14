@@ -4,7 +4,7 @@
     <!-- /.menu-header -->
     <div class="menu-list">
     	<div class="container">
-        <div class="menu-item" v-for='dish in dishes'>
+        <div class="menu-item" v-for='dish in dishesList'>
         <div class="row">
               <div class="col-12 col-lg-6">
                   <div class="menu-item__img">
@@ -59,13 +59,16 @@ import Banner from "@/components/Banner.vue";
 export default {
   name: "menu-list",
   data () {
-  	return {
-        dishes: this.$store.state.dishes
-  	}
+  	return {}
   },
   methods: {
     goToDetail(dishId) {
         this.$router.push({name:'detail',params:{id:dishId}})
+    }
+  },
+  computed : {
+    dishesList(){
+       return this.$store.getters.Dishes
     }
   },
   components: {
