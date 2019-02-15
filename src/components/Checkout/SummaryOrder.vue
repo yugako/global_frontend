@@ -41,12 +41,16 @@
 	  	countTotal (i) {
 	  		return this.$store.getters.countTotal(i);
 	  	},
-	  	addToQueue (item) {
-	  		item = this.cart;
-	  		let date = new Date();
-	  		let price = this.countTotalOrder;
-			this.$store.commit('addToQueue', {item, date, price});
-			
+	  	addToQueue () {
+	  		let cart = this.cart;
+	  		this.$store.dispatch('saveOrder', {
+	 			list: cart,
+		    	price: this.countTotalOrder,
+			});
+			setTimeout(() => {
+				this.$store.commit('cleanCart', cart);
+			}, 0);
+				
 		},
 	  },
 	  computed: {
