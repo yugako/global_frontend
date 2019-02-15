@@ -91,7 +91,7 @@
 			    	weight: self.weight,
 			    	status: 'unprocessed',
 			    	action: 'Take in order'
-				})
+				});
 				setTimeout(() => {
 					this.save = false;
 					this.message = '';
