@@ -12,7 +12,7 @@
 						<div class="table-content table-responsive">
 						    <table>
 						        <tbody>
-						            <tr v-for='(item, index) in queue' :key='index'>
+						            <tr v-for='(item, index) in ordersList' :key='index'>
 						            	<td class='stuff-order__number'>Order №{{index+1}}</td>
 										<td >
 											<table>
@@ -27,7 +27,7 @@
 										            </tr>
 										        </thead>
 										        <tbody>
-										        	<tr v-for='(dish, i) in item.collection' :key='i'>
+										        	<tr v-for='(dish, i) in item.list' :key='i'>
 														<td class="queue-name">
 										                	{{dish.title}}
 										                </td>
@@ -35,7 +35,7 @@
 											                <SelectWorker :item='dish' />
 										                </td>
 													    <td class="queue-worker">
-											                {{item.date | moment("dd, h:mm:ss a")}}
+											                {{item.createdAt | moment("dd, h:mm:ss a")}}
 										                </td>
 										                <td class="queue-status">
 										                	{{dish.status}}
@@ -48,7 +48,7 @@
 										                </td>
 														
 													</tr>
-													<tr class="done" v-if='item.collection.length === 0' >
+													<tr class="done" v-if='item.list.length === 0' >
 														<td colspan="5">
 															Order completed! <br>
 															<button @click='removeOrder(index)' class="button">Remove order</button>
@@ -107,56 +107,60 @@
 	import Banner from "@/components/Banner.vue";
 	import StateButton from "@/components/Stuff/StateButton.vue";
 	import SelectWorker from "@/components/Stuff/SelectWorker.vue";
+
 	export default {
-	  name: "home",
-	  data () {
-	  	return {
-	  		queue: this.$store.state.queue,
-	  		filtered: this.$store.state.queue,
-	  		workers: this.$store.state.workers,
-	  	}
-	  },
-	  methods: {
-	  	removeOrder (index) {
-	  		this.$store.commit('removeFromQueue', {index});
+	  	name: "stuff",
+	  	beforeCreate: function() {
+	    	this.$options.computed = {
+	       		ordersList() {
+	  	     		return this.$store.getters.Orders
+	  	 		},
+	    	}
 	  	},
-	  	filterByStatus(status) {
-	  		if (status) {
-	  			this.filtered = [];
-	  			this.filtered = this.queue.filter(item => {
-	  				let result = [];
-	  				item.collection.forEach((dish) => {
-	  					if(dish.status === status) {
-	  						result.push(item);
-	  					}
-	  				});
-	  				return result;
-	  			});
-	  		} else {
-	  			this.filtered = this.queue;
+
+	  	data () {
+	  		return {
+		  		queue: this.$store.state.queue,
+		  		filtered: this.$store.state.queue,
+		  		workers: this.$store.state.workers,
 	  		}
-	  		console.log(this.filtered)
-	  		
 	  	},
-	  	sortByDesc() {
-	  		this.filtered = this.queue.sort((a,b) => {
-	  			return a.date - b.date;
-	  		});
-	  	},
-	  	sortByAsc() {
-	  		this.filtered = this.queue.sort((a,b) => {
+	  	methods: {
+	  		removeOrder (index) {
+	  			this.$store.commit('removeFromQueue', {index});
+	  		},
+	  		filterByStatus(status) {
+		  		if (status) {
+		  			this.filtered = [];
+		  			this.filtered = this.queue.filter(item => {
+		  				let result = [];
+		  				item.collection.forEach((dish) => {
+		  					if(dish.status === status) {
+		  						result.push(item);
+		  					}
+		  				});
+		  				return result;
+		  			});
+		  		} else {
+		  			this.filtered = this.queue;
+		  		}	  		
+	  		},
+	  		sortByDesc() {
+	  			this.filtered = this.queue.sort((a,b) => {
+	  				return a.date - b.date;
+	  			});
+	  		},
+	  		sortByAsc() {
+	  			this.filtered = this.queue.sort((a,b) => {
 	  			return b.date - a.date;
-	  		});
+	  			});
+	  		},
 	  	},
-	  	goToDetail(dishId) {
-	        this.$router.push({name:'order_detail',params:{id:dishId}})
-	    }
-	  },
-	  components: {
-	    Banner,
-	    StateButton,
-	    SelectWorker
-	  }
+	  	components: {
+	    	Banner,
+	    	StateButton,
+	    	SelectWorker
+	  	}
 	};
 </script>
 <style lang="sass">
