@@ -26,6 +26,7 @@
 		  				dish.action = 'Take in order';
 	  				break;
 		  		}
+		  		this.$emit('onstate', {status: dish.status, action: dish.action, id: dish._id});
 		  	},
 		}
 		
