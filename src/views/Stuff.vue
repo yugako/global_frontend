@@ -48,13 +48,13 @@
 										                </td>
 														
 													</tr>
-													<tr class="done" v-if='item.list.length === 0' >
+													<!-- <tr class="done" v-if='item.list.length === 0' >
 														<td colspan="5">
 															Order completed! <br>
 															<button @click='removeOrder(index)' class="button">Remove order</button>
 														</td>
 														
-													</tr>  
+													</tr>   -->
 										        </tbody>
 												
 
@@ -117,15 +117,35 @@
 	  	 		},
 	    	}
 	  	},
+	  	
 
 	  	data () {
 	  		return {
 		  		queue: this.$store.state.queue,
 		  		filtered: this.$store.state.queue,
 		  		workers: this.$store.state.workers,
+		  		status: '',
+		  		action: '',
+		  		id: '',
 	  		}
 	  	},
 	  	methods: {
+	  		// stateChange (data) {
+		  	// 	this.status = data.status;
+		   //      this.action = data.action;
+		   //      console.log(data)
+		   //      this.$store.dispatch('updateOrder', {
+		   //      	id: this.id,
+		 		// 	list: [
+		 		// 		{	
+		 		// 			id: data.id,
+		 		// 			status: 'unprocessed',
+			  //   			action: 'Take in order'
+		 		// 		}
+		 		// 	]
+			    	
+		 		// })
+		  	// },
 	  		removeOrder (index) {
 	  			this.$store.commit('removeFromQueue', {index});
 	  		},
