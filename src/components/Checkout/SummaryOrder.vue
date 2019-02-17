@@ -35,6 +35,7 @@
 	  data () {
 	  	return {
 	  		cart: this.$store.state.cart,
+	  		number: localStorage.getItem('number') || 1,
 	  	}
 	  },
 	  methods: {
@@ -43,10 +44,18 @@
 	  	},
 	  	addToQueue () {
 	  		let cart = this.cart;
-	  		this.$store.dispatch('saveOrder', {
-	 			list: cart,
-		    	price: this.countTotalOrder,
-			});
+
+	  		cart.forEach((elem) => {
+		  		this.$store.dispatch('saveOrder', {
+		 			title: elem.title,
+		 			number: this.countOrder,
+			    	price: this.countTotalOrder,
+			    	action: 'Take in order',
+			    	status: 'unprocessed'
+				});
+	  		});
+	  		this.number++;
+	  		localStorage.setItem('number', this.number);
 			setTimeout(() => {
 				this.$store.commit('cleanCart', cart);
 			}, 0);
@@ -56,6 +65,9 @@
 	  computed: {
 	  	countTotalOrder () {
 	  		return this.$store.getters.countTotalOrder;
+	  	},
+	  	countOrder () {
+	  		return this.number;
 	  	}
 	  },
 	};
