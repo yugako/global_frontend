@@ -3,7 +3,7 @@
 		<Banner text='MENU DETAILS' class='details-banner' />
 	    <!-- /.menu-header -->
     	<div class="container">
-    		<div class="menu-detail" v-for='(dish,index) in dishes' :key='index'>
+    		<div class="menu-detail" v-for='(dish,index) in dishesList' :key='index'>
     			<div v-if='dish._id === proId'>
 		    		<div class="row align-items-center">
 		    			<div class="col-lg-4">
@@ -72,7 +72,7 @@
 			},
 			checkExistItem (dish) {
 
-				let result = this.$store.state.cart.find(item => item.name === dish.name);
+				let result = this.$store.state.cart.find(item => item.title === dish.title);
 
 				if(result) {
 					return true;
@@ -80,6 +80,11 @@
 					return false;
 				}
 			}
+		},
+		computed : {
+		  dishesList(){
+		     return this.$store.getters.Dishes
+		  }
 		},
 		components: {
 			Banner
