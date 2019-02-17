@@ -1,17 +1,30 @@
 <template>
 	<div class="wrapper">
-        <select name="workers">
+        <select v-model='selected' @change='selectWorker' name="workers">
     		<option disabled value="">Please choose worker</option>
-    		<option v-for='(worker, index) in workers' :value="worker.name">{{worker.name}}</option>
+    		<option v-for='(worker, index) in workersList' :value="worker.name">{{worker.name}}</option>
     	</select>
 	</div>
 	<!-- /.wrapper -->
 </template>
 <script>
 	export default {
+		props: ['item'],
+		beforeCreate: function() {
+		  this.$options.computed = {
+			 workersList(){
+			     return this.$store.getters.Workers
+			 }
+		  }
+		},
 		data () {
 			return {
-				workers: this.$store.state.workers,
+				selected: this.item.worker
+			}
+		},
+		methods: {
+			selectWorker () {
+				this.$emit('select', this.selected);
 			}
 		}
 	}
