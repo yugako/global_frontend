@@ -95,22 +95,34 @@
 	import Banner from "@/components/Banner.vue";
 	import StateButton from "@/components/Stuff/StateButton.vue";
 	import SelectWorker from "@/components/Stuff/SelectWorker.vue";
-
+	import axios from 'axios';
 	export default {
 	  	name: "stuff",
-	  	beforeCreate: function() {
-	    	this.$options.computed = {
-	       		ordersList() {
-	  	     		return this.$store.getters.Orders;
-	  	 		},
-	    	}	
-	  	},
+	  	// beforeCreate: function() {
+	   //  	this.$options.computed = {
+	   //     		ordersList() {
+	  	//      		return this.$store.getters.Orders;
+	  	//  		},
+	   //  	}	
+	  	// },
 	  	created () {
-	  		this.filtered = this.$store.state.orders;
+	  		// this.filtered = this.$store.state.orders;
+	  		axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+	  		axios.get('http://localhost:3000/orders/')
+	  			.then(response => {
+	  				this.filtered = response.data;
+	  			})
+	  			.catch(e => {
+	  				console.log(e);
+	  				if (e.response.status === 401) {
+	  					this.$store.commit('showForm');
+	  					this.$store.commit('showLogin');
+	  				}
+	  			})
 	  	},
 	  	data () {
 	  		return {
-		  		filtered: this.$store.state.orders,
+		  		filtered: [],
 		  		id: '',
 		  		title: '',
 		  		number: '',
