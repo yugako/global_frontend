@@ -8,7 +8,7 @@
 				
 			</div>
 			<div class="account">
-				<a class="account__link" @click='showForm = true'>
+				<a class="account__link" @click='showForm()'>
 					<img class="account__image" src="../assets/img/icons/user.svg" alt="">
 				</a>
 				
@@ -23,16 +23,16 @@
 
 		<!-- User login/register -->
 		<transition name="slide-fade">
-			<div class="overlayLogin" v-if='showForm'>
+			<div class="overlayLogin" v-if='this.$store.state.showForm'>
 				<div class="login-form" >
 					<ul class="login-list">
-						<li :class='{active: loginType === "login"}' @click='loginType = "login"' class="login-list__item">Login</li>
-						<li :class='{active: loginType === "register"}' @click='loginType = "register"' class="login-list__item">Register</li>
+						<li :class='{active: this.$store.state.loginType === "login"}' @click='showLogin()' class="login-list__item">Login</li>
+						<li :class='{active: this.$store.state.loginType === "register"}' @click='showRegister()' class="login-list__item">Register</li>
 					</ul>
 					
 					<component :is="componentInstance" />
 
-				    <span class="close" @click='showForm = false'>&times;</span>
+				    <span class="close" @click='hideForm()'>&times;</span>
 				</div>
 			</div>
 			
@@ -102,16 +102,25 @@ export default {
   name: "navigation",
   data () {
   	return {
-  		showForm: false,
   		showOrderPreview: false,
-  		loginType: 'login',
   		cart: this.$store.state.cart,
-  		countItems: this.$store.state.countItems,
   	}
   },
   methods: {
   	removeFromCart (index) {
   		this.$store.commit('removeFromCart', {index});
+  	},
+  	showForm () {
+  		this.$store.commit('showForm');
+  	},
+  	hideForm() {
+  		this.$store.commit('hideForm');
+  	},
+  	showLogin() {
+  		this.$store.commit('showLogin');
+  	},
+  	showRegister() {
+  		this.$store.commit('showRegister');
   	}
   },
   computed: {
@@ -119,7 +128,7 @@ export default {
   		return this.$store.getters.countTotalOrder;
   	},
   	componentInstance () {
-      return this.loginType === 'login' ? 'LogIn' : 'Register';
+      return this.$store.state.loginType === 'login' ? 'LogIn' : 'Register';
     }
   },
   components: {
