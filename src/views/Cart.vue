@@ -55,7 +55,7 @@
 		            <div class="cartbox__total__area">
 		                <div class="cartbox__total__amount">
 		                    <span>Grand Total</span>
-		                    <span>{{countTotalOrder}}</span>
+		                    <span>{{totalPrice}}</span>
 		                </div>
 		                <div class="cartbox__order">
 		                	<router-link to='/payment'>Take order</router-link>
@@ -76,7 +76,7 @@ export default {
   name: "cart",
   data () {
   	return {
-  		cart: this.$store.state.cart,
+  		cart: this.$store.state.cart.cart,
   	}
   },
   methods: {
@@ -88,7 +88,7 @@ export default {
   	}
   },
   computed: {
-  	countTotalOrder () {
+  	totalPrice () {
   		return this.$store.getters.countTotalOrder;
   	},	
   },
