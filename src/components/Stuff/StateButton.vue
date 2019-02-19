@@ -22,7 +22,7 @@
 		  				break;
 		  			case 'Remove':
 		  				this.$store.dispatch('deleteOrder', dish._id);
-		  				dish.status = 'uprocessed';
+		  				dish.status = 'Uprocessed';
 		  				dish.action = 'Take in order';
 	  				break;
 		  		}
