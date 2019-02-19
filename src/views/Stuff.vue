@@ -47,7 +47,9 @@
 						                    </td>
 						    				
 						    			</tr>
-						    
+						    			<tr>
+						    				<td class='empty' v-if='filtered.length === 0' colspan="7">No dishes in queue</td>
+						    			</tr>
 						            </tbody>
 						    		
 
@@ -68,8 +70,8 @@
 							<ul class="stuff-filters__list state">
 								<li class="stuff-filters__item" @click='filterByStatus()'>All</li>
 								<li class="stuff-filters__item" @click='filterByStatus("unprocessed")'>Unprocessed</li>
-								<li class="stuff-filters__item" @click='filterByStatus("processing")'>Processing</li>
-								<li class="stuff-filters__item" @click='filterByStatus("done")'>Completed</li>
+								<li class="stuff-filters__item" @click='filterByStatus("Processing")'>Processing</li>
+								<li class="stuff-filters__item" @click='filterByStatus("Done")'>Completed</li>
 							</ul>
 						</div>
 						<!-- /.stuff-filters__state -->
@@ -98,19 +100,12 @@
 	import axios from 'axios';
 	export default {
 	  	name: "stuff",
-	  	// beforeCreate: function() {
-	   //  	this.$options.computed = {
-	   //     		ordersList() {
-	  	//      		return this.$store.getters.Orders;
-	  	//  		},
-	   //  	}	
-	  	// },
 	  	created () {
-	  		// this.filtered = this.$store.state.orders;
 	  		axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
 	  		axios.get('http://localhost:3000/orders/')
 	  			.then(response => {
-	  				this.filtered = response.data;
+	  				this.orders = response.data;
+	  				this.filtered = this.orders.slice(0, this.orders.length);
 	  			})
 	  			.catch(e => {
 	  				console.log(e);
@@ -133,6 +128,7 @@
 	  	},
 	  	data () {
 	  		return {
+	  			orders: [],
 		  		filtered: [],
 		  		id: '',
 		  		title: '',
@@ -170,10 +166,11 @@
 		  	},
 	  		filterByStatus(status) {
 		  		if (status) {
-		  			this.filtered = [];
-		  			this.filtered = this.ordersList.filter(item => item.status.toLowerCase() === status);
+		  			this.filtered = this.orders.filter(item => {
+		  				return item.status === status;
+		  			});
 		  		} else {
-		  			this.filtered = this.ordersList;
+		  			this.filtered = this.orders;
 		  		}	  		
 	  		},
 	  		sortByDesc() {
