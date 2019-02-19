@@ -47,20 +47,7 @@
 		
 
 		<!-- User login/register -->
-		<transition name="slide-fade">
-			<div class="overlayLogin" v-if='this.$store.state.showForm'>
-				<div class="login-form" >
-					<ul class="login-list">
-						<li :class='{active: this.$store.state.loginType === "login"}' @click='showLogin()' class="login-list__item">Login</li>
-						<li :class='{active: this.$store.state.loginType === "register"}' @click='showRegister()' class="login-list__item">Register</li>
-					</ul>
-					
-					<component :is="componentInstance" />
-
-				    <span class="close" @click='hideForm()'>&times;</span>
-				</div>
-			</div>
-		</transition>
+		<overlayLogin />
 		<!-- End user login/register -->
 		<!-- Start order preview -->
 		<transition name="slide-fade">
@@ -119,8 +106,7 @@
 </template>
 <script>
 // @ is an alias to /src
-import LogIn from '@/components/Signin/LogIn.vue';
-import Register from '@/components/Signin/Register.vue';
+import overlayLogin from '@/components/Signin/overlayLogin.vue';
 
 export default {
   name: "navigation",
@@ -144,15 +130,6 @@ export default {
   	showForm () {
   		this.$store.commit('showForm');
   	},
-  	hideForm() {
-  		this.$store.commit('hideForm');
-  	},
-  	showLogin() {
-  		this.$store.commit('showLogin');
-  	},
-  	showRegister() {
-  		this.$store.commit('showRegister');
-  	},
   	logout () {
   	    localStorage.removeItem('jwtToken');
   	    this.$store.commit('isLogOut');
@@ -165,13 +142,10 @@ export default {
   	countTotal () {
   		return this.$store.getters.countTotalOrder;
   	},
-  	componentInstance () {
-      return this.$store.state.loginType === 'login' ? 'LogIn' : 'Register';
-    }
+  	
   },
   components: {
-    LogIn,
-    Register
+    overlayLogin
   }
 };
 </script>
