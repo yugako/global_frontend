@@ -34,11 +34,10 @@
 		data () {
 			return {
 				proId: this.$route.params.id,
-				workers: this.$store.state.workers,
+				workers: this.$store.state.workers.workers,
 				
 			}
 		},
-		
 		components: {
 			Banner,
 			EditWorker
