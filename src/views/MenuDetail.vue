@@ -58,7 +58,7 @@
 		data () {
 			return {
 				proId:this.$route.params.id,
-				dishes: this.$store.state.dishes,
+				dishes: this.$store.state.dishes.dishes,
 			}
 		},
 		methods: {
@@ -72,7 +72,7 @@
 			},
 			checkExistItem (dish) {
 
-				let result = this.$store.state.cart.find(item => item.title === dish.title);
+				let result = this.$store.state.cart.cart.find(item => item.title === dish.title);
 
 				if(result) {
 					return true;
