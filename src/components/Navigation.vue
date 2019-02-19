@@ -32,7 +32,7 @@
 					</a>
 					<a class="account__link" @click='showOrderPreview = true'>
 						<img class="account__image" src="../assets/img/icons/cart.svg" alt="">
-						<span class="count">{{this.$store.state.countItems}}</span>
+						<span class="count">{{this.$store.state.cart.countItems}}</span>
 					</a>
 				</template>
 				
@@ -44,8 +44,6 @@
 		<!-- /.row -->
 		</div>
 		<!-- /.wrapper-nav -->
-		
-
 		<!-- User login/register -->
 		<overlayLogin />
 		<!-- End user login/register -->
@@ -87,7 +85,7 @@
 					<!-- /.order-preview__items -->
 					<div class="total">
 						<span class="total-title">Total:</span>
-						<span class="total-price">{{countTotal}}</span>
+						<span class="total-price">{{countTotalOrder}}</span>
 					</div>
 					<!-- /.total -->
 					<div class="order-preview__buttons">
@@ -115,12 +113,15 @@ export default {
        logged () {
        		return this.$store.getters.logged;
        },
+       countTotalOrder () {
+  		return this.$store.getters.countTotalOrder;
+  	},
     }
   },
   data () {
   	return {
   		showOrderPreview: false,
-  		cart: this.$store.state.cart,
+  		cart: this.$store.state.cart.cart,
   	}
   },
   methods: {
@@ -137,12 +138,6 @@ export default {
   	      name: 'home'
   	    })
   	  }
-  },
-  computed: {
-  	countTotal () {
-  		return this.$store.getters.countTotalOrder;
-  	},
-  	
   },
   components: {
     overlayLogin
