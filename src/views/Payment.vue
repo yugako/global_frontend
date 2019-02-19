@@ -10,10 +10,6 @@
 						</div>
 						<!-- /.payment-item -->
 						<div class="payment-item">
-							<ShippingForm />
-						</div>
-						<!-- /.payment-item -->
-						<div class="payment-item">
 							<PaymentForm />
 						</div>
 						<!-- /.payment-item -->
@@ -37,7 +33,6 @@
 	// @ is an alias to /src
 	import Banner from "@/components/Banner.vue";
 	import BillingForm from "@/components/Checkout/BillingForm.vue";
-	import ShippingForm from "@/components/Checkout/ShippingForm.vue";
 	import PaymentForm from "@/components/Checkout/PaymentForm.vue";
 	import SummaryOrder from "@/components/Checkout/SummaryOrder.vue";
 
@@ -51,7 +46,6 @@
 	  components: {
 	    Banner,
 	    BillingForm,
-	    ShippingForm,
 	    PaymentForm,
 	    SummaryOrder
 	  }
