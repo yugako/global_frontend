@@ -1,10 +1,10 @@
 <template>
 	<transition name="slide-fade">
-			<div class="overlayLogin" v-if='this.$store.state.showForm'>
+			<div class="overlayLogin" v-if='this.$store.state.form.showForm'>
 				<div class="login-form" >
 					<ul class="login-list">
-						<li :class='{active: this.$store.state.loginType === "login"}' @click='showLogin()' class="login-list__item">Login</li>
-						<li :class='{active: this.$store.state.loginType === "register"}' @click='showRegister()' class="login-list__item">Register</li>
+						<li :class='{active: this.$store.state.form.loginType === "login"}' @click='showLogin()' class="login-list__item">Login</li>
+						<li :class='{active: this.$store.state.form.loginType === "register"}' @click='showRegister()' class="login-list__item">Register</li>
 					</ul>
 					
 					<component :is="componentInstance" />
@@ -37,7 +37,7 @@
 		},
 		computed: {
 			componentInstance () {
-			   return this.$store.state.loginType === 'login' ? 'LogIn' : 'Register';
+			   return this.$store.state.form.loginType === 'login' ? 'LogIn' : 'Register';
 			}
 		},
 		components: {
