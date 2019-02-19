@@ -22,7 +22,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button @click='addToQueue()' :disabled='this.$store.state.cart.length === 0' class="submit">Place order</button>
+			<button @click='addToQueue()' :disabled='this.$store.state.cart.cart.length === 0' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
 	</div>
@@ -33,7 +33,7 @@
 	  name: "SummaryOrder",
 	  data () {
 	  	return {
-	  		cart: this.$store.state.cart,
+	  		cart: this.$store.state.cart.cart,
 	  		number: localStorage.getItem('number') || 1,
 	  	}
 	  },
