@@ -74,9 +74,6 @@
 		},
 		methods: {
 			addToMenu () {
-				// if(this.validationValue(this.) {
-					
-				// }
 				this.save = true;
 				this.message = 'Saved!';
 				let self = this;
