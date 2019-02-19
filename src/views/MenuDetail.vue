@@ -57,8 +57,7 @@
 	export default {
 		data () {
 			return {
-				proId:this.$route.params.id,
-				dishes: this.$store.state.dishes.dishes,
+				proId:this.$route.params.id
 			}
 		},
 		methods: {
