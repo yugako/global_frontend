@@ -22,8 +22,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button @click='addToQueue()' class="submit">Place order</button>
-			<router-link to='/stuff'>Go to stuff page</router-link>
+			<button @click='addToQueue()' :disabled='this.$store.state.cart.length === 0' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
 	</div>
