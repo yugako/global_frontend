@@ -34,7 +34,7 @@
 		data () {
 			return {
 				proId: this.$route.params.id,
-				dishes: this.$store.state.dishes,
+				dishes: this.$store.state.dishes.dishes,
 			}
 		},
 		components: {
