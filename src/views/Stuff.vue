@@ -119,7 +119,7 @@
 	  			})
 	  	},
 	  	beforeRouteLeave(to, from, next) {
-	  		if(!this.$store.state.logged) {
+	  		if(!this.$store.state.login.logged) {
 	  			next();
 	  		} else {
 	  			next(false);
