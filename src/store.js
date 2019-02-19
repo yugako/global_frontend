@@ -13,17 +13,17 @@ export default new Vuex.Store({
 		orders: [],
 		countItems: 0,
 		loginType: 'login',
-		logged: localStorage.getItem('log'),
+		logged: JSON.parse(localStorage.getItem('log')),
 		showForm: false,
   	},
   	mutations: {
   		isLogIn (state) {
   			state.logged = true;
-  			localStorage.setItem('log', state.logged)
+  			localStorage.setItem('log', JSON.stringify(state.logged))
   		},
   		isLogOut (state) {
   			state.logged = false;
-  			localStorage.setItem('log', state.logged)
+  			localStorage.setItem('log', JSON.stringify(state.logged))
   		},
   		showForm (state) {
   			state.showForm = true;
@@ -115,6 +115,9 @@ export default new Vuex.Store({
 		},
 		Orders : state => {
 		  	return state.orders;
+		},
+		logged: state => {
+			return state.logged;
 		},
 		countTotalOrder: state => {
 			let arr = state.cart;
