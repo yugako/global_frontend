@@ -7,6 +7,13 @@
 	        <input type="password" v-model.trim="login.password" placeholder="Password">
 	    </div>
 	    <div class="single-input">
+	    	<label for="role">
+	    		Is admin?
+	    		<input type="checkbox" v-model="checked">
+	    	</label>
+	        
+	    </div>
+	    <div class="single-input">
 	        <button type="submit" class="food__btn"><span>Go</span></button>
 	    </div>
 	</form>
@@ -17,17 +24,34 @@
 		name: 'login',
 		data () {
 			return {
-				login:{},
-				errors: []
+				checked: '',
+				login:{
+					name: '',
+					password: '',
+					role: ''
+				},
+				errors: [],
 			}
 		},
 		methods: {
 			onSubmit() {
+				this.login.role = this.setRole;
 				axios.post('http://localhost:3000/login/', this.login)
 					.then(response => {
+						console.log(response);
 						localStorage.setItem('jwtToken', response.data.token)
+						this.$store.commit('isLogIn');
 						this.$store.commit('hideForm');
-						this.$store.dispatch("getOrders");
+						if (response.data.role.toLowerCase() === 'admin') {
+							this.$router.push({
+						    	name: 'admin'
+							})
+						} else {
+							this.$router.push({
+							    name: 'stuff'
+							})
+						}
+						
 					})
 					.catch(e => {
 						console.log(e)
@@ -36,6 +60,11 @@
 			},
 			register() {
 				this.$store.commit('showRegister');
+			}
+		},
+		computed: {
+			setRole() {
+				return this.checked ? 'admin' : 'stuff';
 			}
 		}
 	}
