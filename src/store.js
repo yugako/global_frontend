@@ -13,9 +13,18 @@ export default new Vuex.Store({
 		orders: [],
 		countItems: 0,
 		loginType: 'login',
+		logged: localStorage.getItem('log'),
 		showForm: false,
   	},
   	mutations: {
+  		isLogIn (state) {
+  			state.logged = true;
+  			localStorage.setItem('log', state.logged)
+  		},
+  		isLogOut (state) {
+  			state.logged = false;
+  			localStorage.setItem('log', state.logged)
+  		},
   		showForm (state) {
   			state.showForm = true;
   		},
