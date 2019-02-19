@@ -115,10 +115,21 @@
 	  			.catch(e => {
 	  				console.log(e);
 	  				if (e.response.status === 401) {
+	  					this.$router.push({
+	  					    name: 'home'
+	  					});
 	  					this.$store.commit('showForm');
 	  					this.$store.commit('showLogin');
 	  				}
 	  			})
+	  	},
+	  	beforeRouteLeave(to, from, next) {
+	  		if(!this.$store.state.logged) {
+	  			next();
+	  		} else {
+	  			next(false);
+	  		}
+	  		
 	  	},
 	  	data () {
 	  		return {
