@@ -15,6 +15,7 @@ export default new Vuex.Store({
 		loginType: 'login',
 		logged: JSON.parse(localStorage.getItem('log')),
 		showForm: false,
+		cartPreview: false,
   	},
   	mutations: {
   		isLogIn (state) {
@@ -27,6 +28,12 @@ export default new Vuex.Store({
   		},
   		showForm (state) {
   			state.showForm = true;
+  		},
+  		showCartPreview(state) {
+  			state.cartPreview = true;
+  		},
+  		hideCartPreview(state) {
+  			state.cartPreview = false;
   		},
   		hideForm (state) {
   			state.showForm = false;
@@ -118,6 +125,9 @@ export default new Vuex.Store({
 		},
 		logged: state => {
 			return state.logged;
+		},
+		CartPreview: state => {
+			return state.cartPreview;
 		},
 		countTotalOrder: state => {
 			let arr = state.cart;
