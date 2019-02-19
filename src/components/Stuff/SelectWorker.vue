@@ -2,7 +2,9 @@
 	<div class="wrapper">
         <select v-model='selected' @change='selectWorker' name="workers">
     		<option disabled value="">Please choose worker</option>
-    		<option v-for='(worker, index) in workersList' :value="worker.name">{{worker.name}}</option>
+    		<option v-for='(worker, index) in workersList' v-if='worker.role === "stuff"' :value="worker.name">
+    			{{worker.name}}
+    		</option>
     	</select>
 	</div>
 	<!-- /.wrapper -->
