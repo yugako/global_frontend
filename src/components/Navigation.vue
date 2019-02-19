@@ -8,11 +8,15 @@
 				
 			</div>
 			<div class="account">
-				<a class="account__link" @click='showForm()'>
+				<a class="account__link" v-if='!this.$store.state.logged' @click='showForm()'>
+
 					<img class="account__image" src="../assets/img/icons/user.svg" alt="">
 				</a>
-				
-				<a class="account__link" @click='showOrderPreview = true'>
+				<a class="account__link" v-else @click='logout()'>
+					LogOut
+					<img class="account__image" src="../assets/img/icons/sign-out.svg" alt="">
+				</a>
+				<a class="account__link" v-if='!this.$store.state.logged' @click='showOrderPreview = true'>
 					<img class="account__image" src="../assets/img/icons/cart.svg" alt="">
 					<span class="count">{{this.$store.state.countItems}}</span>
 				</a>
@@ -23,7 +27,7 @@
 
 		<!-- User login/register -->
 		<transition name="slide-fade">
-			<div class="overlayLogin" v-if='this.$store.state.showForm'>
+			<div class="overlayLogin" v-if='this.$store.state.showForm && !this.$store.state.logged'>
 				<div class="login-form" >
 					<ul class="login-list">
 						<li :class='{active: this.$store.state.loginType === "login"}' @click='showLogin()' class="login-list__item">Login</li>
@@ -35,7 +39,6 @@
 				    <span class="close" @click='hideForm()'>&times;</span>
 				</div>
 			</div>
-			
 		</transition>
 		<!-- End user login/register -->
 		<!-- Start order preview -->
@@ -121,7 +124,14 @@ export default {
   	},
   	showRegister() {
   		this.$store.commit('showRegister');
-  	}
+  	},
+  	logout () {
+  	    localStorage.removeItem('jwtToken');
+  	    this.$store.commit('isLogOut');
+  	    this.$router.push({
+  	      name: 'home'
+  	    })
+  	  }
   },
   computed: {
   	countTotal () {
