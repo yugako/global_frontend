@@ -6,12 +6,11 @@
 	    <div class="single-input">
 	        <input type="password" v-model.trim="login.password" placeholder="Password">
 	    </div>
-	    <div class="single-input">
-	    	<label for="role">
+	    <div class="single-input check">
+	        <input id='role' type="checkbox" v-model="checked">
+	        <label for="role">
 	    		Is admin?
-	    		<input type="checkbox" v-model="checked">
 	    	</label>
-	        
 	    </div>
 	    <div class="single-input">
 	        <button type="submit" class="food__btn"><span>Go</span></button>
