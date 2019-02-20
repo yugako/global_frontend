@@ -35,9 +35,6 @@
 						<span class="count">{{this.$store.state.cart.countItems}}</span>
 					</a>
 				</template>
-				
-				
-				
 			</div>
 			<!-- /.account -->
 		</div>
