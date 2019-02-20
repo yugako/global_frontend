@@ -13,7 +13,7 @@
 					<!-- /.cart-error -->
 					<div class="order-preview__item" v-for='(item, index) in cart' :key='index'>
 						<div class="order-preview__item_thumb">
-							<img src="@/assets/img/menu-list/placeImg.jpg" :alt='item.title'>
+							<img :src="item.img" :alt='item.title'>
 						</div>
 						<!-- /.order-preview__item_thumb -->
 						<div class="order-preview__item_content">

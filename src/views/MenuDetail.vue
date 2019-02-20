@@ -7,7 +7,7 @@
     			<div v-if='dish._id === proId'>
 		    		<div class="row align-items-center">
 		    			<div class="col-lg-4">
-		    				<img src="@/assets/img/menu-list/placeImg.jpg"  alt="" class="menu-detail__photo img-responsive">
+		    				<img :src="dish.img"  alt="" class="menu-detail__photo img-responsive">
 		    			</div>
 		    			<!-- /.col-lg-4 -->
 		    			<div class="col-lg-8">

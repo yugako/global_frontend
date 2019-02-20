@@ -8,7 +8,7 @@
         <div class="row">
               <div class="col-12 col-lg-6">
                   <div class="menu-item__img">
-                    <img src="@/assets/img/menu-list/placeImg.jpg" class="img-responsive" :alt="dish.title">
+                    <img :src="dish.img" class="img-responsive" :alt="dish.title">
                   </div>
                   <!-- /.menu-list__img -->
               </div>

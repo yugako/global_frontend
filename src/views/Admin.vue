@@ -63,7 +63,7 @@
 							        <tbody>
 							            <tr v-for='(dish, index) in dishesList' :key='dish._id'>
 							                <td class="product-thumbnail">
-							                	<img src="@/assets/img/menu-list/placeImg.jpg" alt="product img" />
+							                	<img :src="dish.img" alt="product img" />
 							                </td>
 							                <td class="product-name">
 							                	{{dish.title}}

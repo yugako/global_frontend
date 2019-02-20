@@ -22,7 +22,7 @@
 	                            <tr v-for='(item, index) in cart' :key='index'>
 	                                <td class="product-thumbnail">
 	                                	<a href="#">
-	                                		<img src="@/assets/img/menu-list/placeImg.jpg" :alt="item.title" />
+	                                		<img :src="item.img" :alt="item.title" />
 	                                	</a>
 	                                </td>
 	                                <td class="product-name">
