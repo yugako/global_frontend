@@ -36,7 +36,11 @@
 		methods: {
 			onSubmit() {
 				this.login.role = this.setRole;
-				axios.post('http://localhost:3000/login/', this.login)
+				let url = 'http://localhost:3000/login/';
+				if(this.login.role === 'admin') {
+					url = 'http://localhost:3000/login-admin/';
+				}
+				axios.post(url, this.login)
 					.then(response => {
 						console.log(response);
 						localStorage.setItem('jwtToken', response.data.token)
