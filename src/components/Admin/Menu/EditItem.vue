@@ -15,13 +15,9 @@
 	        	<label for="weight">Weight, g</label>
 	            <input required v-model='weight' placeholder="Weight" type="text">
 	        </div>
-	        <!-- <div class="col-12">
-	         	<label for="img">Path to image</label>                              
-	            <input required v-model='dish.img' id="img" type="text" placeholder="Path to image">
-	        </div>  -->
 	        <div class="col-12">
 	        	<label for="image">Select image</label>
-	            <PreviewImage id='image' :currentImage='dish.img' />
+	            <PreviewImage id='image' @getImg='getSrc' :currentImage='dish.img' />
 	        </div> 
 	        <div class="col-12">
 	        	<label for="excerpt">Short description</label>
@@ -57,7 +53,8 @@
 				excerpt: this.dish.excerpt,
 				description: this.dish.description,
 				ingradients: this.dish.ingradients,
-				weight: this.dish.weight,	
+				weight: this.dish.weight,
+				imageSrc: this.dish.img	
 			}
 			
 		},
@@ -68,6 +65,7 @@
 		 		this.$store.dispatch('updateDishes', {
 		 			id: self.dish._id,
 		 			title: self.title,
+		 			img: self.imageSrc,
 			    	quantity: self.quantity,
 			    	price: self.price,
 			    	excerpt: self.excerpt,
@@ -77,7 +75,10 @@
 			    	status: 'unprocessed',
 			    	action: 'Take in order'
 		 		})
-		 	}
+		 	},
+		 	getSrc (data) {
+		        this.imageSrc = data;
+		    },
 		},
 		components: {
 			PreviewImage
