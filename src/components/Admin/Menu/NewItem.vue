@@ -21,8 +21,6 @@
 						            <input required v-model.number='weight' placeholder="Weight" type="text">
 						        </div>
 						        <div class="col-12">
-						         	<!-- <label for="img">Path to image</label>                              
-						            <input required v-model='img' id="img" type="text" placeholder="Path to image"> -->
 						            <PreviewImage @getImg='getSrc' />
 						        </div> 
 						        <div class="col-12">
@@ -69,6 +67,7 @@
 				description: '',
 				ingradients: '',
 				weight: 0,
+				imageSrc: '',
 				
 			}
 		},
@@ -80,6 +79,7 @@
 
 				this.$store.dispatch('saveDish', {
 		 			title: self.title,
+		 			img: self.imageSrc,
 			    	quantity: self.quantity,
 			    	price: self.price,
 			    	excerpt: self.excerpt,
@@ -98,6 +98,7 @@
 			},
 			getSrc (data) {
 		        this.imageSrc = data;
+		        console.log(this.imageSrc);
 		    },
 		    validationValue(values) {
 		    	let result = [];
