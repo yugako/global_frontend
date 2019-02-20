@@ -18,7 +18,7 @@
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr v-for='(worker,index) in workersList' :key='worker._id'>
+							            <tr v-for='(worker,index) in workers' :key='worker._id'>
 							                <td class="worker-name">
 							                	{{worker.name}}
 							                </td>
@@ -103,20 +103,43 @@
 	import Banner from "@/components/Banner.vue";
 	
 	export default {
+		created () {
+			axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+			axios.get('http://localhost:3000/workers/')
+				.then(response => {
+					this.workers = response.data;
+				})
+				.catch(e => {
+					console.log(e);
+					if (e.response.status === 401) {
+						this.$router.push({
+						    name: 'home'
+						});
+						this.$store.commit('showForm');
+						this.$store.commit('showLogin');
+					}
+				})
+		},
+		beforeRouteLeave(to, from, next) {
+			if(!this.$store.state.login.logged) {
+				next();
+			} else {
+				next(false);
+			}
+			
+		},
 		beforeCreate: function() {
 		  this.$options.computed = {
 		     dishesList(){
 			     return this.$store.getters.Dishes
 			 },
-			 workersList(){
-			     return this.$store.getters.Workers
-			 }
 		  }
 		},
 		data () {
 			return {
 				showWorkers: false,
 				showDishes: true,
+				workers: []
 			}
 		},
 		methods: {
