@@ -114,6 +114,12 @@ body
 	max-width: 475px
 	width: 100%
 	position: relative
+	&__title
+		font-weight: 500
+		margin-bottom: 20px
+		font-family: "Open Sans", sans-serif
+		font-style: normal
+		color: #d50c0d
 .food__btn
     border-radius: 5px
     color: #fff
@@ -127,7 +133,7 @@ body
     background-color: #d50c0d
     border: none
 .single-input
-	input
+	input[type='text'], input[type='password']
 	    border: 1px solid #aaaaaa
 	    background: transparent
 	    font-size: 14px
@@ -139,6 +145,18 @@ body
 	    display: block
 	    border-radius: 100px
 	    font-family: 'Open Sans', sans-serif
+.check
+	input, label
+		display: inline
+	input[type='checkbox']
+		max-width: 100%
+	label
+		font-weight: 500
+		margin-bottom: 0
+		font-family: "Open Sans", sans-serif
+		font-style: normal
+		font-size: 15px
+		color: #444
 .close
 	position: absolute
 	top: 0px
