@@ -8,6 +8,12 @@
 		        	</label>                                 
 		            <input required v-model='name' type="text" id="name" placeholder="Name">
 		        </div>
+		        <div class="col-md-12 col-12">
+		        	<label for='name'>
+		        		Worker username:	
+		        	</label>                                 
+		            <input required v-model='username' type="text" id="name" placeholder="Name">
+		        </div>
 		        <div class="col-12 col-md-12">
 		        	<label for="password">Worker password</label>
 		            <input required placeholder="Password" id="password" v-model='password' type="text">
@@ -29,6 +35,7 @@
 			return {
 				save: false,
 				error: false,
+				username: this.worker.username,
 				name: this.worker.name,
 				password: this.worker.password,
 			}
@@ -37,6 +44,7 @@
 			updateWorker () {
 				this.$store.dispatch('updateWorkers', {
 		 			id: this.worker._id,
+		 			username: this.username,
 		 			name: this.name,
 			    	password: this.password,
 		 		})
