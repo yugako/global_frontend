@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="onSubmit">
-	    <div class="single-input">
-	        <input type="text" v-model.trim='login.name' placeholder="User name">
+		<div class="single-input">
+	        <input type="text" v-model.trim='login.username' placeholder="User name">
 	    </div>
 	    <div class="single-input">
 	        <input type="password" v-model.trim="login.password" placeholder="Password">
@@ -25,7 +25,7 @@
 			return {
 				checked: '',
 				login:{
-					name: '',
+					username: '',
 					password: '',
 					role: ''
 				},
@@ -36,13 +36,11 @@
 			onSubmit() {
 				this.login.role = this.setRole;
 				let url = 'http://localhost:3000/login/';
-				if(this.login.role === 'admin') {
-					url = 'http://localhost:3000/login-admin/';
-				}
+				
 				axios.post(url, this.login)
 					.then(response => {
 						console.log(response);
-						localStorage.setItem('jwtToken', response.data.token)
+						
 						this.$store.commit('isLogIn');
 						this.$store.commit('hideForm');
 						if (response.data.role.toLowerCase() === 'admin') {
@@ -52,15 +50,16 @@
 						} else {
 							this.$router.push({
 							    name: 'stuff'
-							})
+							})	
 						}
 						
 					})
 					.catch(e => {
-						console.log(e)
+						console.log(e.response)
 						this.errors.push(e)
 					})
 			},
+			
 			register() {
 				this.$store.commit('showRegister');
 			}
