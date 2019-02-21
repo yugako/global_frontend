@@ -12,6 +12,12 @@
 						        	</label>                                 
 						            <input required v-model='name' type="text" id="name" placeholder="Name">
 						        </div>
+						        <div class="col-md-12 col-12">
+						        	<label for='name'>
+						        		Worker username:	
+						        	</label>                                 
+						            <input required v-model='username' type="text" id="name" placeholder="Username">
+						        </div>
 						        <div class="col-12 col-md-6">
 						        	<label for="password">Password</label>
 						            <input required v-model='password' placeholder="Price" id="price" type="text">
@@ -42,6 +48,7 @@
 				message: '',
 				name: '',
 				password: '',
+				role: '' 
 				
 			}
 		},
@@ -51,8 +58,10 @@
 				this.message = 'Saved!';
 				
 				this.$store.dispatch('saveWorker', {
+					username: this.username,
 		 			name: this.name,
 			    	password: this.password,
+			    	role: this.role || 'stuff'
 				})
 				setTimeout(() => {
 					this.save = false;
