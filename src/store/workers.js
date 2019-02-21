@@ -22,23 +22,23 @@ export default {
 	},
 	actions: {
 	   	getWorkers : async (context,payload) => {
-		  	let { data } = await axios.get('http://localhost:3000/workers')
+		  	let { data } = await axios.get('http://localhost:3000/users')
 		  	context.commit('fillWorkers', data)
 		},
 		saveWorker (context, payload) {
-		  	axios.post('http://localhost:3000/workers/', payload)
+		  	axios.post('http://localhost:3000/register/', payload)
 				.then(() => {              
 					context.commit('addWorker', payload)
 				});
 	   	},
 	   	updateWorkers (context, payload) {
-		  	axios.put('http://localhost:3000/workers/' + payload.id, payload)
+		  	axios.put('http://localhost:3000/users/' + payload.id, payload)
 				.then(() => {              
 					context.commit('updateWorker', payload)
 				});
 	   	},
 	   	deleteWorkers (context, id) {
-		  	axios.delete('http://localhost:3000/workers/' + id)
+		  	axios.delete('http://localhost:3000/users/' + id)
 			 	.then(() => {              
 				 	context.commit('deleteWorker', id)
 			  	});
