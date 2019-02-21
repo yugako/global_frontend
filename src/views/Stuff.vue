@@ -101,8 +101,8 @@
 	export default {
 	  	name: "stuff",
 	  	created () {
-	  		axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-	  		axios.get('http://localhost:3000/orders/')
+	  		if(this.$store.getters.logged) {
+	  			axios.get('http://localhost:3000/orders/')
 	  			.then(response => {
 	  				this.orders = response.data;
 	  				this.filtered = this.orders.slice(0, this.orders.length);
@@ -117,6 +117,14 @@
 	  					this.$store.commit('showLogin');
 	  				}
 	  			})
+	  		} else {
+	  			this.$router.push({
+	  			    name: 'home'
+	  			});
+	  			this.$store.commit('showForm');
+	  			this.$store.commit('showLogin');
+	  		}
+	  		
 	  	},
 	  	beforeRouteLeave(to, from, next) {
 	  		if(!this.$store.state.login.logged) {
