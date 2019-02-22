@@ -18,6 +18,7 @@ export default {
   created() {
     this.$store.dispatch("getDishes")
     this.$store.dispatch("getWorkers")
+    this.$store.dispatch("getOrders")
   },
   components: {
     Navigation,
