@@ -46,6 +46,7 @@
 				save: false,
 				error: false,
 				message: '',
+				username: '',
 				name: '',
 				password: '',
 				role: '' 
