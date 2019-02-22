@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
 	state: {
 		workers: [],
+		showWorkers: false,
 	},
 	mutations: {
 		fillWorkers (state, payload) {
@@ -18,6 +19,9 @@ export default {
 		deleteWorker(state, id){
 		  	let index = state.workers.findIndex(worker => worker.id == id)
 		  	state.workers.splice(index, 1)
+		},
+		toggleWorkersList(state) {
+		  state.showWorkers = !state.showWorkers;
 		},
 	},
 	actions: {
@@ -48,5 +52,8 @@ export default {
 		Workers : state => {
 		  	return state.workers;
 		},
+		ShowWorkers: state => {
+		  return state.showWorkers;
+		}
 	}
 }
