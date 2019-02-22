@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
   	state: {
   		dishes: [],
+      showDishes: false,
   	},
   	mutations: {
   		fillDishes(state, payload) {
@@ -19,6 +20,10 @@ export default {
   		  	let index = state.dishes.findIndex(dish => dish.id == id)
   		  	state.dishes.splice(index, 1)
   		},
+      toggleDishesList(state) {
+        state.showDishes = !state.showDishes;
+      },
+      
   	},
   	actions: {
 		getDishes : async (context,payload) => {
@@ -48,5 +53,8 @@ export default {
 	  	Dishes : state => {
 	  	  	return state.dishes;
 	  	},
+      ShowDishes: state => {
+        return state.showDishes;
+      }
   	}
 }
