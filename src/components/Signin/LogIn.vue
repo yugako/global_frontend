@@ -1,10 +1,11 @@
 <template>
 	<form @submit.prevent="onSubmit">
+		<div class="error-message" v-if='errors'>Incorrect username/password or role. <br> Please check it and try again.</div>
 		<div class="single-input">
-	        <input type="text" v-model.trim='login.username' placeholder="User name">
+	        <input type="text" v-model.trim='login.username' required placeholder="User name">
 	    </div>
 	    <div class="single-input">
-	        <input type="password" v-model.trim="login.password" placeholder="Password">
+	        <input type="password" v-model.trim="login.password" required placeholder="Password">
 	    </div>
 	    <div class="single-input check">
 	        <input id='role' type="checkbox" v-model="checked">
@@ -24,12 +25,12 @@
 		data () {
 			return {
 				checked: '',
+				errors: false,
 				login:{
 					username: '',
 					password: '',
 					role: ''
 				},
-				errors: [],
 			}
 		},
 		methods: {
@@ -39,10 +40,11 @@
 				
 				axios.post(url, this.login)
 					.then(response => {
-						console.log(response);
-						
+						this.errors = false;
+						this.$store.commit('setUserName', response.data.user.name);
 						this.$store.commit('isLogIn');
 						this.$store.commit('hideForm');
+
 						if (response.data.role.toLowerCase() === 'admin') {
 							this.$router.push({
 						    	name: 'admin'
@@ -55,8 +57,8 @@
 						
 					})
 					.catch(e => {
-						console.log(e.response)
-						this.errors.push(e)
+						console.log(e.response);
+						this.errors = true;
 					})
 			},
 			
