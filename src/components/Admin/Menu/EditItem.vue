@@ -32,15 +32,16 @@
 	            <textarea required class="descr" maxlength="500" v-model='description' id="descr" placeholder="Description"></textarea>
 	        </div>                       
 	    </div>
-	    <div v-if='ErrorsState' class="error">
+	    <div v-if='ErrorsStateDishes' class="error">
 	    	Updating error!
 	    	<ul>
 	    		<li v-for='(err, i) in updateErrors' :key='i'>
 	    			{{err.param | capitalize}} {{err.msg}}
 	    		</li>
-	    	</ul> 
+	    	</ul>
+	    	<div class="error-close" @click='hideErrors'>&times;</div> 
 	    </div>
-	    <div class="success" v-if='SuccessState'>Saved</div>
+	    <div class="success" v-if='SuccessStateDishes'>Saved</div>
 	    <div class="menu-item__save">
 	    	<button class="button">Save</button>
 	    </div>
@@ -48,7 +49,6 @@
 </template>
 <script>
 	import axios from 'axios';
-
 	import PreviewImage from "@/components/Admin/Menu/PreviewImage.vue";
 	export default {
 		props: ['dish'],
@@ -67,18 +67,16 @@
 		},
 		methods: {
 		 	updateNote() {
-		 		let self = this;
-		 		
 		 		this.$store.dispatch('updateDishes', {
-		 			id: self.dish._id,
-		 			title: self.title,
-		 			img: self.imageSrc,
-			    	quantity: self.quantity,
-			    	price: self.price,
-			    	excerpt: self.excerpt,
-			    	description: self.description,
-			    	ingradients: self.ingradients,
-			    	weight: self.weight,
+		 			id: this.dish._id,
+		 			title: this.title,
+		 			img: this.imageSrc,
+			    	quantity: this.quantity,
+			    	price: this.price,
+			    	excerpt: this.excerpt,
+			    	description: this.description,
+			    	ingradients: this.ingradients,
+			    	weight: this.weight,
 			    	status: 'unprocessed',
 			    	action: 'Take in order'
 		 		})
@@ -86,16 +84,19 @@
 		 	getSrc (data) {
 		        this.imageSrc = data;
 		    },
+		    hideErrors() {
+		    	this.$store.commit("defaultDishesInfoState");
+		    }
 		},
 		computed: {
 			updateErrors () {
-				return this.$store.getters.Errors
+				return this.$store.getters.ErrorsDishes
 			},
-			ErrorsState() {
-				return this.$store.getters.ErrorsState
+			ErrorsStateDishes() {
+				return this.$store.getters.ErrorsStateDishes;
 			},
-			SuccessState() {
-				return this.$store.getters.SuccessState
+			SuccessStateDishes() {
+				return this.$store.getters.SuccessStateDishes;
 			}
 		},
 		filters: {
