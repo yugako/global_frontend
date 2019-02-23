@@ -1,6 +1,6 @@
 <template>
 	<section class="admin">
-		<Banner text='Admin page' class='admin-banner' />
+		<Banner :text='setMessage' class='admin-banner' />
 		<div class="container">
 			<div class="admin-content">
 				<div class="admin-content__workers">
@@ -28,6 +28,20 @@
 	import WorkersTable from "@/components/Admin/Workers/WorkersTable";
 
 	export default {
+		name: 'Admin',
+		beforeCreate: function() {
+		  this.$options.computed = {
+		     userName() {
+				return this.$store.getters.UserName;
+			},
+			setMessage () {
+				return `Welcome, ${this.userName}`;
+			}
+		  }
+		},
+		data() {
+			return {}
+		},
 		methods: {
 			toggleDishesList() {
 				this.$store.commit('toggleDishesList');
@@ -35,6 +49,10 @@
 			toggleWorkersList() {
 				this.$store.commit('toggleWorkersList');
 			}
+		},
+		computed: {
+			
+			
 		},
 		components: {
 			Banner,
