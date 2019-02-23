@@ -36,7 +36,7 @@
 						            <textarea required v-model='description' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
 						        </div>                       
 						    </div>
-						    <div v-if='ErrorsState' class="error">
+						    <div v-if='ErrorsStateDishes' class="error">
 						    	Saving error!
 						    	<ul>
 						    		<li v-for='(err, i) in updateErrors' :key='i'>
@@ -44,7 +44,7 @@
 						    		</li>
 						    	</ul> 
 						    </div>
-						    <div class="success" v-if='SuccessState'>Saved</div>
+						    <div class="success" v-if='SuccessStateDishes'>Saved</div>
 						<div class="menu-item__save">
 							<button type="submit" class="button">Save</button>
 						</div>
@@ -97,13 +97,13 @@
 		},
 		computed: {
 			updateErrors () {
-				return this.$store.getters.Errors
+				return this.$store.getters.ErrorsDishes
 			},
-			ErrorsState() {
-				return this.$store.getters.ErrorsState
+			ErrorsStateDishes() {
+				return this.$store.getters.ErrorsStateDishes;
 			},
-			SuccessState() {
-				return this.$store.getters.SuccessState
+			SuccessStateDishes() {
+				return this.$store.getters.SuccessStateDishes;
 			}
 		},
 		filters: {
