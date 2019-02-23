@@ -51,6 +51,9 @@ export default {
 				.then(() => {              
 					context.commit('addWorker', payload);
 					context.commit('showSuccess');
+					setTimeout(() => {
+						context.commit('defaultInfoState');
+					} , 1500);
 				})
 				.catch(e => {
 					context.commit('logErrors', e.response.data.errors);
@@ -63,6 +66,9 @@ export default {
 				.then(() => {              
 					context.commit('updateWorker', payload);
 					context.commit('showSuccess');
+					setTimeout(() => {
+						context.commit('defaultInfoState');
+					} , 1500);
 				})
 				.catch(e => {
 					context.commit('logErrors', e.response.data.errors);
