@@ -21,7 +21,11 @@ export default new Vuex.Store({
 		login,
 		form
 	},
-  	state: {},
+  	state: {
+  		BASE_DISH_URL: 'http://localhost:3000/dishes/',
+  		BASE_ORDERS_URL: 'http://localhost:3000/orders/',
+  		BASE_USERS_URL: 'http://localhost:3000/users/'
+  	},
   	mutations: {},
   	getters: {},
   	actions: {}

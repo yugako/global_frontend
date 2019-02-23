@@ -22,23 +22,23 @@ export default {
 	},
 	actions: {
 	   	getOrders : async (context,payload) => {
-		  	let { data } = await axios.get('http://localhost:3000/orders')
+		  	let { data } = await axios.get(context.rootState.BASE_ORDERS_URL)
 		  	context.commit('fillOrders', data)
 		},
 		saveOrder (context, payload) {
-		  	axios.post('http://localhost:3000/orders/', payload)
+		  	axios.post(context.rootState.BASE_ORDERS_URL, payload)
 				.then(() => {              
 					context.commit('addOrder', payload)
 				});
 	   	},
 	   	updateOrder (context, payload) {
-		  	axios.put('http://localhost:3000/orders/' + payload.id, payload)
+		  	axios.put(context.rootState.BASE_ORDERS_URL + payload.id, payload)
 				.then(() => {              
 					context.commit('updateOrder', payload)
 				});
 	   	},
 	   	deleteOrder (context, id) {
-		  	axios.delete('http://localhost:3000/orders/' + id)
+		  	axios.delete(context.rootState.BASE_ORDERS_URL + id)
 			 	.then(() => {              
 				 	context.commit('deleteOrder', id)
 			  	});

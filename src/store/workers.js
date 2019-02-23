@@ -42,12 +42,12 @@ export default {
 	},
 	actions: {
 	   	getWorkers : async (context,payload) => {
-		  	let { data } = await axios.get('http://localhost:3000/users')
+		  	let { data } = await axios.get(context.rootState.BASE_USERS_URL)
 		  	context.commit('fillWorkers', data)
 		},
 		saveWorker (context, payload) {
 			context.commit('defaultInfoState');
-		  	axios.post('http://localhost:3000/register/', payload)
+		  	axios.post(context.rootState.BASE_USERS_URL, payload)
 				.then(() => {              
 					context.commit('addWorker', payload);
 					context.commit('showSuccess');
@@ -65,7 +65,7 @@ export default {
 	   	},
 	   	updateWorkers (context, payload) {
 	   		context.commit('defaultInfoState');
-		  	axios.put('http://localhost:3000/users/' + payload.id, payload)
+		  	axios.put(context.rootState.BASE_USERS_URL + payload.id, payload)
 				.then(() => {              
 					context.commit('updateWorker', payload);
 					context.commit('showSuccess');
@@ -82,7 +82,7 @@ export default {
 				})
 	   	},
 	   	deleteWorkers (context, id) {
-		  	axios.delete('http://localhost:3000/users/' + id)
+		  	axios.delete(context.rootState.BASE_USERS_URL + id)
 			 	.then(() => {              
 				 	context.commit('deleteWorker', id)
 			  	});

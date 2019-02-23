@@ -43,12 +43,12 @@ export default {
   	},
   	actions: {
 		getDishes : async (context,payload) => {
-		  	let { data } = await axios.get('http://localhost:3000/dishes')
+		  	let { data } = await axios.get(context.rootState.BASE_DISH_URL)
 		  	context.commit('fillDishes', data)
 		},
 		saveDish (context, payload) {
       context.commit('defaultDishesInfoState');
-	  		axios.post('http://localhost:3000/dishes/', payload)
+	  		axios.post(context.rootState.BASE_DISH_URL, payload)
 				.then(() => {              
 					context.commit('addDish', payload);
           context.commit('showDishesSuccess');
@@ -65,7 +65,7 @@ export default {
         });
    		},
    		deleteDishes (context, id) {
-	  		axios.delete('http://localhost:3000/dishes/' + id)
+	  		axios.delete(context.rootState.BASE_DISH_URL + id)
 		 		.then(() => {              
 			 		context.commit('deleteDish', id)
 		  		})
@@ -73,7 +73,7 @@ export default {
 	   	updateDishes (context, payload) {
         context.commit('defaultDishesInfoState');
 
-		  	axios.put('http://localhost:3000/dishes/' + payload.id, payload)
+		  	axios.put(context.rootState.BASE_DISH_URL + payload.id, payload)
 				.then(() => {              
 					context.commit('updateDish', payload);
           context.commit('showDishesSuccess');
