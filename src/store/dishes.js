@@ -3,9 +3,9 @@ import axios from 'axios';
 export default {
   	state: {
   		dishes: [],
-      errors: [],
-      errorHappened: false,
-      saveHappened: false,
+      errorsDishes: [],
+      errorDishesHappened: false,
+      saveDishesHappened: false,
       showDishes: false,
   	},
   	mutations: {
@@ -26,18 +26,18 @@ export default {
       toggleDishesList(state) {
         state.showDishes = !state.showDishes;
       },
-      logErrors(state, payload) {
-        state.errors = payload;
+      logDishesErrors(state, payload) {
+        state.errorsDishes = payload;
       },
-      defaultInfoState(state) {
-        state.errorHappened = false;
-        state.saveHappened = false;
+      defaultDishesInfoState(state) {
+        state.errorDishesHappened = false;
+        state.saveDishesHappened = false;
       },
-      showErrors(state) {
-        state.errorHappened = true;
+      showDishesErrors(state) {
+        state.errorDishesHappened = true;
       },
-      showSuccess(state) {
-        state.saveHappened = true;
+      showDishesSuccess(state) {
+        state.saveDishesHappened = true;
       }
       
   	},
@@ -47,15 +47,21 @@ export default {
 		  	context.commit('fillDishes', data)
 		},
 		saveDish (context, payload) {
-      context.commit('defaultInfoState');
+      context.commit('defaultDishesInfoState');
 	  		axios.post('http://localhost:3000/dishes/', payload)
 				.then(() => {              
 					context.commit('addDish', payload);
-          context.commit('showSuccess');
+          context.commit('showDishesSuccess');
+          setTimeout(() => {
+            context.commit('defaultDishesInfoState');
+          }, 1500);
 				})
         .catch(e => {
-          context.commit('logErrors', e.response.data.errors);
-          context.commit('showErrors');
+          context.commit('logDishesErrors', e.response.data.errors);
+          context.commit('showDishesErrors');
+          setTimeout(() => {
+            context.commit('defaultDishesInfoState');
+          }, 2500);
         });
    		},
    		deleteDishes (context, id) {
@@ -65,15 +71,22 @@ export default {
 		  		})
    		},
 	   	updateDishes (context, payload) {
-        context.commit('defaultInfoState');
+        context.commit('defaultDishesInfoState');
+
 		  	axios.put('http://localhost:3000/dishes/' + payload.id, payload)
 				.then(() => {              
 					context.commit('updateDish', payload);
-          context.commit('showSuccess');
+          context.commit('showDishesSuccess');
+          setTimeout(() => {
+            context.commit('defaultDishesInfoState');
+          }, 1500);
 				})
         .catch(e => {
-          context.commit('logErrors', e.response.data.errors);
-          context.commit('showErrors');
+          context.commit('logDishesErrors', e.response.data.errors);
+          context.commit('showDishesErrors');
+          setTimeout(() => {
+            context.commit('defaultDishesInfoState');
+          }, 2500);
         })
 	   	},
   	},
@@ -83,6 +96,15 @@ export default {
 	  	},
       ShowDishes: state => {
         return state.showDishes;
+      },
+      ErrorsDishes: state => {
+        return state.errorsDishes;
+      },
+      ErrorsStateDishes: state => {
+        return state.errorDishesHappened;
+      },
+      SuccessStateDishes: state => {
+        return state.saveDishesHappened;
       }
   	}
 }
