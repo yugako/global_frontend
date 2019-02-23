@@ -3,6 +3,9 @@ import axios from 'axios';
 export default {
 	state: {
 		workers: [],
+		errors: [],
+		errorHappened: false,
+		saveHappened: false,
 		showWorkers: false,
 	},
 	mutations: {
@@ -23,6 +26,19 @@ export default {
 		toggleWorkersList(state) {
 		  state.showWorkers = !state.showWorkers;
 		},
+		logErrors(state, payload) {
+			state.errors = payload;
+		},
+		defaultInfoState(state) {
+			state.errorHappened = false;
+			state.saveHappened = false;
+		},
+		showErrors(state) {
+			state.errorHappened = true;
+		},
+		showSuccess(state) {
+			state.saveHappened = true;
+		}
 	},
 	actions: {
 	   	getWorkers : async (context,payload) => {
@@ -30,16 +46,28 @@ export default {
 		  	context.commit('fillWorkers', data)
 		},
 		saveWorker (context, payload) {
+			context.commit('defaultInfoState');
 		  	axios.post('http://localhost:3000/register/', payload)
 				.then(() => {              
-					context.commit('addWorker', payload)
+					context.commit('addWorker', payload);
+					context.commit('showSuccess');
+				})
+				.catch(e => {
+					context.commit('logErrors', e.response.data.errors);
+					context.commit('showErrors');
 				});
 	   	},
 	   	updateWorkers (context, payload) {
+	   		context.commit('defaultInfoState');
 		  	axios.put('http://localhost:3000/users/' + payload.id, payload)
 				.then(() => {              
-					context.commit('updateWorker', payload)
-				});
+					context.commit('updateWorker', payload);
+					context.commit('showSuccess');
+				})
+				.catch(e => {
+					context.commit('logErrors', e.response.data.errors);
+					context.commit('showErrors');
+				})
 	   	},
 	   	deleteWorkers (context, id) {
 		  	axios.delete('http://localhost:3000/users/' + id)
@@ -54,6 +82,15 @@ export default {
 		},
 		ShowWorkers: state => {
 		  return state.showWorkers;
+		},
+		Errors: state => {
+			return state.errors;
+		},
+		ErrorsState: state => {
+			return state.errorHappened
+		},
+		SuccessState: state => {
+			return state.saveHappened
 		}
 	}
 }
