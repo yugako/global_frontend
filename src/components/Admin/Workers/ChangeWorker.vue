@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper">
-		<Banner class='home-banner' text='Change dish'/>
+		<Banner class='home-banner' text='Change worker'/>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
@@ -34,7 +34,7 @@
 		data () {
 			return {
 				proId: this.$route.params.id,
-				workers: this.$store.state.workers.workers,
+				workers: this.$store.getters.Workers,
 				
 			}
 		},
