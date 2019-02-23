@@ -58,6 +58,9 @@ export default {
 				.catch(e => {
 					context.commit('logErrors', e.response.data.errors);
 					context.commit('showErrors');
+					setTimeout(() => {
+						context.commit('defaultInfoState');
+					} , 2500);
 				});
 	   	},
 	   	updateWorkers (context, payload) {
@@ -73,6 +76,9 @@ export default {
 				.catch(e => {
 					context.commit('logErrors', e.response.data.errors);
 					context.commit('showErrors');
+					setTimeout(() => {
+						context.commit('defaultInfoState');
+					} , 2500);
 				})
 	   	},
 	   	deleteWorkers (context, id) {
