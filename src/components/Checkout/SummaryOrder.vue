@@ -11,7 +11,7 @@
 				<tbody>
 					<tr v-for='(item,index) in cart' :key='index'>
 						<td class="product-name">
-							{{item.name}} x 
+							{{item.title}} x 
 							<span class='amount'>{{item.quantity}}</span>
 						</td>
 						<td class="product-price">{{countTotal(index)}}</td>
@@ -35,22 +35,39 @@
 	  data () {
 	  	return {
 	  		cart: this.$store.state.cart,
+	  		number: localStorage.getItem('number') || 1,
 	  	}
 	  },
 	  methods: {
 	  	countTotal (i) {
 	  		return this.$store.getters.countTotal(i);
 	  	},
-	  	addToQueue (item) {
-	  		item = this.cart;
-	  		let date = new Date();
-			this.$store.commit('addToQueue', {item, date});
-			
+	  	addToQueue () {
+	  		let cart = this.cart;
+
+	  		cart.forEach((elem) => {
+		  		this.$store.dispatch('saveOrder', {
+		 			title: elem.title,
+		 			number: this.countOrder,
+			    	price: this.countTotalOrder,
+			    	action: 'Take in order',
+			    	status: 'unprocessed'
+				});
+	  		});
+	  		this.number++;
+	  		localStorage.setItem('number', this.number);
+			setTimeout(() => {
+				this.$store.commit('cleanCart', cart);
+			}, 0);
+				
 		},
 	  },
 	  computed: {
 	  	countTotalOrder () {
 	  		return this.$store.getters.countTotalOrder;
+	  	},
+	  	countOrder () {
+	  		return this.number;
 	  	}
 	  },
 	};

@@ -1,9 +1,9 @@
 <template>
-	<button @click='manageState(dish, index)' class="actions-button button">{{dish.action}}</button>
+	<button @click='manageState(dish, index)' :disabled='!worker' class="actions-button button">{{dish.action}}</button>
 </template>
 <script>
 	export default {
-		props: ['dish', 'index'],
+		props: ['dish', 'index', 'worker'],
 		data () {
 			return {
 				
@@ -21,11 +21,12 @@
 		  				dish.action = 'Remove';
 		  				break;
 		  			case 'Remove':
-		  				this.$store.commit('removeFromQueueCollection', {index});
+		  				this.$store.dispatch('deleteOrder', dish._id);
 		  				dish.status = 'uprocessed';
 		  				dish.action = 'Take in order';
 	  				break;
 		  		}
+		  		this.$emit('onstate', dish);
 		  	},
 		}
 		

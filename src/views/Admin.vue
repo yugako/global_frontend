@@ -18,7 +18,7 @@
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr v-for='(worker,index) in workers' :key='index'>
+							            <tr v-for='(worker,index) in workersList' :key='worker._id'>
 							                <td class="worker-name">
 							                	{{worker.name}}
 							                </td>
@@ -26,9 +26,9 @@
 							                	{{worker.password}}
 							                </td>
 							                <td class="actions">
-							           			<span @click='goToEditWorker(worker.id)' class="actions-button button">Edit</span>
+							           			<span @click='goToEditWorker(worker._id)' class="actions-button button">Edit</span>
 
-							                	<span @click='removeFromWorkers(index)' class="actions-button button">Remove</span>
+							                	<span @click='removeFromWorkers(worker._id)' class="actions-button button">Remove</span>
 							                </td>
 							            </tr>
 							            
@@ -61,21 +61,22 @@
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr v-for='(dish, index) in dishes' :key='index'>
+							            <tr v-for='(dish, index) in dishesList' :key='dish._id'>
 							                <td class="product-thumbnail">
-							                	<img :src="dish.img" alt="product img" />
+							                	<img src="@/assets/img/menu-list/placeImg.jpg" alt="product img" />
 							                </td>
 							                <td class="product-name">
-							                	{{dish.name}}
+							                	{{dish.title}}
 							                </td>
+							                
 							                <td class="product-price">
 							                	<span class="amount">{{dish.price}}$</span>
 							                </td>
 							               
 							                <td class="product-excerpt">{{dish.excerpt}}</td>
 							                <td class="actions">
-							           			<span class="actions-button edit" @click='goToEditDish(dish.id)'>Edit</span>
-							                	<span @click='removeFromStore(index)' class="actions-button remove">Remove</span>
+							           			<span class="actions-button edit" @click='goToEditDish(dish._id)'>Edit</span>
+							                	<span @click='removeFromStore(dish._id)' class="actions-button remove">Remove</span>
 							                </td>
 							            </tr>
 							        </tbody>
@@ -98,16 +99,24 @@
 	</section>
 </template>
 <script>
+	import axios from 'axios';
 	import Banner from "@/components/Banner.vue";
-	// import ChangeMenu from "@/components/Admin/Menu/ChangeMenu.vue";
-	// import ChangeWorker from "@/components/Admin/Workers/ChangeWorker.vue";
+	
 	export default {
+		beforeCreate: function() {
+		  this.$options.computed = {
+		     dishesList(){
+			     return this.$store.getters.Dishes
+			 },
+			 workersList(){
+			     return this.$store.getters.Workers
+			 }
+		  }
+		},
 		data () {
 			return {
 				showWorkers: false,
-				showDishes: false,
-				dishes: this.$store.state.dishes,
-				workers: this.$store.state.workers
+				showDishes: true,
 			}
 		},
 		methods: {
@@ -124,16 +133,14 @@
 				this.$router.push({ name: 'add_worker'}) 
 			},
 			removeFromStore (index) {
-			  	this.$store.commit('removeFromStore', {index});
+				this.$store.dispatch('deleteDishes', index)
 			},
 			removeFromWorkers (index) {
-			  	this.$store.commit('removeFromWorkers', {index});
-			}
+			  	this.$store.dispatch('deleteWorkers', index)
+			},
 		},
 		components: {
 			Banner,
-			// ChangeMenu,
-			// ChangeWorker
 		}
 	}
 </script>

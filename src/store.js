@@ -1,151 +1,184 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import axios from 'axios';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-	dishes: [
-		{
-			name: 'Spicy Beef Burger',
-			img: require('@/assets/img/menu-list/dishes/1.jpg'),
-			price: 12,
-			quantity: 1,
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			id: '1',
-			action: 'Take in order'
+  	state: {
+		dishes: [],
+		workers: [],
+		cart: [],
+		orders: [],
+		countItems: 0,
+  	},
+  	mutations: {
+  		// Dishes
+		fillDishes(state, payload) {
+		  	state.dishes = payload
 		},
-		{
-			name: 'Spicy Chily Chicken',
-			img: require('@/assets/img/menu-list/dishes/2.jpg'),
-			price: 3,
-			quantity: 1,
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '2',
-			action: 'Take in order'
+		addDish(state,payload){
+	  		state.dishes.push(payload)
 		},
-		{
-			name: 'Mixed Fruit Lassi',
-			img: require('@/assets/img/menu-list/dishes/3.jpg'),
-			price: 10,
-			quantity: 1,
-			include: 'Meat, Potato, Bread',
-			weight: 150,
-			status: 'unprocessed',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '3',
-			action: 'Take in order'
+		updateDish(state, payload) {
+		  	let index = state.dishes.findIndex(dish => dish.id === payload.id);
+		  	state.dishes[index] = payload;
 		},
-		{
-			name: 'Special Chocolety Toast',
-			img: require('@/assets/img/menu-list/dishes/4.jpg'),
-			price: 19,
-			quantity: 1,
-			weight: 150,
-			status: 'unprocessed',
-			include: 'Meat, Potato, Bread',
-			excerpt: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit',
-			descr: 'Lorem ipsum dolor sit aLorem ipsum dolor sit amet, consectetu adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolmagna aliqua. enim ad minim veniam, quis nomagni dolores eos qnumquam.',
-			id: '4',
-			action: 'Take in order'
-		}
-	],
-	workers: [
-		{
-			name: 'Thor Odinson',
-			password: 'mielnir',
-			id: '1'
+		deleteDish(state, id){
+		  	let index = state.dishes.findIndex(dish => dish.id == id)
+		  	state.dishes.splice(index, 1)
 		},
-		{
-			name: 'Steve Rodgers',
-			password: 'shield',
-			id: '2'
+		// Workers
+		fillWorkers (state, payload) {
+		  	state.workers = payload;
 		},
-		{
-			name: 'Vanda Maximova',
-			password: 'vision',
-			id: '3'
+		addWorker(state,payload){
+		  	state.workers.push(payload)
 		},
-		{
-			name: 'Tony Stark',
-			password: 'iron-man',
-			id: '4'
+		updateWorker(state, payload) {
+		  	let index = state.workers.findIndex(worker => worker.id === payload.id);
+		  	state.workers[index] = payload;
 		},
-		{
-			name: 'Cara Denwers',
-			password: 'emotionless',
-			id: '5'
+		deleteWorker(state, id){
+		  	let index = state.workers.findIndex(worker => worker.id == id)
+		  	state.workers.splice(index, 1)
 		},
-	],
-	cart: [],
-	queue: [],
-	countItems: 0,
-  },
-  mutations: {
-  	addToCart(state, payload) {
-  		state.cart.push(payload.dish);
-  		state.countItems++;
-  	},
-  	addToMenu(state, payload) {
-  		state.dishes.push(payload.item);
-  	},
-  	addToWorkers(state, payload) {
-  		state.workers.push(payload.item);
-  	},
-  	addToQueue (state, payload) {
-  		state.queue.push({
-  			collection: [...payload.item], 
-  			date: payload.date, 
-  		});
-  		state.cart.splice(0, payload.item.length);
-  		state.countItems = 0;
-  	},
-  	removeFromQueueCollection (state, payload) {
-  		// state.queue.splice(payload.index, 1);
-  		state.queue.forEach( function(item) {
-  			item.collection.splice(payload.index, 1);
-  		});
-  	},
-  	removeFromQueue (state, payload) {
-  		state.queue.splice(payload.index, 1);
-  	},
-  	removeFromCart (state, payload) {
-  		state.cart.splice(payload.index, 1);
-  		state.countItems--;
-  	},
-  	removeFromStore(state, payload) {
-  		state.dishes.splice(payload.index, 1);
-  	},
-  	removeFromWorkers(state, payload) {
-  		state.workers.splice(payload.index, 1);
-  	},
+		// Orders
+		fillOrders (state, payload) {
+		  	state.orders = payload;
+		},
+		addOrder(state,payload){
+		  	state.orders.push(payload)
+		},
+		updateOrder(state, payload) {
+		  	let index = state.orders.findIndex(order => order.id === payload.id);
+		  	state.orders[index] = payload;
+		},
+		deleteOrder(state, id){
+		  	let index = state.orders.findIndex(order => order.id == id)
+		  	state.orders.splice(index, 1)
+		},
+		// General
+		addToCart(state, payload) {
+			state.cart.push(payload.dish);
+			state.countItems++;
+		},
+		cleanCart (state, payload) {
+			state.cart.splice(0, payload.length);
+			state.countItems = 0;
+		},
+		removeFromQueueCollection (state, payload) {
+			// state.queue.splice(payload.index, 1);
+			state.queue.forEach( function(item) {
+				item.collection.splice(payload.index, 1);
+			});
+		},
+		removeFromQueue (state, payload) {
+			state.queue.splice(payload.index, 1);
+		},
+		removeFromCart (state, payload) {
+			state.cart.splice(payload.index, 1);
+			state.countItems--;
+		},
 
-  },
-  getters: {
-  	countTotalOrder: state => {
-  		let arr = state.cart;
-  		let total = 0;
-  		for (let i = 0; i < arr.length; i++) {
-  			total+=parseInt(arr[i].quantity)*parseInt(arr[i].price);
-  		}
+  	},
+  	getters: {
+		Dishes : state => {
+		  	return state.dishes;
+		},
+		Workers : state => {
+		  	return state.workers;
+		},
+		Orders : state => {
+		  	return state.orders;
+		},
+		countTotalOrder: state => {
+			let arr = state.cart;
+			let total = 0;
 
-  		return `${total} $`;
+			arr.forEach((item) => {
+				total+= parseInt(item.quantity)*parseInt(item.price);
+			});
+
+			return `${total} $`;
+		},
+		countTotal: state => index => {
+			let arr = state.cart;
+			let total = 0;
+			total = parseInt(arr[index].quantity)*parseInt(arr[index].price);
+			return `${total} $`;
+		},
   	},
-  	countTotal: state => index => {
-  		let arr = state.cart;
-  		let total = 0;
-  		total = parseInt(arr[index].quantity)*parseInt(arr[index].price);
-  		return `${total} $`;
-  	},
-  },
-  actions: {}
+  	actions: {
+  		// Dishes
+		getDishes : async (context,payload) => {
+		  	let { data } = await axios.get('http://localhost:3000/dishes')
+		  	context.commit('fillDishes', data)
+		},
+		saveDish (context, payload) {
+	  		axios.post('http://localhost:3000/dishes/', payload)
+				.then(() => {              
+					context.commit('addDish', payload)
+				});
+   		},
+   		deleteDishes (context, id) {
+	  		axios.delete('http://localhost:3000/dishes/' + id)
+		 		.then(() => {              
+			 		context.commit('deleteDish', id)
+		  		});
+   		},
+	   	updateDishes (context, payload) {
+		  	axios.put('http://localhost:3000/dishes/' + payload.id, payload)
+				.then(() => {              
+					context.commit('updateDish', payload)
+				});
+	   	},
+	   	// Workers
+	   	getWorkers : async (context,payload) => {
+		  	let { data } = await axios.get('http://localhost:3000/workers')
+		  	context.commit('fillWorkers', data)
+		},
+		saveWorker (context, payload) {
+		  	axios.post('http://localhost:3000/workers/', payload)
+				.then(() => {              
+					context.commit('addWorker', payload)
+				});
+	   	},
+	   	updateWorkers (context, payload) {
+		  	axios.put('http://localhost:3000/workers/' + payload.id, payload)
+				.then(() => {              
+					context.commit('updateWorker', payload)
+				});
+	   	},
+	   	deleteWorkers (context, id) {
+		  	axios.delete('http://localhost:3000/workers/' + id)
+			 	.then(() => {              
+				 	context.commit('deleteWorker', id)
+			  	});
+	   	},
+	   	// Orders
+	   	getOrders : async (context,payload) => {
+		  	let { data } = await axios.get('http://localhost:3000/orders')
+		  	context.commit('fillOrders', data)
+		},
+		saveOrder (context, payload) {
+		  	axios.post('http://localhost:3000/orders/', payload)
+				.then(() => {              
+					context.commit('addOrder', payload)
+				});
+	   	},
+	   	updateOrder (context, payload) {
+		  	axios.put('http://localhost:3000/orders/' + payload.id, payload)
+				.then(() => {              
+					context.commit('updateOrder', payload)
+				});
+	   	},
+	   	deleteOrder (context, id) {
+		  	axios.delete('http://localhost:3000/orders/' + id)
+			 	.then(() => {              
+				 	context.commit('deleteOrder', id)
+			  	});
+	   	},
+	}
 });
