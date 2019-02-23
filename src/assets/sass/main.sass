@@ -133,12 +133,20 @@ b, strong
     margin-bottom: 20px
     margin-top: 15px
     border-radius: 50px
-.error-message
-    color: #d50c0d
-    font-size: 14px
-    font-family: 'Alegreya', serif
-    margin-bottom: 15px
-    margin-top: 15px
+    position: relative
+    &-close
+        position: absolute
+        top: -20px
+        right: 20px
+        color: #fff
+        font-size: 50px
+        cursor: pointer
+    &-message
+        color: #d50c0d
+        font-size: 14px
+        font-family: 'Alegreya', serif
+        margin-bottom: 15px
+        margin-top: 15px
 .slide-fade-enter-active 
   transition: all .3s ease
 
