@@ -32,7 +32,15 @@
 	            <textarea required class="descr" maxlength="500" v-model='description' id="descr" placeholder="Description"></textarea>
 	        </div>                       
 	    </div>
-	    <div v-if='save' class="success">Saved!</div>
+	    <div v-if='ErrorsState' class="error">
+	    	Updating error!
+	    	<ul>
+	    		<li v-for='(err, i) in updateErrors' :key='i'>
+	    			{{err.param | capitalize}} {{err.msg}}
+	    		</li>
+	    	</ul> 
+	    </div>
+	    <div class="success" v-if='SuccessState'>Saved</div>
 	    <div class="menu-item__save">
 	    	<button class="button">Save</button>
 	    </div>
@@ -46,7 +54,6 @@
 		props: ['dish'],
 		data () {
 			return {
-				save: false,
 				title: this.dish.title,
 				quantity: this.dish.quantity || 1,
 				price: this.dish.price,
@@ -79,6 +86,22 @@
 		 	getSrc (data) {
 		        this.imageSrc = data;
 		    },
+		},
+		computed: {
+			updateErrors () {
+				return this.$store.getters.Errors
+			},
+			ErrorsState() {
+				return this.$store.getters.ErrorsState
+			},
+			SuccessState() {
+				return this.$store.getters.SuccessState
+			}
+		},
+		filters: {
+			capitalize(value) {
+				return value[0].toUpperCase() + value.slice(1);
+			}
 		},
 		components: {
 			PreviewImage

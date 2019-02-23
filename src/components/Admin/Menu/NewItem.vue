@@ -36,7 +36,15 @@
 						            <textarea required v-model='description' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
 						        </div>                       
 						    </div>
-						    <div v-if='save' class="success">{{message}}</div>
+						    <div v-if='ErrorsState' class="error">
+						    	Saving error!
+						    	<ul>
+						    		<li v-for='(err, i) in updateErrors' :key='i'>
+						    			{{err.param | capitalize}} {{err.msg}}
+						    		</li>
+						    	</ul> 
+						    </div>
+						    <div class="success" v-if='SuccessState'>Saved</div>
 						<div class="menu-item__save">
 							<button type="submit" class="button">Save</button>
 						</div>
@@ -57,9 +65,6 @@
 	export default {
 		data () {
 			return {
-				save: false,
-				error: false,
-				message: '',
 				title: '',
 				quantity: 1,
 				price: 0,
@@ -73,41 +78,38 @@
 		},
 		methods: {
 			addToMenu () {
-				this.save = true;
-				this.message = 'Saved!';
-				let self = this;
-
 				this.$store.dispatch('saveDish', {
-		 			title: self.title,
-		 			img: self.imageSrc,
-			    	quantity: self.quantity,
-			    	price: self.price,
-			    	excerpt: self.excerpt,
-			    	description: self.description,
-			    	ingradients: self.ingradients,
-			    	weight: self.weight,
+		 			title: this.title,
+		 			img: this.imageSrc,
+			    	quantity: this.quantity,
+			    	price: this.price,
+			    	excerpt: this.excerpt,
+			    	description: this.description,
+			    	ingradients: this.ingradients,
+			    	weight: this.weight,
 			    	status: 'unprocessed',
 			    	action: 'Take in order'
 				});
-				setTimeout(() => {
-					this.save = false;
-					this.message = '';
-				}, 1500);
-				
-				
 			},
 			getSrc (data) {
 		        this.imageSrc = data;
-		        console.log(this.imageSrc);
 		    },
-		    validationValue(values) {
-		    	let result = [];
-		    	for (let key in values) {
-		    		result.push(values[key]);
-		    	}
-
-		    	return result.every(item => item);
-		    }
+		},
+		computed: {
+			updateErrors () {
+				return this.$store.getters.Errors
+			},
+			ErrorsState() {
+				return this.$store.getters.ErrorsState
+			},
+			SuccessState() {
+				return this.$store.getters.SuccessState
+			}
+		},
+		filters: {
+			capitalize(value) {
+				return value[0].toUpperCase() + value.slice(1);
+			}
 		},
 		components: {
 			PreviewImage,
