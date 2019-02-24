@@ -36,12 +36,13 @@
 		methods: {
 			onSubmit() {
 				this.login.role = this.setRole;
-				let url = 'http://localhost:3000/login/';
+				let url = 'http://localhost:3000/login';
 				
 				axios.post(url, this.login)
 					.then(response => {
+						console.log(response);
 						this.errors = false;
-						this.$store.commit('setUserName', response.data.user.name);
+						this.$store.commit('setUserName', response.data.name);
 						this.$store.commit('isLogIn');
 						this.$store.commit('hideForm');
 
@@ -57,7 +58,6 @@
 						
 					})
 					.catch(e => {
-						console.log(e.response);
 						this.errors = true;
 					})
 			},
