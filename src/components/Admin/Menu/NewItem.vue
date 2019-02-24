@@ -25,7 +25,7 @@
 						        </div> 
 						        <div class="col-12">
 						        	<label for="excerpt">Short description</label>
-						            <textarea required v-model='excerpt' class="excerpt" maxlength="100"  placeholder="Short description" type="text"></textarea>
+						            <textarea required v-model='excerpt' class="excerpt" maxlength="200"  placeholder="Short description" type="text"></textarea>
 						        </div>
 						        <div class="col-12">
 						        <label for="include">Ingredients</label>                              
@@ -33,7 +33,7 @@
 						        </div> 
 						        <div class="col-md-12 col-12">
 						        	<label for="descr">Dish description</label>                             
-						            <textarea required v-model='description' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
+						            <textarea required v-model='description' class="descr" id="descr" placeholder="Description"></textarea>
 						        </div>                       
 						    </div>
 						    <div v-if='ErrorsStateDishes' class="error">
