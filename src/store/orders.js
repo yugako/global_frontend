@@ -21,9 +21,11 @@ export default {
 		},
 	},
 	actions: {
-	   	getOrders : async (context,payload) => {
-		  	let { data } = await axios.get(context.rootState.BASE_ORDERS_URL)
-		  	context.commit('fillOrders', data)
+	   	getOrders (context,payload) {
+		  	axios.get(context.rootState.BASE_ORDERS_URL)
+		  	.then(payload => {
+		  		context.commit('fillOrders', payload.data);
+		  	})
 		},
 		saveOrder (context, payload) {
 		  	axios.post(context.rootState.BASE_ORDERS_URL, payload)
@@ -39,9 +41,12 @@ export default {
 	   	},
 	   	deleteOrder (context, id) {
 		  	axios.delete(context.rootState.BASE_ORDERS_URL + id)
-			 	.then(() => {              
-				 	context.commit('deleteOrder', id)
-			  	});
+		  	.then((response) => {
+		  		console.log(response.status);
+		  		if (response.status === 200) {
+		  			context.commit('deleteOrder', id)
+		  		}	
+		  	})
 	   	},
 	},
 	getters: {

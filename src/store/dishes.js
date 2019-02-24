@@ -42,53 +42,58 @@ export default {
       
   	},
   	actions: {
-		getDishes : async (context,payload) => {
-		  	let { data } = await axios.get(context.rootState.BASE_DISH_URL)
-		  	context.commit('fillDishes', data)
-		},
-		saveDish (context, payload) {
-      context.commit('defaultDishesInfoState');
-	  		axios.post(context.rootState.BASE_DISH_URL, payload)
-				.then(() => {              
-					context.commit('addDish', payload);
-          context.commit('showDishesSuccess');
-          setTimeout(() => {
-            context.commit('defaultDishesInfoState');
-          }, 1500);
-				})
-        .catch(e => {
-          context.commit('logDishesErrors', e.response.data.errors);
-          context.commit('showDishesErrors');
-          setTimeout(() => {
-            context.commit('defaultDishesInfoState');
-          }, 2500);
-        });
-   		},
-   		deleteDishes (context, id) {
-	  		axios.delete(context.rootState.BASE_DISH_URL + id)
-		 		.then(() => {              
-			 		context.commit('deleteDish', id)
-		  		})
-   		},
-	   	updateDishes (context, payload) {
+  		getDishes : async (context,payload) => {
+  		  	let { data } = await axios.get(context.rootState.BASE_DISH_URL)
+  		  	
+          context.commit('fillDishes', data)
+  		},
+  		saveDish (context, payload) {
         context.commit('defaultDishesInfoState');
+  	  		axios.post(context.rootState.BASE_DISH_URL, payload)
+  				.then(() => {              
+  					context.commit('addDish', payload);
+            context.commit('showDishesSuccess');
+            setTimeout(() => {
+              context.commit('defaultDishesInfoState');
+            }, 1500);
+  				})
+          .catch(e => {
+            context.commit('logDishesErrors', e.response.data.errors);
+            context.commit('showDishesErrors');
+            setTimeout(() => {
+              context.commit('defaultDishesInfoState');
+            }, 2500);
+          });
+     		},
 
-		  	axios.put(context.rootState.BASE_DISH_URL + payload.id, payload)
-				.then(() => {              
-					context.commit('updateDish', payload);
-          context.commit('showDishesSuccess');
-          setTimeout(() => {
-            context.commit('defaultDishesInfoState');
-          }, 1500);
-				})
-        .catch(e => {
-          context.commit('logDishesErrors', e.response.data.errors);
-          context.commit('showDishesErrors');
-          setTimeout(() => {
-            context.commit('defaultDishesInfoState');
-          }, 2500);
-        })
-	   	},
+     		deleteDishes (context, payload) {
+  	  		axios.delete(context.rootState.BASE_DISH_URL + payload)
+  		 		.then((response) => {
+            console.log(response.status);
+            if (response.status === 200) {
+                context.commit('deleteDish', payload)
+            } 
+          })
+     		},
+  	   	updateDishes (context, payload) {
+          context.commit('defaultDishesInfoState');
+
+  		  	axios.put(context.rootState.BASE_DISH_URL + payload.id, payload)
+  				.then(() => {              
+  					context.commit('updateDish', payload);
+            context.commit('showDishesSuccess');
+            setTimeout(() => {
+              context.commit('defaultDishesInfoState');
+            }, 1500);
+  				})
+          .catch(e => {
+            context.commit('logDishesErrors', e.response.data.errors);
+            context.commit('showDishesErrors');
+            setTimeout(() => {
+              context.commit('defaultDishesInfoState');
+            }, 2500);
+          })
+  	   	},
   	},
   	getters: {
 	  	Dishes : state => {

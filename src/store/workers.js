@@ -20,8 +20,8 @@ export default {
 		  	state.workers[index] = payload;
 		},
 		deleteWorker(state, id){
-		  	let index = state.workers.findIndex(worker => worker.id == id)
-		  	state.workers.splice(index, 1)
+		  	let index = state.workers.findIndex(worker => worker.id == id);
+		  	state.workers.splice(index, 1);
 		},
 		toggleWorkersList(state) {
 		  state.showWorkers = !state.showWorkers;
@@ -81,11 +81,14 @@ export default {
 					} , 2500);
 				})
 	   	},
-	   	deleteWorkers (context, id) {
-		  	axios.delete(context.rootState.BASE_USERS_URL + id)
-			 	.then(() => {              
-				 	context.commit('deleteWorker', id)
-			  	});
+	   	deleteWorkers (context, payload) {
+		  	axios.delete(context.rootState.BASE_USERS_URL + payload)
+		  	.then((response) => {
+		  		console.log(response.status);
+		  		if (response.status === 200) {
+		  			context.commit('deleteWorker', payload)
+		  		}	
+		  	})
 	   	},
 	},
 	getters: {
