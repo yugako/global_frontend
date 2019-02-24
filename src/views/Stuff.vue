@@ -1,6 +1,6 @@
 <template>
 	<section class="stuff">
-		<Banner text='Stuff page' class='stuff-banner' />
+		<Banner :text='setMessage' class='stuff-banner' />
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-lg-9">
@@ -100,9 +100,19 @@
 	import axios from 'axios';
 	export default {
 	  	name: "stuff",
+	  	beforeCreate: function() {
+	  	  this.$options.computed = {
+	  	     userName() {
+	  			return this.$store.getters.UserName;
+	  		},
+	  		setMessage () {
+	  			return `Welcome, ${this.userName}`;
+	  		}
+	  	  }
+	  	},
 	  	created () {
 	  		if(this.$store.getters.logged) {
-	  			axios.get('http://localhost:3000/orders/')
+	  			axios.get(this.$store.state.BASE_ORDERS_URL)
 	  			.then(response => {
 	  				this.orders = response.data;
 	  				this.filtered = this.orders.slice(0, this.orders.length);
