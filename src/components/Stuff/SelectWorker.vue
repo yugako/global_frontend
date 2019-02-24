@@ -26,6 +26,15 @@
 		},
 		methods: {
 			selectWorker () {
+				this.$store.dispatch('updateOrder', {
+		        	id: this.item._id,
+		        	title: this.item.title,
+		        	number: this.item.number,
+		        	price: this.item.price,
+		 			status: this.item.status,
+			    	action: this.item.action,
+			    	worker: this.selected,
+		 		})
 				this.$emit('select', this.selected);
 			}
 		}
