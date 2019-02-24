@@ -5,10 +5,14 @@ import store from "./store";
 
 import VueMoment from 'vue-moment';
 
+import VueMask from 'v-mask';
+
 
 Vue.config.productionTip = false;
 
 Vue.use(VueMoment);
+Vue.use(VueMask);
+
 new Vue({
   router,
   store,

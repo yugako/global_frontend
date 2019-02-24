@@ -19,7 +19,7 @@
 			    <div class="row">
 			        <div class="input-box col-12 mb--20">
 			            <label for="card-number">Credit Card Number *</label>
-			            <input type="text" id="card-number" />
+			            <input v-mask="'####-####-####-####'" v-model='cardNumber' type="text" id="card-number" />
 			        </div>
 			        <div class="input-box col-12">
 			            <div class="row">
@@ -42,7 +42,7 @@
 			        </div>
 			        <div class="input-box col-12">
 			            <label for="card-Verify">Card Verification Number *</label>
-			            <input type="text" id="card-Verify" />
+			            <input v-mask="'###'" v-model='cvv' type="password" id="card-Verify" />
 			            <a href="https://www.cvvnumber.com/">What is it ?</a>
 			        </div>
 			    </div>
@@ -59,6 +59,8 @@
 	  data () {
 	  	return {
 	  		show: false,
+	  		cardNumber: '',
+	  		cvv: '',
 	  		picked: '',
 	  		months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 	  		years: [2019,2020,2021,2022,2023],
