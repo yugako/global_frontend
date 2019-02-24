@@ -12,7 +12,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr v-for='(worker,index) in workersList' v-if='worker.role !== "admin"' :key='worker._id'>
+			            <tr v-for='(worker,index) in workers' v-if='worker.role !== "admin"' :key='worker._id'>
 			                <td class="worker-name">
 			                	{{worker.name}}
 			                </td>
@@ -48,9 +48,6 @@
 		beforeCreate: function() {
 		  	if(this.$store.getters.logged) {
 			  	this.$options.computed = {
-			     	workersList(){
-				     	return this.$store.getters.Workers
-				 	},
 				 	showWorkers () {
 				 	 	return this.$store.getters.ShowWorkers
 				 	}
@@ -63,6 +60,36 @@
 				this.$store.commit('showLogin');
 			}
 		},
+		created () {
+			if(this.$store.getters.logged) {
+				axios.get(this.$store.state.BASE_USERS_URL)
+				.then(response => {
+					this.workers = response.data;
+				})
+				.catch(e => {
+					console.log(e);
+					if (e.response.status === 401) {
+						this.$router.push({
+						    name: 'home'
+						});
+						this.$store.commit('showForm');
+						this.$store.commit('showLogin');
+					}
+				})
+			} else {
+				this.$router.push({
+				    name: 'home'
+				});
+				this.$store.commit('showForm');
+				this.$store.commit('showLogin');
+			}
+			
+		},
+		data() {
+			return {
+				workers: []
+			}
+		},
 		methods: {
 			goToEditWorker(id) {
 			    this.$router.push({name:'edit',params:{id:id}})
@@ -71,8 +98,9 @@
 			addNewWorker() {
 				this.$router.push({ name: 'add_worker'}) 
 			},
-			removeFromWorkers (index) {
-			  	this.$store.dispatch('deleteWorkers', index)
+			removeFromWorkers (id) {
+			  	this.$store.dispatch('deleteWorkers', id);
+			  	this.workers = this.$store.getters.Workers;
 			},
 		}
 	}

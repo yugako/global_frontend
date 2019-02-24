@@ -13,7 +13,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr v-for='(dish, index) in dishesList' :key='dish._id'>
+			            <tr v-for='(dish, index) in dishes' :key='dish._id'>
 			                <td class="product-thumbnail">
 			                	<img :src="dish.img" alt="product img" />
 			                </td>
@@ -43,17 +43,46 @@
 	</transition>
 </template>
 <script>
+	import axios from 'axios';
+
 	export default {
 		name: 'MenuTable',
 		beforeCreate: function() {
 		  this.$options.computed = {
-		     dishesList(){
-			     return this.$store.getters.Dishes
-			 },
 			 showDishes () {
 			 	return this.$store.getters.ShowDishes
 			 }
 		  }
+		},
+		created () {
+			if(this.$store.getters.logged) {
+				axios.get(this.$store.state.BASE_DISH_URL)
+				.then(response => {
+					this.dishes = response.data;
+				})
+				.catch(e => {
+					console.log(e);
+					if (e.response.status === 401) {
+						this.$router.push({
+						    name: 'home'
+						});
+						this.$store.commit('showForm');
+						this.$store.commit('showLogin');
+					}
+				})
+			} else {
+				this.$router.push({
+				    name: 'home'
+				});
+				this.$store.commit('showForm');
+				this.$store.commit('showLogin');
+			}
+			
+		},
+		data() {
+			return {
+				dishes: []
+			}
 		},
 		methods: {
 			goToEditDish(dishId) {
@@ -63,7 +92,8 @@
 				this.$router.push({ name: 'add'}) 
 			},
 			removeFromStore (index) {
-				this.$store.dispatch('deleteDishes', index)
+				this.$store.dispatch('deleteDishes', index);
+				this.dishes = this.$store.getters.Dishes;
 			},
 		}
 	}
