@@ -44,11 +44,11 @@
 	  	addToQueue () {
 	  		let cart = this.cart;
 
-	  		cart.forEach((elem) => {
+	  		cart.forEach((elem, index) => {
 		  		this.$store.dispatch('saveOrder', {
 		 			title: elem.title,
 		 			number: this.countOrder,
-			    	price: this.countTotalOrder,
+			    	price: this.countTotal(index),
 			    	action: 'Take in order',
 			    	status: 'unprocessed'
 				});
