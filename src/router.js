@@ -29,12 +29,38 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        title: 'Home | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'The home page of Food delivery app.'
+          },
+          {
+            property: 'og:description',
+            content: 'The home page of Food delivery app.'
+          }
+        ]
+      }
     },
     {
       path: "/menu",
       name: "menu",
-      component: Menu
+      component: Menu,
+      meta: {
+        title: 'Menu | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Menu list of Food delivery app.'
+          },
+          {
+            property: 'og:description',
+            content: 'Menu list of Food delivery app.'
+          }
+        ]
+      }
     },
     {
       path: "/detail/:id",
@@ -44,22 +70,74 @@ export default new Router({
     {
       path: "/cart",
       name: "cart",
-      component: Cart
+      component: Cart,
+      meta: {
+        title: 'Cart | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Cart with current dishes.'
+          },
+          {
+            property: 'og:description',
+            content: 'Cart with current dishes.'
+          }
+        ]
+      }
     },
     {
       path: "/Payment",
       name: "payment",
-      component: Payment
+      component: Payment,
+      meta: {
+        title: 'Payment | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Pay for the order.'
+          },
+          {
+            property: 'og:description',
+            content: 'Pay for the order.'
+          }
+        ]
+      }
     },
     {
       path: "/stuff",
       name: "stuff",
-      component: Stuff
+      component: Stuff,
+      meta: {
+        title: 'Stuff | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Page for manage orders.'
+          },
+          {
+            property: 'og:description',
+            content: 'Page for manage orders.'
+          }
+        ]
+      }
     },
     {
       path: "/admin",
       name: "admin",
       component: Admin,
+      meta: {
+        title: 'Admin | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Page for manage dishes and workers.'
+          },
+          {
+            property: 'og:description',
+            content: 'Page for manage dishes and workers.'
+          }
+        ]
+      }
     },
     {
       path: "/change/:id",
@@ -69,7 +147,20 @@ export default new Router({
     {
       path: "/add",
       name: "add",
-      component: NewItem
+      component: NewItem,
+      meta: {
+        title: 'New Dish | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Add new dish to menu'
+          },
+          {
+            property: 'og:description',
+            content: 'Add new dish to menu'
+          }
+        ]
+      }
     },
     {
       path: "/edit/:id",
@@ -79,11 +170,37 @@ export default new Router({
     {
       path: "/add_worker",
       name: "add_worker",
-      component: NewWorker
+      component: NewWorker,
+      meta: {
+        title: 'New worker | Food delivery',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Add new worker to stuff'
+          },
+          {
+            property: 'og:description',
+            content: 'Add new worker to stuff'
+          }
+        ]
+      }
     },
     {
       path: '*',
-      component: NotFound
+      component: NotFound,
+      meta: {
+        title: 'Ooops...!',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'Page not found!'
+          },
+          {
+            property: 'og:description',
+            content: 'Page not found!'
+          }
+        ]
+      }
     }
   ]
 });
