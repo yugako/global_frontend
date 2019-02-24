@@ -43,7 +43,7 @@
 						                    	{{dish.price}}
 						                    </td>
 						                    <td class="actions">
-						                    	<StateButton @onstate='getState' @click.native='stateChange' :index='i' :worker='worker' :dish='dish' />
+						                    	<button @click='manageState(dish)' class="button">{{dish.action}}</button>
 						                    </td>
 						    				
 						    			</tr>
@@ -159,28 +159,39 @@
 	  		}
 	  	},
 	  	methods: {
-	  		stateChange (data) {
+	  		updateOrder (data) {
 		        this.$store.dispatch('updateOrder', {
-		        	id: this.id,
-		        	title: this.title,
-		        	number: this.number,
-		        	price: this.price,
-		 			status: this.status,
-			    	action: this.action,
+		        	id: data._id,
+		        	title: data.title,
+		        	number: data.number,
+		        	price: data.price,
+		 			status: data.status,
+			    	action: data.action,
 			    	worker: this.worker,
-			    	
 		 		})
+		 		
+		  	},
+		  	manageState (dish) {
+		  		switch (dish.action) {
+		  			case 'Take in order':
+		  				dish.status = 'Processing';
+		  				dish.action = 'Done';
+		  				this.updateOrder(dish);
+		  				break;
+	  				case 'Done':
+		  				dish.status = 'Done';
+		  				dish.action = 'Remove';
+		  				this.updateOrder(dish);
+		  				break;
+		  			case 'Remove':
+		  				this.$store.dispatch('deleteOrder', dish._id);
+		  				this.updateOrder(dish);
+		  				this.orders = this.filtered = this.$store.getters.Orders;
+	  				break;
+		  		}
 		  	},
 		  	getWorker(data) {
 		  		this.worker = data;
-		  	},
-		  	getState(data) {
-		  		this.id = data._id;
-		  		this.title = data.title;
-		  		this.number = data.number;
-		  		this.price = data.price;
-		  		this.status = data.status;
-		  		this.action = data.action
 		  	},
 	  		filterByStatus(status) {
 		  		if (status) {
