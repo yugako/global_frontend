@@ -95,7 +95,6 @@
 <script>
 	// @ is an alias to /src
 	import Banner from "@/components/Banner.vue";
-	import StateButton from "@/components/Stuff/StateButton.vue";
 	import SelectWorker from "@/components/Stuff/SelectWorker.vue";
 	import axios from 'axios';
 	export default {
@@ -216,7 +215,6 @@
 	  		  	
 	  	components: {
 	    	Banner,
-	    	StateButton,
 	    	SelectWorker
 	  	}
 	};
