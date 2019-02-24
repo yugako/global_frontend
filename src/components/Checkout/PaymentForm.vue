@@ -28,33 +28,14 @@
 			                </div>
 			                <div class="input-box col-md-6 col-12 mb--20">
 			                    <select>
-			                        <option>Month</option>
-			                        <option>Jan</option>
-			                        <option>Feb</option>
-			                        <option>Mar</option>
-			                        <option>Apr</option>
-			                        <option>May</option>
-			                        <option>Jun</option>
-			                        <option>Jul</option>
-			                        <option>Aug</option>
-			                        <option>Sep</option>
-			                        <option>Oct</option>
-			                        <option>Nov</option>
-			                        <option>Dec</option>
+			                        <option disabled selected>Month</option>
+			                        <option v-for='month in months'>{{month}}</option>
 			                    </select>
 			                </div>
 			                <div class="input-box col-md-6 col-12 mb--20">
 			                    <select>
-			                        <option>Year</option>
-			                        <option>2015</option>
-			                        <option>2016</option>
-			                        <option>2017</option>
-			                        <option>2018</option>
-			                        <option>2019</option>
-			                        <option>2020</option>
-			                        <option>2021</option>
-			                        <option>2022</option>
-			                        <option>2023</option>
+			                        <option disabled selected>Year</option>
+			                        <option v-for='year in years'>{{year}}</option>
 			                    </select>
 			                </div>
 			            </div>
@@ -78,7 +59,9 @@
 	  data () {
 	  	return {
 	  		show: false,
-	  		picked: ''
+	  		picked: '',
+	  		months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	  		years: [2019,2020,2021,2022,2023],
 	  	}
 	  },
 	};
