@@ -61,7 +61,6 @@
 					this.dishes = response.data;
 				})
 				.catch(e => {
-					console.log(e);
 					if (e.response.status === 401) {
 						this.$router.push({
 						    name: 'home'
