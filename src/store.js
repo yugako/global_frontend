@@ -22,9 +22,9 @@ export default new Vuex.Store({
 		form
 	},
   	state: {
-  		BASE_DISH_URL: 'http://localhost:3000/dishes/',
-  		BASE_ORDERS_URL: 'http://localhost:3000/orders/',
-  		BASE_USERS_URL: 'http://localhost:3000/users/'
+  		BASE_DISH_URL: `${process.env.VUE_APP_API_URL}dishes/`,
+  		BASE_ORDERS_URL: `${process.env.VUE_APP_API_URL}orders/`,
+  		BASE_USERS_URL: `${process.env.VUE_APP_API_URL}users/`
   	},
   	mutations: {},
   	getters: {},
