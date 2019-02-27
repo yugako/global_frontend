@@ -36,7 +36,7 @@
 		methods: {
 			onSubmit() {
 				this.login.role = this.setRole;
-				let url = 'http://localhost:3000/login';
+				let url = this.$store.state.BASE_LOGIN_URL;
 				
 				axios.post(url, this.login)
 					.then(response => {
