@@ -7,7 +7,7 @@
     			<div v-if='dish._id === proId'>
 		    		<div class="row align-items-center">
 		    			<div class="col-lg-4">
-		    				<img src="@/assets/img/menu-list/placeImg.jpg"  alt="" class="menu-detail__photo img-responsive">
+		    				<img :src="dish.img"  alt="" class="menu-detail__photo img-responsive">
 		    			</div>
 		    			<!-- /.col-lg-4 -->
 		    			<div class="col-lg-8">
@@ -57,8 +57,7 @@
 	export default {
 		data () {
 			return {
-				proId:this.$route.params.id,
-				dishes: this.$store.state.dishes,
+				proId:this.$route.params.id
 			}
 		},
 		methods: {
@@ -72,7 +71,7 @@
 			},
 			checkExistItem (dish) {
 
-				let result = this.$store.state.cart.find(item => item.title === dish.title);
+				let result = this.$store.state.cart.cart.find(item => item.title === dish.title);
 
 				if(result) {
 					return true;

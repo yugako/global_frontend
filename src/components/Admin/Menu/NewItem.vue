@@ -21,13 +21,11 @@
 						            <input required v-model.number='weight' placeholder="Weight" type="text">
 						        </div>
 						        <div class="col-12">
-						         	<!-- <label for="img">Path to image</label>                              
-						            <input required v-model='img' id="img" type="text" placeholder="Path to image"> -->
 						            <PreviewImage @getImg='getSrc' />
 						        </div> 
 						        <div class="col-12">
 						        	<label for="excerpt">Short description</label>
-						            <textarea required v-model='excerpt' class="excerpt" maxlength="100"  placeholder="Short description" type="text"></textarea>
+						            <textarea required v-model='excerpt' class="excerpt" maxlength="200"  placeholder="Short description" type="text"></textarea>
 						        </div>
 						        <div class="col-12">
 						        <label for="include">Ingredients</label>                              
@@ -35,10 +33,18 @@
 						        </div> 
 						        <div class="col-md-12 col-12">
 						        	<label for="descr">Dish description</label>                             
-						            <textarea required v-model='description' class="descr" maxlength="500" id="descr" placeholder="Description"></textarea>
+						            <textarea required v-model='description' class="descr" id="descr" placeholder="Description"></textarea>
 						        </div>                       
 						    </div>
-						    <div v-if='save' class="success">{{message}}</div>
+						    <div v-if='ErrorsStateDishes' class="error">
+						    	Saving error!
+						    	<ul>
+						    		<li v-for='(err, i) in updateErrors' :key='i'>
+						    			{{err.param | capitalize}} {{err.msg}}
+						    		</li>
+						    	</ul> 
+						    </div>
+						    <div class="success" v-if='SuccessStateDishes'>Saved</div>
 						<div class="menu-item__save">
 							<button type="submit" class="button">Save</button>
 						</div>
@@ -59,9 +65,6 @@
 	export default {
 		data () {
 			return {
-				save: false,
-				error: false,
-				message: '',
 				title: '',
 				quantity: 1,
 				price: 0,
@@ -69,47 +72,44 @@
 				description: '',
 				ingradients: '',
 				weight: 0,
+				imageSrc: '',
 				
 			}
 		},
 		methods: {
 			addToMenu () {
-				// if(this.validationValue(this.) {
-					
-				// }
-				this.save = true;
-				this.message = 'Saved!';
-				let self = this;
-
 				this.$store.dispatch('saveDish', {
-		 			title: self.title,
-			    	quantity: self.quantity,
-			    	price: self.price,
-			    	excerpt: self.excerpt,
-			    	description: self.description,
-			    	ingradients: self.ingradients,
-			    	weight: self.weight,
+		 			title: this.title,
+		 			img: this.imageSrc,
+			    	quantity: this.quantity,
+			    	price: this.price,
+			    	excerpt: this.excerpt,
+			    	description: this.description,
+			    	ingradients: this.ingradients,
+			    	weight: this.weight,
 			    	status: 'unprocessed',
 			    	action: 'Take in order'
 				});
-				setTimeout(() => {
-					this.save = false;
-					this.message = '';
-				}, 1500);
-				
-				
 			},
 			getSrc (data) {
 		        this.imageSrc = data;
 		    },
-		    validationValue(values) {
-		    	let result = [];
-		    	for (let key in values) {
-		    		result.push(values[key]);
-		    	}
-
-		    	return result.every(item => item);
-		    }
+		},
+		computed: {
+			updateErrors () {
+				return this.$store.getters.ErrorsDishes
+			},
+			ErrorsStateDishes() {
+				return this.$store.getters.ErrorsStateDishes;
+			},
+			SuccessStateDishes() {
+				return this.$store.getters.SuccessStateDishes;
+			}
+		},
+		filters: {
+			capitalize(value) {
+				return value[0].toUpperCase() + value.slice(1);
+			}
 		},
 		components: {
 			PreviewImage,

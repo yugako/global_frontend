@@ -9,16 +9,16 @@
 </template>
 <script>
 // @ is an alias to /src
-import Navigation from "@/components/Navigation.vue";
+import Navigation from "@/components/Navigation/Navigation.vue";
 import Footer from "@/components/Footer.vue";
 
 
 export default {
   name: "home",
   created() {
-    this.$store.dispatch("getDishes")
-    this.$store.dispatch("getWorkers")
-    this.$store.dispatch("getOrders")         
+    this.$store.dispatch("getDishes");
+    this.$store.dispatch("getWorkers");
+    this.$store.dispatch("getOrders");
   },
   components: {
     Navigation,

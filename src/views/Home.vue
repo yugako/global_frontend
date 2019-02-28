@@ -65,6 +65,11 @@ import Banner from "@/components/Banner.vue";
 
 export default {
   name: "home",
+  beforeCreate () {
+    if (this.$store.getters.logged) {
+      this.$router.go(-1);
+    }
+  },
   data () {
   	return {
 

@@ -114,6 +114,12 @@ body
 	max-width: 475px
 	width: 100%
 	position: relative
+	&__title
+		font-weight: 500
+		margin-bottom: 20px
+		font-family: "Open Sans", sans-serif
+		font-style: normal
+		color: #d50c0d
 .food__btn
     border-radius: 5px
     color: #fff
@@ -127,7 +133,7 @@ body
     background-color: #d50c0d
     border: none
 .single-input
-	input
+	input[type='text'], input[type='password']
 	    border: 1px solid #aaaaaa
 	    background: transparent
 	    font-size: 14px
@@ -139,6 +145,18 @@ body
 	    display: block
 	    border-radius: 100px
 	    font-family: 'Open Sans', sans-serif
+.check
+	input, label
+		display: inline
+	input[type='checkbox']
+		max-width: 100%
+	label
+		font-weight: 500
+		margin-bottom: 0
+		font-family: "Open Sans", sans-serif
+		font-style: normal
+		font-size: 15px
+		color: #444
 .close
 	position: absolute
 	top: 0px
@@ -152,18 +170,23 @@ body
 .container
 	padding-top: 15px
 	padding-bottom: 15px
+	position: relative
+.wrapper-nav
+	position: fixed
+	background-color: #fff
+	z-index: 99999999
+	border-bottom: 2px solid #d50c0d
+	width: 100%
+	height: auto
+	top: 0
+	left: 0
 .nav
-	&__list
-		display: flex
-		justify-content: center
-		margin-bottom: 0
-		list-style: none
-	&__item
-		margin: auto 10px
-	&__link
-		color: #444
+	&-link
+		color: #777
+		font-weight: bold
 		font-size: 16px
 		font-family: "Open Sans", sans-serif
+		transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
 		&:hover
 			color: #d50c0d
 .account

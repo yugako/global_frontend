@@ -22,8 +22,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button @click='addToQueue()' class="submit">Place order</button>
-			<router-link to='/stuff'>Go to stuff page</router-link>
+			<button @click='addToQueue()' :disabled='this.$store.state.cart.cart.length === 0' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
 	</div>
@@ -34,7 +33,7 @@
 	  name: "SummaryOrder",
 	  data () {
 	  	return {
-	  		cart: this.$store.state.cart,
+	  		cart: this.$store.state.cart.cart,
 	  		number: localStorage.getItem('number') || 1,
 	  	}
 	  },
@@ -45,11 +44,11 @@
 	  	addToQueue () {
 	  		let cart = this.cart;
 
-	  		cart.forEach((elem) => {
+	  		cart.forEach((elem, index) => {
 		  		this.$store.dispatch('saveOrder', {
 		 			title: elem.title,
 		 			number: this.countOrder,
-			    	price: this.countTotalOrder,
+			    	price: this.countTotal(index),
 			    	action: 'Take in order',
 			    	status: 'unprocessed'
 				});

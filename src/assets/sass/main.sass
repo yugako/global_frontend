@@ -72,6 +72,7 @@ select
     height: auto
     &.img-width
         width: 100%
+
 .button
     border-radius: 5px
     font-family: "Alegreya", serif
@@ -90,7 +91,22 @@ select
         color: #fff
         transition: 0.6s
     &:focus
-        outline: none
+       outline: none
+.empty
+    font-weight: bold
+    padding: 20px 10px
+    text-transform: uppercase
+    vertical-align: middle
+    white-space: nowrap 
+    color: #777
+    font-size: 14px
+
+.disabled
+    pointer-events: none
+
+.active
+    color: #d50c0d
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
 a:hover
     text-decoration: none
 .text-center
@@ -117,6 +133,20 @@ b, strong
     margin-bottom: 20px
     margin-top: 15px
     border-radius: 50px
+    position: relative
+    &-close
+        position: absolute
+        top: -20px
+        right: 20px
+        color: #fff
+        font-size: 50px
+        cursor: pointer
+    &-message
+        color: #d50c0d
+        font-size: 14px
+        font-family: 'Alegreya', serif
+        margin-bottom: 15px
+        margin-top: 15px
 .slide-fade-enter-active 
   transition: all .3s ease
 

@@ -1,7 +1,7 @@
 <template id="image-input-template">
     <div class="Image-input">
         <div class="Image-input__image-wrapper">
-            <i v-show="! imageSrc" class="icon fa fa-picture-o"></i>
+            <i v-show="!imageSrc" class="icon fa fa-picture-o"></i>
             <img class="Image-input__image" :src="imageSrc">
         </div>
 
@@ -22,7 +22,6 @@
         created() {
             if(this.currentImage) {
                 this.imageSrc = this.currentImage;
-                console.log(this.imageSrc);
             }
         },
         methods: {
@@ -31,20 +30,14 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     var vm = this;
-
                     reader.onload = function(e) {
                         vm.imageSrc = e.target.result;
+                        vm.$emit('getImg', vm.imageSrc );
                     }
 
-                    reader.readAsDataURL(input.files[0]);
-                    this.$emit('getImg', this.imageSrc );
-                    
+                    reader.readAsDataURL(input.files[0]); 
                 }
-                
-                
-
             },
-
         }
     }
 </script>
