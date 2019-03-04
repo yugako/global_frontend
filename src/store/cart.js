@@ -20,6 +20,8 @@ export default {
 		cleanCart (state, payload) {
 			state.cart.splice(0, payload.length);
 			state.countItems = 0;
+			localStorage.removeItem('cart');
+			localStorage.removeItem('countItems');
 		},
 		removeFromCart (state, payload) {
 			state.cart.splice(payload.index, 1);
