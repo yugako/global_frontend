@@ -24,7 +24,7 @@
 						                </tr>
 						            </thead>
 						            <tbody>
-						            	<tr v-for='(dish, i) in filtered' :key='i'>
+						            	<tr v-for='dish in filtered' :key='dish._id'>
 						            		<td class="queue-name">
 						                    	{{dish.number}}
 						                    </td>
@@ -188,9 +188,8 @@
 		  				break;
 		  			case 'Remove':
 		  				this.$store.dispatch('deleteOrder', dish._id);
-		  				this.updateOrder(dish);
 		  				this.orders = this.filtered = this.$store.getters.Orders;
-	  				break;
+	  					break;
 		  		}
 		  	},
 		  	getWorker(data) {
