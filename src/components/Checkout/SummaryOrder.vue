@@ -16,10 +16,14 @@
 						</td>
 						<td class="product-price">{{countTotal(index)}}</td>
 					</tr>
+					<tr>
+						<td class='empty' v-if='cart.length === 0' colspan="2">No items in cart</td>
+					</tr>
 					<tr class="table-footer">
 						<td class="product-total__head">Order total</td>
 						<td class="product-total__price">{{countTotalOrder}}</td>
 					</tr>
+					
 				</tbody>
 			</table>
 			<div v-if='disabled'>You must entered all fields!</div>
