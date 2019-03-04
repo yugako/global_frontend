@@ -52,7 +52,7 @@
 						    				
 						    			</tr>
 						    			<tr>
-						    				<td class='empty' v-if='filtered.length === 0' colspan="7">No dishes in queue</td>
+						    				<td class='empty' v-if='filtered.length === 0' colspan="8">No dishes in queue</td>
 						    			</tr>
 						            </tbody>
 						    		
