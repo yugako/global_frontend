@@ -38,7 +38,7 @@ export default {
   		return this.$store.getters.countTotalOrder;
   	},
   	isEmpty () {
-  		return this.$store.state.cart.cart === 0 ? true : false;
+  		return this.$store.state.cart.cart.length === 0 ? true : false;
   	}	
   },
   components: {
