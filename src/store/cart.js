@@ -49,5 +49,8 @@ export default {
 			total = parseInt(arr[index].quantity)*parseInt(arr[index].price);
 			return `${total} $`;
 		},
+		Cart: state => {
+			return state.cart;
+		}
 	}
 }

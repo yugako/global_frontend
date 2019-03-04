@@ -64,7 +64,7 @@
 		},
 		data() {
 			return {
-				cart: this.$store.state.cart.cart,
+				cart: this.$store.getters.Cart,
 			}
 		},
 		methods: {
