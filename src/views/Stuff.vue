@@ -13,12 +13,13 @@
 						    	<table>
 						    		<thead>
 						                <tr class="title-top">
-						                	<th>Order number</th>
+						                	<th>Order <br> number</th>
 						                    <th>Name</th>
 						                    <th>Worker</th>
-						                    <th>Order date</th>
+						                    <th>Order <br> date</th>
 						                    <th>Status</th>
-						                    <th>Total price</th>
+						                    <th>Amount</th>
+						                    <th>Total <br> price</th>
 						                 	<th>Actions</th>
 						                </tr>
 						            </thead>
@@ -38,6 +39,9 @@
 						                    </td>
 						                    <td class="queue-status">
 						                    	{{dish.status}}
+						                    </td>
+						                    <td class="queue-status">
+						                    	{{dish.amount}}
 						                    </td>
 						                    <td class="queue-status">
 						                    	{{dish.price}}

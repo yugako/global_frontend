@@ -49,6 +49,7 @@
 		 			title: elem.title,
 		 			number: this.countOrder,
 			    	price: this.countTotal(index),
+			    	amount: elem.quantity,
 			    	action: 'Take in order',
 			    	status: 'unprocessed'
 				});
