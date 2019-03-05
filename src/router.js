@@ -63,9 +63,10 @@ export default new Router({
       }
     },
     {
-      path: "/detail/:id",
+      path: "/menu/:title/",
       name: "detail",
-      component: MenuDetail
+      component: MenuDetail,
+      props: true
     },
     {
       path: "/cart",
