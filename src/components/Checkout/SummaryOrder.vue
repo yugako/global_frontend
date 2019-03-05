@@ -26,7 +26,7 @@
 					
 				</tbody>
 			</table>
-			<div v-if='disabled'>You must entered all fields!</div>
+			<div class="text-right text-info text-danger" v-if='disabled'>Please fill in all the fields</div>
 			<button @click='addToQueue()' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
@@ -48,36 +48,71 @@
 	  		return this.$store.getters.countTotal(i);
 	  	},
 	  	addToQueue () {
-	  		let cart = this.cart;
-	  		if (this.validationFields('billing') && this.validationFields('pay')) {
-
-	  			cart.forEach((elem, index) => {
-			  		this.$store.dispatch('saveOrder', {
-			 			title: elem.title,
-			 			number: this.countOrder,
-				    	price: this.countTotal(index),
-				    	amount: elem.quantity,
-				    	action: 'Take in order',
-				    	status: 'unprocessed'
-					});
-		  		});
-		  		this.number++;
-		  		localStorage.setItem('number', this.number);
-				setTimeout(() => {
-					this.$store.commit('cleanCart', cart);
-				}, 0);
+	  		if (this.Picked === 'card') {
+	  			if (this.validationFields('billing') && this.validationFields('pay')) {
+	  				this.saveToOrders();
+	  			} else {
+	  				this.lightInputs('billing');
+	  				this.lightInputs('pay');
+	  				this.disabled = true;
+	  				setTimeout(() => {this.disabled = false;}, 1500)
+	  			}
 	  		} else {
-	  			this.disabled = false;
+	  			if (this.validationFields('billing')) {
+		  			this.saveToOrders();
+		  			
+		  		} else {
+		  			this.lightInputs('billing');
+		  			this.disabled = true;
+		  			setTimeout(() => {this.disabled = false;}, 1500)
+		  		}
 	  		}
-	  		
-				
+	  			
+		},
+		saveToOrders() {
+			let cart = this.cart;
+
+			cart.forEach((elem, index) => {
+		  		this.$store.dispatch('saveOrder', {
+		 			title: elem.title,
+		 			number: this.countOrder,
+			    	price: this.countTotal(index),
+			    	amount: elem.quantity,
+			    	action: 'Take in order',
+			    	status: 'unprocessed'
+				});
+	  		});
+	  		this.number++;
+	  		localStorage.setItem('number', this.number);
+			setTimeout(() => {
+				this.$store.commit('cleanCart', cart);
+			}, 0);
 		},
 		validationFields(name) {
 	  		let elems = [...document.forms[name].elements];
-	  		let result = elems.every( (elem) => {
+	  		let result = elems.every((elem) => {
 	  			return elem.value;
 	  		});
 	  		return result;
+	  	},
+	  	lightInputs(name) {
+	  		let elems = [...document.forms[name].elements];
+	  		elems.forEach(function(elem) {
+	  			if (!elem.value) {
+	  				if (!elem.classList.contains('border-danger')) {
+	  					elem.classList.add('border-danger');
+	  				}
+	  				
+	  			} else {
+	  				elem.classList.remove('border-danger');
+	  			}
+	  		});
+	  	},
+	  	cleanFields(name) {
+	  		let elems = [...document.forms[name].elements];
+	  		elems.forEach(function(elem) {
+	  			elem.value = '';
+	  		});
 	  	}
 	  },
 	  computed: {
@@ -86,6 +121,12 @@
 	  	},
 	  	countOrder () {
 	  		return this.number;
+	  	},
+	  	Picked () {
+	  		return this.$store.getters.Picked;
+	  	},
+	  	emptyCart() {
+	  		return this.$store.getters.Cart.length === 0 ? true : false;
 	  	}
 	  },
 	};
