@@ -34,6 +34,7 @@
 	<!-- /.wrapper -->
 </template>
 <script>
+	import summaryOrder from '@/functions/summaryOrder.js';
 	export default {
 	  name: "SummaryOrder",
 	  data () {
@@ -44,27 +45,22 @@
 	  	}
 	  },
 	  methods: {
-	  	countTotal (i) {
-	  		return this.$store.getters.countTotal(i);
-	  	},
+	  	
 	  	addToQueue () {
 	  		if (this.Picked === 'card') {
-	  			if (this.validationFields('billing') && this.validationFields('pay')) {
+	  			if (summaryOrder.validationFields('billing') && summaryOrder.validationFields('pay')) {
 	  				this.saveToOrders();
 	  			} else {
-	  				this.lightInputs('billing');
-	  				this.lightInputs('pay');
-	  				this.disabled = true;
-	  				setTimeout(() => {this.disabled = false;}, 1500)
+	  				summaryOrder.lightInputs('billing');
+	  				summaryOrder.lightInputs('pay');
+	  				summaryOrder.toggleMessage();
 	  			}
 	  		} else {
-	  			if (this.validationFields('billing')) {
+	  			if (summaryOrder.validationFields('billing')) {
 		  			this.saveToOrders();
-		  			
 		  		} else {
-		  			this.lightInputs('billing');
-		  			this.disabled = true;
-		  			setTimeout(() => {this.disabled = false;}, 1500)
+		  			summaryOrder.lightInputs('billing');
+		  			summaryOrder.toggleMessage();
 		  		}
 	  		}
 	  			
@@ -88,32 +84,9 @@
 				this.$store.commit('cleanCart', cart);
 			}, 0);
 		},
-		validationFields(name) {
-	  		let elems = [...document.forms[name].elements];
-	  		let result = elems.every((elem) => {
-	  			return elem.value;
-	  		});
-	  		return result;
+		countTotal (i) {
+	  		return this.$store.getters.countTotal(i);
 	  	},
-	  	lightInputs(name) {
-	  		let elems = [...document.forms[name].elements];
-	  		elems.forEach(function(elem) {
-	  			if (!elem.value) {
-	  				if (!elem.classList.contains('border-danger')) {
-	  					elem.classList.add('border-danger');
-	  				}
-	  				
-	  			} else {
-	  				elem.classList.remove('border-danger');
-	  			}
-	  		});
-	  	},
-	  	cleanFields(name) {
-	  		let elems = [...document.forms[name].elements];
-	  		elems.forEach(function(elem) {
-	  			elem.value = '';
-	  		});
-	  	}
 	  },
 	  computed: {
 	  	countTotalOrder () {
