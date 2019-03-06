@@ -9,23 +9,19 @@ export default {
   	},
   	lightInputs(name) {
   		let elems = [...document.forms[name].elements];
-
+      console.log(elems)
   		elems.forEach(function(elem) {
   			if (!elem.value) {
-  				if (!elem.classList.contains('border-danger')) {
-  					elem.classList.add('border-danger');
+  				if (!elem.classList.contains('danger')) {
+  					elem.classList.add('danger');
   				}
-  				
   			} else {
-  				elem.classList.remove('border-danger');
+  				elem.classList.remove('danger');
   			}
   		});
   	},
   	cleanFields(name) {
-  		let elems = [...document.forms[name].elements];
-  		elems.forEach(function(elem) {
-  			elem.value = '';
-  		});
+  		document.forms[name].reset();
   	},
   	pickValues(name) {
   		let elems = [...document.forms[name].elements];

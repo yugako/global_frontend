@@ -45,11 +45,12 @@
 	  	}
 	  },
 	  methods: {
-	  	
 	  	addToQueue () {
 	  		if (this.Picked === 'card') {
 	  			if (summaryOrder.validationFields('billing') && summaryOrder.validationFields('pay')) {
 	  				this.saveToOrders();
+	  				summaryOrder.cleanFields('billing');
+	  				summaryOrder.cleanFields('pay');
 	  			} else {
 	  				summaryOrder.lightInputs('billing');
 	  				summaryOrder.lightInputs('pay');
