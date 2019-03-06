@@ -1,0 +1,34 @@
+version: '3.0'
+services:
+  client:
+    image: delivery-client
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      API_URL: 'localhost:3000/'
+  server:
+    image: delivery-server
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      HOST: '127.0.0.1'
+      PORT: 3000
+      MODE: 'development'
+      DB_HOST: 'db'
+      DB_PORT: 27017
+      DB-NAME: 'service'
+      LOG_PATH: 'logs/'
+      LOG_COMBINED: 'combined.log'
+      LOG_ERROR: 'error.log'
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+volumes:
+  mongodb:
+  mongodb_config:

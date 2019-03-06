@@ -42,8 +42,7 @@
 				<div class="order-preview__buttons">
 					<router-link to='/cart' class="order-preview__button food__btn">View cart</router-link>
 					<!-- /.cart -->
-					<router-link :class='{disabled: isEmpty}' to='/payment'  class="order-preview__button food__btn">Checkout</router-link>
-					<!-- /.checkout -->
+
 				</div>
 				<!-- /.order-preview__buttons -->
 				
@@ -64,7 +63,7 @@
 		},
 		data() {
 			return {
-				cart: this.$store.state.cart.cart,
+				cart: this.$store.getters.Cart,
 			}
 		},
 		methods: {

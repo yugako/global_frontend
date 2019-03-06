@@ -35,14 +35,13 @@ export default {
 	   	},
 	   	updateOrder (context, payload) {
 		  	axios.put(context.rootState.BASE_ORDERS_URL + payload.id, payload)
-				.then(() => {              
+				.then(() => {
 					context.commit('updateOrder', payload)
 				});
 	   	},
 	   	deleteOrder (context, id) {
 		  	axios.delete(context.rootState.BASE_ORDERS_URL + id)
 		  	.then((response) => {
-		  		console.log(response.status);
 		  		if (response.status === 200) {
 		  			context.commit('deleteOrder', id)
 		  		}	

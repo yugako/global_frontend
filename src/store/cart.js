@@ -1,7 +1,7 @@
 export default {
 	state: {
-		cart: [],
-		countItems: 0,
+		cart: JSON.parse(localStorage.getItem('cart')) || [],
+		countItems: JSON.parse(localStorage.getItem('countItems')) || 0,
 		cartPreview: false,
 	},
 	mutations: {
@@ -14,10 +14,14 @@ export default {
 		addToCart(state, payload) {
 			state.cart.push(payload.dish);
 			state.countItems++;
+			localStorage.setItem('cart', JSON.stringify(state.cart));
+			localStorage.setItem('countItems', JSON.stringify(state.countItems));
 		},
 		cleanCart (state, payload) {
 			state.cart.splice(0, payload.length);
 			state.countItems = 0;
+			localStorage.removeItem('cart');
+			localStorage.removeItem('countItems');
 		},
 		removeFromCart (state, payload) {
 			state.cart.splice(payload.index, 1);
@@ -45,5 +49,8 @@ export default {
 			total = parseInt(arr[index].quantity)*parseInt(arr[index].price);
 			return `${total} $`;
 		},
+		Cart: state => {
+			return state.cart;
+		}
 	}
 }

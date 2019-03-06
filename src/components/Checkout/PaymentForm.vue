@@ -15,7 +15,7 @@
 				</label>
 			</div>
 			<!-- /.pay-method -->
-			<form action="#" class="pay-form" v-if='picked === "card"'>
+			<form name='pay' class="pay-form" v-if='picked === "card"'>
 			    <div class="row">
 			        <div class="input-box col-12 mb--20">
 			            <label for="card-number">Credit Card Number *</label>
@@ -35,7 +35,7 @@
 			                <div class="input-box col-md-6 col-12 mb--20">
 			                    <select>
 			                        <option disabled selected>Year</option>
-			                        <option v-for='year in years'>{{year}}</option>
+			                        <option v-for='n in 5'>{{new Date().getFullYear()-1 + n}}</option>
 			                    </select>
 			                </div>
 			            </div>
@@ -63,7 +63,6 @@
 	  		cvv: '',
 	  		picked: '',
 	  		months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	  		years: [2019,2020,2021,2022,2023],
 	  	}
 	  },
 	};

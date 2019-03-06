@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   devServer: {
-    port: process.env.PORT || 4563,
+    port: process.env.PORT || 8080,
     host: process.env.HOST || 'localhost',
   },
   configureWebpack: {

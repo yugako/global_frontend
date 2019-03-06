@@ -16,13 +16,18 @@
 						</td>
 						<td class="product-price">{{countTotal(index)}}</td>
 					</tr>
+					<tr>
+						<td class='empty' v-if='cart.length === 0' colspan="2">No items in cart</td>
+					</tr>
 					<tr class="table-footer">
 						<td class="product-total__head">Order total</td>
 						<td class="product-total__price">{{countTotalOrder}}</td>
 					</tr>
+					
 				</tbody>
 			</table>
-			<button @click='addToQueue()' :disabled='this.$store.state.cart.cart.length === 0' class="submit">Place order</button>
+			<div v-if='disabled'>You must entered all fields!</div>
+			<button @click='addToQueue()' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
 	</div>
@@ -35,6 +40,7 @@
 	  	return {
 	  		cart: this.$store.state.cart.cart,
 	  		number: localStorage.getItem('number') || 1,
+	  		disabled: false
 	  	}
 	  },
 	  methods: {
@@ -43,23 +49,36 @@
 	  	},
 	  	addToQueue () {
 	  		let cart = this.cart;
+	  		if (this.validationFields('billing') && this.validationFields('pay')) {
 
-	  		cart.forEach((elem, index) => {
-		  		this.$store.dispatch('saveOrder', {
-		 			title: elem.title,
-		 			number: this.countOrder,
-			    	price: this.countTotal(index),
-			    	action: 'Take in order',
-			    	status: 'unprocessed'
-				});
-	  		});
-	  		this.number++;
-	  		localStorage.setItem('number', this.number);
-			setTimeout(() => {
-				this.$store.commit('cleanCart', cart);
-			}, 0);
+	  			cart.forEach((elem, index) => {
+			  		this.$store.dispatch('saveOrder', {
+			 			title: elem.title,
+			 			number: this.countOrder,
+				    	price: this.countTotal(index),
+				    	amount: elem.quantity,
+				    	action: 'Take in order',
+				    	status: 'unprocessed'
+					});
+		  		});
+		  		this.number++;
+		  		localStorage.setItem('number', this.number);
+				setTimeout(() => {
+					this.$store.commit('cleanCart', cart);
+				}, 0);
+	  		} else {
+	  			this.disabled = false;
+	  		}
+	  		
 				
 		},
+		validationFields(name) {
+	  		let elems = [...document.forms[name].elements];
+	  		let result = elems.every( (elem) => {
+	  			return elem.value;
+	  		});
+	  		return result;
+	  	}
 	  },
 	  computed: {
 	  	countTotalOrder () {

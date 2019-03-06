@@ -2,7 +2,7 @@
 	<div class="billing">
 		<div class="billing__title" @click='show = !show'>1. Billing information</div>
 		<transition name="slide-fade">
-		<form action="#" v-show='show' class="billing-form">
+		<form action="#" v-show='show' name='billing' class="billing-form">
 		    <div class="row">
 		        <div class="col-md-6 col-12">                                 
 		            <input type="text" placeholder="First Name">

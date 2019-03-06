@@ -13,17 +13,18 @@
 						    	<table>
 						    		<thead>
 						                <tr class="title-top">
-						                	<th>Order number</th>
+						                	<th>Order <br> number</th>
 						                    <th>Name</th>
 						                    <th>Worker</th>
-						                    <th>Order date</th>
+						                    <th>Order <br> date</th>
 						                    <th>Status</th>
-						                    <th>Total price</th>
+						                    <th>Amount</th>
+						                    <th>Total <br> price</th>
 						                 	<th>Actions</th>
 						                </tr>
 						            </thead>
 						            <tbody>
-						            	<tr v-for='(dish, i) in filtered' :key='i'>
+						            	<tr v-for='dish in filtered' :key='dish._id'>
 						            		<td class="queue-name">
 						                    	{{dish.number}}
 						                    </td>
@@ -40,6 +41,9 @@
 						                    	{{dish.status}}
 						                    </td>
 						                    <td class="queue-status">
+						                    	{{dish.amount}}
+						                    </td>
+						                    <td class="queue-status">
 						                    	{{dish.price}}
 						                    </td>
 						                    <td class="actions">
@@ -48,7 +52,7 @@
 						    				
 						    			</tr>
 						    			<tr>
-						    				<td class='empty' v-if='filtered.length === 0' colspan="7">No dishes in queue</td>
+						    				<td class='empty' v-if='filtered.length === 0' colspan="8">No dishes in queue</td>
 						    			</tr>
 						            </tbody>
 						    		
@@ -184,9 +188,8 @@
 		  				break;
 		  			case 'Remove':
 		  				this.$store.dispatch('deleteOrder', dish._id);
-		  				this.updateOrder(dish);
 		  				this.orders = this.filtered = this.$store.getters.Orders;
-	  				break;
+	  					break;
 		  		}
 		  	},
 		  	getWorker(data) {
