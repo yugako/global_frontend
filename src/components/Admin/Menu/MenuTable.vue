@@ -27,7 +27,7 @@
 			               
 			                <td class="product-excerpt">{{dish.excerpt}}</td>
 			                <td class="actions">
-			           			<span class="actions-button edit" @click='goToEditDish(dish._id)'>Edit</span>
+			           			<span class="actions-button edit" @click='goToEditDish(dish.title)'>Edit</span>
 			                	<span @click='removeFromStore(dish._id)' class="actions-button remove">Remove</span>
 			                </td>
 			            </tr>
@@ -84,8 +84,8 @@
 			}
 		},
 		methods: {
-			goToEditDish(dishId) {
-			    this.$router.push({name:'change',params:{id:dishId}})
+			goToEditDish(title) {
+			    this.$router.push({name:'change',params:{title: this.friendlyUrl(title)}})
 			},
 			addNewItem() {
 				this.$router.push({ name: 'add'}) 
@@ -94,6 +94,10 @@
 				this.$store.dispatch('deleteDishes', index);
 				this.dishes = this.$store.getters.Dishes;
 			},
+			friendlyUrl(value) {
+			      value = value.replace(/\s/g, "_");
+			      return value;
+			}
 		}
 	}
 </script>

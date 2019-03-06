@@ -64,7 +64,7 @@ export default {
     friendlyUrl(value) {
           value = value.replace(/\s/g, "_");
           return value;
-      }
+    }
   },
   computed : {
     dishesList(){

@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
 					<div class="menu-item" v-for='(dish,index) in dishes' :key='index'>
-						<div v-if='dish._id === proId'>
+						<div v-if='dish.title === friendlyTitle(proId)'>
 							<div class="menu-item__title">
 								Edit dish: {{dish.title}}
 							</div>
@@ -33,9 +33,15 @@
 	export default {
 		data () {
 			return {
-				proId: this.$route.params.id,
+				proId: this.$route.params.title,
 				dishes: this.$store.state.dishes.dishes,
 			}
+		},
+		methods: {
+			friendlyTitle(value) {
+				value = value.replace(/_/g, " ");
+				return value;
+			},
 		},
 		components: {
 			Banner,

@@ -23,7 +23,7 @@
 			                	{{worker.password}}
 			                </td>
 			                <td class="actions">
-			           			<span @click='goToEditWorker(worker._id)' class="actions-button button">Edit</span>
+			           			<span @click='goToEditWorker(worker.name)' class="actions-button button">Edit</span>
 
 			                	<span @click='removeFromWorkers(worker._id)' class="actions-button button">Remove</span>
 			                </td>
@@ -91,8 +91,8 @@
 			}
 		},
 		methods: {
-			goToEditWorker(id) {
-			    this.$router.push({name:'edit',params:{id:id}})
+			goToEditWorker(name) {
+			    this.$router.push({name:'edit',params:{name: this.friendlyUrl(name)}})
 			},
 			
 			addNewWorker() {
@@ -102,6 +102,10 @@
 			  	this.$store.dispatch('deleteWorkers', id);
 			  	this.workers = this.$store.getters.Workers;
 			},
+			friendlyUrl(value) {
+			      value = value.replace(/\s/g, "_");
+			      return value;
+			}
 		}
 	}
 </script>
