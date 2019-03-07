@@ -27,6 +27,8 @@ export default {
 		removeFromCart (state, payload) {
 			state.cart.splice(payload.index, 1);
 			state.countItems--;
+			localStorage.removeItem('cart');
+			localStorage.removeItem('countItems');
 		},
 		setPayment(state, payload) {
 			state.picked = payload;
