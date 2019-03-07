@@ -19,6 +19,10 @@ const options = {
     separator: '|',
     showConsoleColors: true
 };
+
+window.onunload = function () {
+  localStorage.removeItem('log');
+}
  
 router.beforeEach((to, from, next) => {
   
