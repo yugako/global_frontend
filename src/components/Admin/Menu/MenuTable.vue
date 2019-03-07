@@ -1,7 +1,10 @@
 <template>
 	<transition name="slide-fade">
 		<div v-if='showDishes' class="wrapper">
-			<div class="table-content table-responsive">
+			<div class="empty-list" v-if='dishes.length === 0'>
+				Oops... cannot get dishes list.<br> Please, refresh page or write us about this problem
+			</div>
+			<div  v-else class="table-content table-responsive">
 			    <table>
 			        <thead>
 			            <tr class="title-top">
