@@ -1,6 +1,9 @@
 <template>
 	<transition name="slide-fade">
 		<div v-if='showWorkers' class="wrapper">
+			<div class="empty-list" v-if='workers.length === 0'>
+				Oops... cannot get workers list.<br> Please, refresh page or write us about this problem
+			</div>
 			<div class="table-content table-responsive">
 			    <table>
 			        <thead>

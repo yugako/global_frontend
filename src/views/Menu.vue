@@ -4,7 +4,7 @@
     <!-- /.menu-header -->
     <div class="menu-list">
     	<div class="container">
-        
+          <div class="empty-list" v-if='dishesList.length === 0'>Oops... cannot get menu list. <br> Please, refresh page or write us about this problem</div>
           <div class="row">
             <div class="col-12 col-lg-4" v-for='dish in dishesList'>
                   <div class="menu-item" >
