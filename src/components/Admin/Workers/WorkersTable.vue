@@ -4,7 +4,7 @@
 			<div class="empty-list" v-if='workers.length === 0'>
 				Oops... cannot get workers list.<br> Please, refresh page or write us about this problem
 			</div>
-			<div class="table-content table-responsive">
+			<div v-else  class="table-content table-responsive">
 			    <table>
 			        <thead>
 			            <tr class="title-top">
