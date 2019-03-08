@@ -67,13 +67,12 @@ export default {
   name: "home",
   beforeCreate () {
     if (this.$store.getters.logged) {
-      this.$router.go(-1);
+      if (this.$store.getters.UserRole === 'admin') {
+        this.$router.push({name: 'admin'})
+      } else {
+        this.$router.push({name: 'stuff'})
+      }
     }
-  },
-  data () {
-  	return {
-
-  	}
   },
   components: {
     Banner
