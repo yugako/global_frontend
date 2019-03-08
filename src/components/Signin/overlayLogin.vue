@@ -25,10 +25,7 @@
 			},
 			showLogin() {
 				this.$store.commit('showLogin');
-			},
-			showRegister() {
-				this.$store.commit('showRegister');
-			},
+			}
 		},
 		
 		components: {
