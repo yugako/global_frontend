@@ -43,6 +43,7 @@
 						console.log(response);
 						this.errors = false;
 						this.$store.commit('setUserName', response.data.name);
+						this.$store.commit('setUserRole', response.data.role);
 						this.$store.commit('isLogIn');
 						this.$store.commit('hideForm');
 
@@ -60,10 +61,6 @@
 					.catch(e => {
 						this.errors = true;
 					})
-			},
-			
-			register() {
-				this.$store.commit('showRegister');
 			}
 		},
 		computed: {
