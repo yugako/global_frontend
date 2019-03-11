@@ -1,7 +1,10 @@
 <template>
 	<transition name="slide-fade">
 		<div v-if='showWorkers' class="wrapper">
-			<div class="table-content table-responsive">
+			<div class="empty-list" v-if='workers.length === 0'>
+				Oops... cannot get workers list.<br> Please, refresh page or write us about this problem
+			</div>
+			<div v-else  class="table-content table-responsive">
 			    <table>
 			        <thead>
 			            <tr class="title-top">
@@ -23,7 +26,7 @@
 			                	{{worker.password}}
 			                </td>
 			                <td class="actions">
-			           			<span @click='goToEditWorker(worker._id)' class="actions-button button">Edit</span>
+			           			<span @click='goToEditWorker(worker.name)' class="actions-button button">Edit</span>
 
 			                	<span @click='removeFromWorkers(worker._id)' class="actions-button button">Remove</span>
 			                </td>
@@ -91,8 +94,8 @@
 			}
 		},
 		methods: {
-			goToEditWorker(id) {
-			    this.$router.push({name:'edit',params:{id:id}})
+			goToEditWorker(name) {
+			    this.$router.push({name:'edit',params:{name: this.friendlyUrl(name)}})
 			},
 			
 			addNewWorker() {
@@ -102,6 +105,10 @@
 			  	this.$store.dispatch('deleteWorkers', id);
 			  	this.workers = this.$store.getters.Workers;
 			},
+			friendlyUrl(value) {
+			      value = value.replace(/\s/g, "_");
+			      return value;
+			}
 		}
 	}
 </script>

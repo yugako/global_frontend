@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
 					<div class="menu-item" v-for='(worker,index) in workers' :key='index'>
-						<div v-if='worker._id === proId'>
+						<div v-if='worker.name === friendlyTitle(proId)'>
 							<div class="menu-item__title">
 								Edit worker's data: {{worker.name}}
 							</div>
@@ -33,10 +33,16 @@
 	export default {
 		data () {
 			return {
-				proId: this.$route.params.id,
+				proId: this.$route.params.name,
 				workers: this.$store.getters.Workers,
 				
 			}
+		},
+		methods: {
+			friendlyTitle(value) {
+				value = value.replace(/_/g, " ");
+				return value;
+			},
 		},
 		components: {
 			Banner,

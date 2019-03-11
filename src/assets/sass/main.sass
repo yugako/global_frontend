@@ -100,7 +100,12 @@ select
     white-space: nowrap 
     color: #777
     font-size: 14px
-
+    &-list
+        text-align: center
+        color: #d50c0d
+        font-family: "Alegreya", serif
+        font-size: 50px
+        font-weight: 700
 .disabled
     pointer-events: none
 
@@ -147,6 +152,11 @@ b, strong
         font-family: 'Alegreya', serif
         margin-bottom: 15px
         margin-top: 15px
+.danger
+    border: 1px solid red!important
+    animation-name: error
+    animation-iteration-count: 3
+    animation-duration: 0.1s
 .slide-fade-enter-active 
   transition: all .3s ease
 
@@ -171,3 +181,12 @@ b, strong
     
     100% 
         transform: scale(1)
+@keyframes error
+    0%
+        transform: translateX(0px)
+    25%
+        transform: translateX(10px)
+    50%
+        transform: translateX(-10px)
+    100%
+        transform: translateX(0px)

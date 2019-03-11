@@ -26,7 +26,7 @@
 					
 				</tbody>
 			</table>
-			<div v-if='disabled'>You must entered all fields!</div>
+			<div class="text-right text-info text-danger" v-if='disabled'>Please fill in all the fields</div>
 			<button @click='addToQueue()' class="submit">Place order</button>
 		</div>
 		<!-- /.table-responsive -->
@@ -34,6 +34,7 @@
 	<!-- /.wrapper -->
 </template>
 <script>
+	import summaryOrder from '@/functions/summaryOrder.js';
 	export default {
 	  name: "SummaryOrder",
 	  data () {
@@ -44,41 +45,49 @@
 	  	}
 	  },
 	  methods: {
-	  	countTotal (i) {
+	  	addToQueue () {
+	  		if (this.Picked === 'card') {
+	  			if (summaryOrder.validationFields('billing') && summaryOrder.validationFields('pay')) {
+	  				this.saveToOrders();
+	  				summaryOrder.cleanFields('billing');
+	  				summaryOrder.cleanFields('pay');
+	  			} else {
+	  				summaryOrder.lightInputs('billing');
+	  				summaryOrder.lightInputs('pay');
+	  				summaryOrder.toggleMessage();
+	  			}
+	  		} else {
+	  			if (summaryOrder.validationFields('billing')) {
+		  			this.saveToOrders();
+		  		} else {
+		  			summaryOrder.lightInputs('billing');
+		  			summaryOrder.toggleMessage();
+		  		}
+	  		}
+	  			
+		},
+		saveToOrders() {
+			let cart = this.cart;
+
+			cart.forEach((elem, index) => {
+		  		this.$store.dispatch('saveOrder', {
+		 			title: elem.title,
+		 			number: this.countOrder,
+			    	price: this.countTotal(index),
+			    	amount: elem.quantity,
+			    	action: 'Take in order',
+			    	status: 'unprocessed'
+				});
+	  		});
+	  		this.number++;
+	  		localStorage.setItem('number', this.number);
+			setTimeout(() => {
+				this.$store.commit('cleanCart', cart);
+			}, 0);
+		},
+		countTotal (i) {
 	  		return this.$store.getters.countTotal(i);
 	  	},
-	  	addToQueue () {
-	  		let cart = this.cart;
-	  		if (this.validationFields('billing') && this.validationFields('pay')) {
-
-	  			cart.forEach((elem, index) => {
-			  		this.$store.dispatch('saveOrder', {
-			 			title: elem.title,
-			 			number: this.countOrder,
-				    	price: this.countTotal(index),
-				    	amount: elem.quantity,
-				    	action: 'Take in order',
-				    	status: 'unprocessed'
-					});
-		  		});
-		  		this.number++;
-		  		localStorage.setItem('number', this.number);
-				setTimeout(() => {
-					this.$store.commit('cleanCart', cart);
-				}, 0);
-	  		} else {
-	  			this.disabled = false;
-	  		}
-	  		
-				
-		},
-		validationFields(name) {
-	  		let elems = [...document.forms[name].elements];
-	  		let result = elems.every( (elem) => {
-	  			return elem.value;
-	  		});
-	  		return result;
-	  	}
 	  },
 	  computed: {
 	  	countTotalOrder () {
@@ -86,6 +95,12 @@
 	  	},
 	  	countOrder () {
 	  		return this.number;
+	  	},
+	  	Picked () {
+	  		return this.$store.getters.Picked;
+	  	},
+	  	emptyCart() {
+	  		return this.$store.getters.Cart.length === 0 ? true : false;
 	  	}
 	  },
 	};

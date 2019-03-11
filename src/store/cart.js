@@ -3,6 +3,7 @@ export default {
 		cart: JSON.parse(localStorage.getItem('cart')) || [],
 		countItems: JSON.parse(localStorage.getItem('countItems')) || 0,
 		cartPreview: false,
+		picked: 'cash',
 	},
 	mutations: {
 		showCartPreview(state) {
@@ -26,7 +27,12 @@ export default {
 		removeFromCart (state, payload) {
 			state.cart.splice(payload.index, 1);
 			state.countItems--;
+			localStorage.removeItem('cart');
+			localStorage.removeItem('countItems');
 		},
+		setPayment(state, payload) {
+			state.picked = payload;
+		}
 	},
 	actions: {},
 	getters: {
@@ -51,6 +57,9 @@ export default {
 		},
 		Cart: state => {
 			return state.cart;
+		},
+		Picked: state => {
+			return state.picked;
 		}
 	}
 }

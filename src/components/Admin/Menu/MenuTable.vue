@@ -1,7 +1,10 @@
 <template>
 	<transition name="slide-fade">
 		<div v-if='showDishes' class="wrapper">
-			<div class="table-content table-responsive">
+			<div class="empty-list" v-if='dishes.length === 0'>
+				Oops... cannot get dishes list.<br> Please, refresh page or write us about this problem
+			</div>
+			<div  v-else class="table-content table-responsive">
 			    <table>
 			        <thead>
 			            <tr class="title-top">
@@ -27,7 +30,7 @@
 			               
 			                <td class="product-excerpt">{{dish.excerpt}}</td>
 			                <td class="actions">
-			           			<span class="actions-button edit" @click='goToEditDish(dish._id)'>Edit</span>
+			           			<span class="actions-button edit" @click='goToEditDish(dish.title)'>Edit</span>
 			                	<span @click='removeFromStore(dish._id)' class="actions-button remove">Remove</span>
 			                </td>
 			            </tr>
@@ -84,8 +87,8 @@
 			}
 		},
 		methods: {
-			goToEditDish(dishId) {
-			    this.$router.push({name:'change',params:{id:dishId}})
+			goToEditDish(title) {
+			    this.$router.push({name:'change',params:{title: this.friendlyUrl(title)}})
 			},
 			addNewItem() {
 				this.$router.push({ name: 'add'}) 
@@ -94,6 +97,10 @@
 				this.$store.dispatch('deleteDishes', index);
 				this.dishes = this.$store.getters.Dishes;
 			},
+			friendlyUrl(value) {
+			      value = value.replace(/\s/g, "_");
+			      return value;
+			}
 		}
 	}
 </script>

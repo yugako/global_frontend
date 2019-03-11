@@ -79,8 +79,8 @@ export default {
   		this.$store.commit('showForm');
   	},
   	logout () {
-  	    localStorage.removeItem('jwtToken');
   	    this.$store.commit('isLogOut');
+  	    this.$store.commit('resetAuthInfo');
   	    this.$router.push({
   	      name: 'home'
   	    })

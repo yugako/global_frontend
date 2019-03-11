@@ -6,16 +6,16 @@
 		<div class="pay-content" v-show='show'>
 			<div class="pay-method">
 				<label class="pay-method__label">
-					<input type="radio" value="cash" v-model='picked' name="method">
+					<input type="radio" checked value="cash" @change='changePayment' name="method">
 					Check / Money Order
 				</label>
 				<label class="pay-method__label">
-					<input type="radio" value="card" v-model='picked' name="method">
+					<input type="radio" value="card" @change='changePayment' name="method">
 					Credit card
 				</label>
 			</div>
 			<!-- /.pay-method -->
-			<form name='pay' class="pay-form" v-if='picked === "card"'>
+			<form name='pay' class="pay-form" v-if='Picked === "card"'>
 			    <div class="row">
 			        <div class="input-box col-12 mb--20">
 			            <label for="card-number">Credit Card Number *</label>
@@ -58,13 +58,23 @@
 	  name: "PaymentForm",
 	  data () {
 	  	return {
-	  		show: false,
+	  		show: true,
 	  		cardNumber: '',
 	  		cvv: '',
 	  		picked: '',
 	  		months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 	  	}
 	  },
+	  methods: {
+	  	changePayment(e) {
+	  		this.$store.commit('setPayment', e.target.value);
+	  	} 
+	  },
+	  computed: {
+	  	Picked () {
+	  		return this.$store.getters.Picked;
+	  	}
+	  }
 	};
 </script>
 <style lang="sass">

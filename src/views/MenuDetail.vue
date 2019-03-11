@@ -4,7 +4,7 @@
 	    <!-- /.menu-header -->
     	<div class="container">
     		<div class="menu-detail" v-for='(dish,index) in dishesList' :key='index'>
-    			<div v-if='dish._id === proId'>
+    			<div v-if='dish.title === friendlyTitle(proId)'>
 		    		<div class="row align-items-center">
 		    			<div class="col-lg-4">
 		    				<img :src="dish.img"  alt="" class="menu-detail__photo img-responsive">
@@ -57,7 +57,7 @@
 	export default {
 		data () {
 			return {
-				proId:this.$route.params.id
+				proId:this.$route.params.title
 			}
 		},
 		methods: {
@@ -78,7 +78,11 @@
 				} else {
 					return false;
 				}
-			}
+			},
+			friendlyTitle(value) {
+				value = value.replace(/_/g, " ");
+				return value;
+			},
 		},
 		computed : {
 		  dishesList(){

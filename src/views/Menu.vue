@@ -4,18 +4,18 @@
     <!-- /.menu-header -->
     <div class="menu-list">
     	<div class="container">
-        
+          <div class="empty-list" v-if='dishesList.length === 0'>Oops... cannot get menu list. <br> Please, refresh page or write us about this problem</div>
           <div class="row">
             <div class="col-12 col-lg-4" v-for='dish in dishesList'>
                   <div class="menu-item" >
                     <div class="menu-item__img">
-                      <img :src="dish.img" @click='goToDetail(dish._id)' class="img-responsive" :alt="dish.title">
+                      <img :src="dish.img" @click='goToDetail(dish.title)' class="img-responsive" :alt="dish.title">
                     </div>
                     <!-- /.menu-list__img -->
                     <div class="menu-item__content">
                       <div class="menu-item__header">
                         <div class="menu-item__title">
-                            <h3 @click='goToDetail(dish._id)'>{{dish.title}}</h3>
+                            <h3 @click='goToDetail(dish.title)'>{{dish.title}}</h3>
                         </div>
                         <!-- /.menu-item__title -->
                         <div class="menu-item__price">
@@ -29,7 +29,7 @@
                       </div>
                       <!-- /.menu-item__descr -->
                       <div class="menu-item__order">
-                        <a class="menu-item__order_link" @click='goToDetail(dish._id)'>
+                        <a class="menu-item__order_link" @click='goToDetail(dish.title)'>
                           Order now
                         </a>
                       </div>
@@ -58,8 +58,12 @@ export default {
   	return {}
   },
   methods: {
-    goToDetail(dishId) {
-        this.$router.push({name:'detail',params:{id:dishId}})
+    goToDetail(title) {
+        this.$router.push({name:'detail',params:{title: this.friendlyUrl(title)}})
+    },
+    friendlyUrl(value) {
+          value = value.replace(/\s/g, "_");
+          return value;
     }
   },
   computed : {

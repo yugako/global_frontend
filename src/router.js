@@ -63,9 +63,10 @@ export default new Router({
       }
     },
     {
-      path: "/detail/:id",
+      path: "/menu/:title/",
       name: "detail",
-      component: MenuDetail
+      component: MenuDetail,
+      props: true
     },
     {
       path: "/cart",
@@ -140,9 +141,10 @@ export default new Router({
       }
     },
     {
-      path: "/change/:id",
+      path: "/change_dish/:title",
       name: "change",
-      component: ChangeMenu
+      component: ChangeMenu,
+      props: true,
     },
     {
       path: "/add",
@@ -163,9 +165,10 @@ export default new Router({
       }
     },
     {
-      path: "/edit/:id",
+      path: "/edit_worker/:name",
       name: "edit",
-      component: ChangeWorker
+      component: ChangeWorker,
+      props: true
     },
     {
       path: "/add_worker",
